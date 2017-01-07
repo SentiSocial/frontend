@@ -2,7 +2,10 @@ import {Promise} from 'promise-polyfill';
 import {fetch} from 'whatwg-fetch';
 
 import {Trends} from './trends';
+import {Content} from './content';
 import {SpecificTrends} from './specific-trends';
+import {SpecificContent} from './specific-content';
+
 import {News} from './news';
 import {Tweet} from './tweet';
 
@@ -38,6 +41,28 @@ export class NetworkBus {
   }
 
   /**
+   * Requests and parses the content from the REST API.
+   * @author Omar Chehab
+   */
+  static getContent(callback: (response: Content) => void,
+    page: number) {
+    const endpoint = ENDPOINTS.content
+      .replace(/{page}/, `${page}`);
+    const url = `${APIURL}${endpoint}`;
+    console.log('getContent', url);
+    fetch(url)
+      .then(function(response) {
+        return response.json();
+      })
+      .then(function(response: ContentPacket) {
+        response.news = response.news.map(news => new News(news));
+        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
+        response = new Content(response);
+        callback(response);
+      });
+  }
+
+  /**
    * Requests and parses the specific trends from the REST API.
    * @author Omar Chehab
    */
@@ -58,31 +83,10 @@ export class NetworkBus {
   }
 
   /**
-   * Requests and parses the content from the REST API.
-   * @author Omar Chehab
-   */
-  static getContent(callback: (response: ContentPacket) => void,
-    page: number) {
-    const endpoint = ENDPOINTS.content
-      .replace(/{page}/, `${page}`);
-    const url = `${APIURL}${endpoint}`;
-    console.log('getContent', url);
-    fetch(url)
-      .then(function(response) {
-        return response.json();
-      })
-      .then(function(response: ContentPacket) {
-        response.news = response.news.map(news => new News(news));
-        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
-        callback(response);
-      });
-  }
-
-  /**
    * Requests and parses the specific content from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificContent(callback: (response: SpecificContentPacket) => void,
+  static getSpecificContent(callback: (response: SpecificContent) => void,
     id: number, page: number) {
     const endpoint = ENDPOINTS.specificContent
       .replace(/{id}/, `${id}`)
@@ -96,6 +100,7 @@ export class NetworkBus {
       .then(function(response) {
         response.news = response.news.map(news => new News(news));
         response.tweets = response.tweets.map(tweet => new Tweet(tweet));
+        response = new SpecificContent(response);
         callback(response);
       });
   }
@@ -109,6 +114,12 @@ export interface TrendsPacket {
   sentiment: number;
 };
 
+export interface ContentPacket {
+  news: NewsPacket[];
+  tweets: TweetPacket[];
+  remaining: number;
+};
+
 export interface SpecificTrendsPacket {
   name: string;
   history: {
@@ -116,12 +127,6 @@ export interface SpecificTrendsPacket {
     end: number;
     data: SpecificTrendsDataPacket[];
   }
-};
-
-export interface ContentPacket {
-  news: NewsPacket[];
-  tweets: TweetPacket[];
-  remaining: number;
 };
 
 export interface SpecificContentPacket {
