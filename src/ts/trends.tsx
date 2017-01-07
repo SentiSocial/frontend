@@ -1,4 +1,4 @@
-import {TrendsPacket} from './network-bus';
+import {TrendsPacket, TrendPacket} from './network-bus';
 
 /**
  * Trends is an implementation of the news packet received from the endpoint.
@@ -7,16 +7,12 @@ import {TrendsPacket} from './network-bus';
  * @author Omar Chehab
  */
 export class Trends implements TrendsPacket {
-  id: number;
-  name: string;
-  sentiment: number;
+  trends: TrendPacket[];
 
   /**
    * @author Omar Chehab
    */
   constructor(packet: TrendsPacket) {
-    this.id = packet.id;
-    this.name = packet.name;
-    this.sentiment = packet.sentiment;
+    this.trends = packet.trends;
   }
 }

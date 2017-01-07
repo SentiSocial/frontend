@@ -8,15 +8,31 @@ ReactDOM.render(
 );
 
 
-NetworkBus.getTrends(response => {
+NetworkBus.getTrends((err, response) => {
+  if (err) {
+    console.error(err);
+    return;
+  }
   console.log(response);
 });
-NetworkBus.getSpecificTrends(response => {
-  console.log(response);
-}, 0);
-NetworkBus.getContent(response => {
-  console.log(response);
-}, 0);
-NetworkBus.getSpecificContent(response => {
-  console.log(response);
-}, 0, 0);
+// NetworkBus.getSpecificTrends((err, response) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(response);
+// }, 0);
+// NetworkBus.getContent((err, response) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(response);
+// }, 0);
+// NetworkBus.getSpecificContent((err, response) => {
+//   if (err) {
+//     console.error(err);
+//     return;
+//   }
+//   console.log(response);
+// }, 0, 0);
