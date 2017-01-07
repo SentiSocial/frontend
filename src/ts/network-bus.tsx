@@ -1,10 +1,12 @@
 import {Promise} from 'promise-polyfill';
 import {fetch} from 'whatwg-fetch';
 
+import {Trends} from './trends';
+import {SpecificTrends} from './specific-trends';
 import {News} from './news';
 import {Tweet} from './tweet';
 
-const APIURL = 'https://rhysre.net/v1';
+const APIURL = 'http://neptune.gunshippenguin.com:8080/v1';
 const ENDPOINTS = {
   trends: '/trends',
   specificTrends: '/trends/{id}',
@@ -21,7 +23,7 @@ export class NetworkBus {
    * Requests and parses the trends from the REST API.
    * @author Omar Chehab
    */
-  static getTrends(callback: (response: TrendsPacket) => void) {
+  static getTrends(callback: (response: Trends) => void) {
     const endpoint = ENDPOINTS.trends;
     const url = `${APIURL}${endpoint}`;
     console.log('getTrends', url);
@@ -30,6 +32,7 @@ export class NetworkBus {
         return response.json();
       })
       .then(function(response) {
+        response = new Trends(response);
         callback(response);
       });
   }
@@ -38,7 +41,7 @@ export class NetworkBus {
    * Requests and parses the specific trends from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificTrends(callback: (response: SpecificTrendsPacket) => void,
+  static getSpecificTrends(callback: (response: SpecificTrends) => void,
     id: number) {
     const endpoint = ENDPOINTS.specificTrends
       .replace(/{id}/, `${id}`);
@@ -49,6 +52,7 @@ export class NetworkBus {
         return response.json();
       })
       .then(function(response) {
+        response = new SpecificTrends(response);
         callback(response);
       });
   }
