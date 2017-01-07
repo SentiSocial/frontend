@@ -1,5 +1,6 @@
 import {Promise} from 'promise-polyfill';
-import {fetch} from 'whatwg-fetch';
+if (!window['Promise']) window['Promise'] = Promise;
+import 'whatwg-fetch';
 
 import {Trends} from './trends';
 import {Content} from './content';
@@ -16,6 +17,7 @@ const ENDPOINTS = {
   content: '/content?page={page}',
   specificContent: '/content/{id}?page={page}'
 };
+
 /**
  * NetworkBus class handles all communications with the REST API.
  * @author Omar Chehab
@@ -26,92 +28,99 @@ export class NetworkBus {
    * Requests and parses the trends from the REST API.
    * @author Omar Chehab
    */
-  static getTrends(callback: (response: Trends) => void) {
+  static getTrends(callback: (error, response: Trends) => void) {
     const endpoint = ENDPOINTS.trends;
     const url = `${APIURL}${endpoint}`;
-    console.log('getTrends', url);
-    fetch(url)
+    window['fetch'](url)
       .then(function(response) {
         return response.json();
+      }, function(error) {
+        callback(error, undefined);
       })
       .then(function(response) {
+        console.log(response);
         response = new Trends(response);
-        callback(response);
+        callback(undefined, response);
       });
+      console.log('getTrends', url);
   }
 
   /**
    * Requests and parses the content from the REST API.
    * @author Omar Chehab
    */
-  static getContent(callback: (response: Content) => void,
+  static getContent(callback: (error, response: Content) => void,
     page: number) {
     const endpoint = ENDPOINTS.content
       .replace(/{page}/, `${page}`);
     const url = `${APIURL}${endpoint}`;
-    console.log('getContent', url);
-    fetch(url)
+    window['fetch'](url)
       .then(function(response) {
         return response.json();
+      }, function(error) {
+        callback(error, undefined);
       })
       .then(function(response: ContentPacket) {
         response.news = response.news.map(news => new News(news));
         response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         response = new Content(response);
-        callback(response);
+        callback(undefined, response);
       });
+      console.log('getContent', url);
   }
 
   /**
    * Requests and parses the specific trends from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificTrends(callback: (response: SpecificTrends) => void,
+  static getSpecificTrends(callback: (error, response: SpecificTrends) => void,
     id: number) {
     const endpoint = ENDPOINTS.specificTrends
       .replace(/{id}/, `${id}`);
     const url = `${APIURL}${endpoint}`;
-    console.log('getSpecificTrends', url);
-    fetch(url)
+    window['fetch'](url)
       .then(function(response) {
         return response.json();
+      }, function(error) {
+        callback(error, undefined);
       })
       .then(function(response) {
         response = new SpecificTrends(response);
-        callback(response);
+        callback(undefined, response);
       });
+      console.log('getSpecificTrends', url);
   }
 
   /**
    * Requests and parses the specific content from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificContent(callback: (response: SpecificContent) => void,
+  static getSpecificContent(callback: (error, response: SpecificContent) => void,
     id: number, page: number) {
     const endpoint = ENDPOINTS.specificContent
       .replace(/{id}/, `${id}`)
       .replace(/{page}/, `${page}`);
     const url = `${APIURL}${endpoint}`;
-    console.log('getSpecificContent', url);
-    fetch(url)
+    window['fetch'](url)
       .then(function(response) {
         return response.json();
+      }, function(error) {
+        callback(error, undefined);
       })
       .then(function(response) {
         response.news = response.news.map(news => new News(news));
         response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         response = new SpecificContent(response);
-        callback(response);
+        callback(undefined, response);
       });
+      console.log('getSpecificContent', url);
   }
 }
 
 // Endpoint Interfaces
 
 export interface TrendsPacket {
-  id: number;
-  name: string;
-  sentiment: number;
+  trends: TrendPacket[]
 };
 
 export interface ContentPacket {
@@ -136,6 +145,12 @@ export interface SpecificContentPacket {
 };
 
 // Interfaces used by Endpoint Interfaces
+
+export interface TrendPacket {
+  id: number;
+  name: string;
+  sentiment: number;
+}
 
 export interface SpecificTrendsDataPacket {
   sentiment: number;
