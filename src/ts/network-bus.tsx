@@ -1,6 +1,8 @@
 import {Promise} from 'promise-polyfill';
 import {fetch} from 'whatwg-fetch';
 
+import {News} from './news';
+
 const APIURL = 'https://rhysre.net/v1';
 const ENDPOINTS = {
   trends: '/trends',
@@ -51,7 +53,8 @@ export class NetworkBus {
       .then(function(response) {
         return response.json();
       })
-      .then(function(response) {
+      .then(function(response: ContentPacket) {
+        response.news.map(news => new News(news));
         callback(response);
       });
   }
@@ -68,6 +71,7 @@ export class NetworkBus {
         return response.json();
       })
       .then(function(response) {
+        response.news.map(news => new News(news));
         callback(response);
       });
   }
