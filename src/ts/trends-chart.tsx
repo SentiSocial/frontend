@@ -7,6 +7,7 @@ import * as Chart from "react-chartjs-2";
 */
 const BarChart = Chart.Bar;
 var data = 4;
+var options = 4;
 
 export class TrendsChart extends React.Component {
   render() {
