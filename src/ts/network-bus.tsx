@@ -12,9 +12,14 @@ const ENDPOINTS = {
 };
 /**
  * NetworkBus class handles all communications with the REST API.
+ * @author Omar Chehab
  */
 export class NetworkBus {
 
+  /**
+   * Requests and parses the trends from the REST API.
+   * @author Omar Chehab
+   */
   static getTrends(callback: (response: TrendsPacket) => void) {
     const endpoint = ENDPOINTS.trends;
     const url = `${APIURL}${endpoint}`;
@@ -28,6 +33,10 @@ export class NetworkBus {
       });
   }
 
+  /**
+   * Requests and parses the specific trends from the REST API.
+   * @author Omar Chehab
+   */
   static getSpecificTrends(callback: (response: SpecificTrendsPacket) => void,
     id: number) {
     const endpoint = ENDPOINTS.specificTrends
@@ -43,6 +52,10 @@ export class NetworkBus {
       });
   }
 
+  /**
+   * Requests and parses the content from the REST API.
+   * @author Omar Chehab
+   */
   static getContent(callback: (response: ContentPacket) => void,
     page: number) {
     const endpoint = ENDPOINTS.content
@@ -59,6 +72,10 @@ export class NetworkBus {
       });
   }
 
+  /**
+   * Requests and parses the specific content from the REST API.
+   * @author Omar Chehab
+   */
   static getSpecificContent(callback: (response: SpecificContentPacket) => void,
     id: number, page: number) {
     const endpoint = ENDPOINTS.specificContent
