@@ -3,8 +3,15 @@
   "version": "1.0.0",
   "description": "Hack The Valley 2017 - Client",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "@types/es6-promise": "0.0.32",
+    "@types/whatwg-fetch": "0.0.33"
+  },
   "devDependencies": {
+    "@types/chartjs": "0.0.29",
+    "@types/node": "^6.0.58",
+    "@types/react": "0.0.0",
+    "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "browserify": "^13.3.0",
     "less": "^2.7.2",
