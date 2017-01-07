@@ -117,11 +117,13 @@ export interface SpecificTrendsPacket {
 export interface ContentPacket {
   news: NewsPacket[];
   tweets: TweetPacket[];
+  remaining: number;
 };
 
 export interface SpecificContentPacket {
   news: NewsPacket[];
   tweets: TweetPacket[];
+  remaining: number;
 };
 
 // Interfaces used by Endpoint Interfaces
