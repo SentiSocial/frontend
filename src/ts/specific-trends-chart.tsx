@@ -1,5 +1,4 @@
 import * as React from "react";
-import * as ReactDOM from "react-dom";
 import * as Chart from "react-chartjs-2"
 
 /**
@@ -8,7 +7,7 @@ import * as Chart from "react-chartjs-2"
 */
 
 const BarChart = Chart.Bar;
-const data = {
+var data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [{
     label: 'Sentiment',
