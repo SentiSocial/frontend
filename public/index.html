@@ -6,4 +6,23 @@
 <body>
   <div id="root"></div>
 </body>
+<div id="no-js">
+  Your browser does not have JavaScript enabled. Please enable JavaScript in
+  order to view our content. For information on how to enable JavaScript in
+  your browser, please reference
+  <a href="http://http://www.enable-javascript.com/"> this guide</a>.
+</div>
+<script>
+	document.body.removeChild(document.getElementById('no-js'));
+</script>
+<div id="loading" style="display: none;">
+  Loading...
+</div>
+<script>
+document.getElementById('loading').style.display = "initial"; 
+  function load(){
+    document.body.removeChild(document.getElementById('loading'));
+  }
+  window.onload = load;
+</script>
 </html>
