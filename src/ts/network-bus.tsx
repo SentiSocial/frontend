@@ -2,6 +2,7 @@ import {Promise} from 'promise-polyfill';
 import {fetch} from 'whatwg-fetch';
 
 import {News} from './news';
+import {Tweet} from './tweet';
 
 const APIURL = 'https://rhysre.net/v1';
 const ENDPOINTS = {
@@ -67,7 +68,8 @@ export class NetworkBus {
         return response.json();
       })
       .then(function(response: ContentPacket) {
-        response.news.map(news => new News(news));
+        response.news = response.news.map(news => new News(news));
+        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         callback(response);
       });
   }
@@ -88,7 +90,8 @@ export class NetworkBus {
         return response.json();
       })
       .then(function(response) {
-        response.news.map(news => new News(news));
+        response.news = response.news.map(news => new News(news));
+        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         callback(response);
       });
   }
