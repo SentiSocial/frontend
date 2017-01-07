@@ -1,0 +1,41 @@
+{
+  "name": "htv-client",
+  "version": "1.0.0",
+  "description": "Hack The Valley 2017 - Client",
+  "main": "index.js",
+  "dependencies": {},
+  "devDependencies": {
+    "bootstrap": "^3.3.7",
+    "browserify": "^13.3.0",
+    "less": "^2.7.2",
+    "lodash": "^4.17.4",
+    "minifyify": "^7.3.4",
+    "moment": "^2.17.1",
+    "nodemon": "^1.11.0",
+    "promise-polyfill": "^6.0.2",
+    "react": "^15.4.2",
+    "react-chartjs-2": "^1.6.2",
+    "react-dom": "^15.4.2",
+    "react-tweet-embed": "^1.0.3",
+    "typescript": "^2.1.4",
+    "uglifycss": "0.0.25",
+    "whatwg-fetch": "^2.0.1"
+  },
+  "scripts": {
+    "server": "http-server -p 80 ./public",
+    "build": "npm run build-js && npm run build-css",
+    "build-live": "nodemon -w src -e ts,tsx,less -x \"npm run build\"",
+    "build-js": "tsc & browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
+    "build-css": "lessc src/less/index.less | uglifycss > public/css/bundle.css"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/omarchehab98/htv-client.git"
+  },
+  "author": "Omar Chehab, Dennis Tismenko",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/omarchehab98/htv-client/issues"
+  },
+  "homepage": "https://github.com/omarchehab98/htv-client#readme"
+}
