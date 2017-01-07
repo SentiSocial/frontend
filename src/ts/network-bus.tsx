@@ -38,7 +38,6 @@ export class NetworkBus {
         callback(error, undefined);
       })
       .then(function(response) {
-        console.log(response);
         response = new Trends(response);
         callback(undefined, response);
       });
