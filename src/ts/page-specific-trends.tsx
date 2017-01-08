@@ -1,23 +1,27 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus, TrendPacket} from './network-bus';
+import {NetworkBus, SpecificTrendsDataPacket} from './network-bus';
 
 import {NewsComponent} from './news-component';
 import {TweetComponent} from './tweet-component';
 
-import {Trends} from './trends';
 import {News} from './news';
 import {Tweet} from './tweet';
 
-import {TrendsChart} from './trends-chart';
+import {SpecificTrendsChart} from './specific-trends-chart';
 
-interface PageTrendsProps {
-  onTrendClick: (selectedTrend) => void;
+interface PageSpecificTrendsProps {
+  id: number;
+  name: string;
 }
 
-interface PageTrendsState {
-  trends?: Trends;
+interface PageSpecificTrendsState {
+  history?: {
+    start: number;
+    end: number;
+    data: SpecificTrendsDataPacket[];
+  },
   news?: News[];
   tweets?: Tweet[];
   remaining?: number;
@@ -27,13 +31,13 @@ interface PageTrendsState {
  * This class handles rendering the homepage, it contains a graph and cards.
  * @author Omar Chehab
  */
-export class PageTrends
-  extends React.Component<PageTrendsProps, PageTrendsState> {
+export class PageSpecificTrends
+  extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
 
   constructor(props) {
     super(props);
     this.state = {
-      trends: undefined,
+      history: undefined,
       news: [],
       tweets: [],
       remaining: -1,
@@ -47,18 +51,27 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentWillMount() {
-    NetworkBus.getTrends((err, response) => {
+    NetworkBus.getSpecificTrends((err, response) => {
       if (err) {
         console.error(err);
         return;
       }
-      const trends = response;
+      const specificTrend = response;
       this.setState({
-        trends: trends,
-      })
-    });
+        history: specificTrend.history,
+      });
+    }, this.props.id);
 
-    NetworkBus.getContent((err, response) => {
+    this.getPage(0);
+  }
+
+  /**
+   * Gets news and tweets from the server
+   * @param {number}  page  pagination page number
+   * @author Omar Chehab
+   */
+  getPage(page) {
+    NetworkBus.getSpecificContent((err, response) => {
       if (err) {
         console.error(err);
         return;
@@ -75,15 +88,13 @@ export class PageTrends
           remaining: newRemaining,
         };
       })
-    }, 0);
+    }, this.props.id, page);
   }
 
   render() {
     return (
       <div>
-        <TrendsChart trends={this.state.trends}
-          onTrendClick={this.props.onTrendClick}
-        />
+        <SpecificTrendsChart history={this.state.history}/>
         <main className="card-container container">
           {this.state.news.map((news, i) =>
             <NewsComponent key={i} news={news} />)}
