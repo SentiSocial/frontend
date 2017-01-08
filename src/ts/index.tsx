@@ -4,6 +4,7 @@ import * as ReactDOM from 'react-dom';
 import {NetworkBus, TrendPacket} from './network-bus';
 import {NavigationComponent} from './navigation-component';
 import {PageTrends} from './page-trends';
+import {PageSpecificTrends} from './page-specific-trends';
 import {SpecificTrendsChart} from './specific-trends-chart';
 
 interface ApplicationState {
@@ -40,11 +41,14 @@ class Application extends React.Component<undefined, ApplicationState> {
   };
 
   render() {
+    const selectedTrend = this.state.selectedTrend;
     var page, title;
     if (this.state.selectedTrend) {
       // if there is a selected trend, display the specifcic trend page.
-      title = this.state.selectedTrend.name;
-      page = false;
+      const id = selectedTrend.id;
+      const name = selectedTrend.name;
+      title = name;
+      page = <PageSpecificTrends id={id} name={name} />;
     } else {
       // if there is no trend selected, display the home page.
       title = 'Website Name';
@@ -55,7 +59,7 @@ class Application extends React.Component<undefined, ApplicationState> {
         <NavigationComponent
           title={title}
           onBackClick={this.handleBackEvent}
-          canGoBack={!!this.state.selectedTrend}
+          canGoBack={!!selectedTrend}
         />
         {page}
       </div>

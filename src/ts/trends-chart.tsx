@@ -34,7 +34,7 @@ export class TrendsChart
       return;
     }
     const clickedBar = event[0];
-    const i = clickedBar._index;
+    const i = clickedBar._index + this.state.scroll;
     const trendsPacket = this.props.trends;
     const clickedTrend = trendsPacket.trends[i];
     this.props.onTrendClick(clickedTrend);
@@ -165,7 +165,7 @@ export class TrendsChart
             onClick={this.handleRightEvent}
           />
         </div>
-        <div className="chart-container--line"></div>
+        <div className="chart-container--line"/>
       </div>
     );
   }
