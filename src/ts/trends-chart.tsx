@@ -1,13 +1,14 @@
 import * as React from "react";
 import * as Chart from "react-chartjs-2";
+
 import {TrendsPacket} from "./network-bus";
 
-/**
-* Handles data parsing and displaying data for a specific trend.
-* @author Dennis Tismenko
-*/
-interface TrendsChartProps{
+interface TrendsChartProps {
   trends: TrendsPacket;
+}
+
+interface TrendsChartState {
+  scroll: number;
 }
 
 /**
@@ -15,18 +16,53 @@ interface TrendsChartProps{
 * homepage.
 * @author Dennis Tismenko
 */
-export class TrendsChart extends React.Component <TrendsChartProps, undefined> {
+export class TrendsChart
+  extends React.Component <TrendsChartProps, TrendsChartState> {
+
+  barsShown = 5;
 
   constructor(props){
     super(props);
+    this.state = {
+      scroll: 0,
+    }
   }
 
+  /**
+   * Event listener for scrolling left on the chart.
+   * @author Omar Chehab
+   */
+  handleLeftEvent = event => {
+    const trendsPacket = this.props.trends;
+    const numberOfTrends = trendsPacket.trends.length;
+    this.setState(prevState => ({
+      scroll: Math.max(prevState.scroll - 1, 0),
+    }));
+  };
+
+  /**
+   * Event listener for scrolling right on the chart.
+   * @author Omar Chehab
+   */
+  handleRightEvent = event => {
+    const trendsPacket = this.props.trends;
+    const numberOfTrends = trendsPacket.trends.length;
+    this.setState(prevState => ({
+      scroll: Math.min(prevState.scroll + 1, numberOfTrends - this.barsShown),
+    }));
+  };
+
+  /**
+   * @author Dennis Tismenko
+   */
   render() {
     const trendsPacket = this.props.trends;
-    var data, options;
-    // trends comes in as undefined when not loaded
+    var data, options, leftMost, rightMost;
+    // trends comes is undefined when not loaded
     if (trendsPacket) {
-      const trends = trendsPacket.trends;
+      // only take a portion of the trends array based on the current scroll.
+      const trends = trendsPacket.trends
+        .slice(this.state.scroll, this.state.scroll + this.barsShown);
       // find the absolute maximum sentiment
       const absoluteMax = trends.reduce(function (absoluteMax, trend) {
         const sentiment = Math.abs(trend.sentiment);
@@ -88,12 +124,32 @@ export class TrendsChart extends React.Component <TrendsChartProps, undefined> {
           }]
         }
       };
+
+      leftMost = this.state.scroll == 0;
+      rightMost = this.state.scroll == trendsPacket.trends.length - this.barsShown;
     }
+
 
     return (
       <div>
         <div className="chart-container">
-          {trendsPacket && <Chart.Bar data={data} options={options} />}
+          {trendsPacket &&
+            <Chart.Bar data={data} options={options} />
+          }
+          <i className="glyphicon glyphicon-chevron-left"
+            id="chart--left"
+            style={{
+              display: leftMost ? 'none' : 'block',
+            }}
+            onClick={this.handleLeftEvent}
+          />
+          <i className="glyphicon glyphicon-chevron-right"
+            id="chart--right"
+            style={{
+              display: rightMost ? 'none' : 'block',
+            }}
+            onClick={this.handleRightEvent}
+          />
         </div>
         <div className="chart-container--line"></div>
       </div>

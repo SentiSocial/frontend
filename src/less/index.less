@@ -11,6 +11,7 @@ body {
   background-color: #FFF;
   padding: 20px;
   border-bottom: 1px solid #DDD;
+  position: relative;
 }
 
 .chart-container--line {
@@ -54,4 +55,21 @@ body {
   span {
     float: right;
   }
+}
+
+.chart--arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 20px;
+}
+
+#chart--left {
+  &:extend(.chart--arrow);
+  left: 4px;
+}
+
+#chart--right {
+  &:extend(.chart--arrow);
+  right: 4px;
 }
