@@ -158,8 +158,9 @@ export interface SpecificTrendsDataPacket {
 
 export interface NewsPacket {
   title: string;
+  source: string;
   timestamp: number; // unix
-  source: string; // url
+  link: string; // url
   media?: string; // url
   description: string;
 };
