@@ -67,6 +67,8 @@ class Application extends React.Component<undefined, ApplicationState> {
   }
 }
 
+document.body.removeChild(document.getElementById('loading'));
+
 ReactDOM.render(
   <Application />,
   document.getElementById('root')

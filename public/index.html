@@ -6,14 +6,12 @@
 </head>
 <body>
   <div id="loading" style="display: none;">
-    Loading...
+    <span class="loading--title">TrendGator</span>
+    <img class="loading--image" src="loading.gif" alt="Loading..."></img>
   </div>
   <div id="root"></div>
   <script>
     document.getElementById('loading').style.display = 'initial';
-    window.onload = function() {
-      document.body.removeChild(document.getElementById('loading'));
-    };
   </script>
   <noscript>
     <div id="no-js">
