@@ -75,7 +75,7 @@ export function EndOfContent(props) {
       textAlign: 'center',
       color: '#ccc',
     }}>
-      End of content
+      Powered by <a href="newsapi.org">NewsAPI.org</a>
     </p>
   );
 }
