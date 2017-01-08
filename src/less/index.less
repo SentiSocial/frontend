@@ -1,3 +1,39 @@
+@import 'variables';
+@import 'dependencies';
+
 body {
-  color: red;
+  font: 'Roboto', sans-serif;
+  font-size: 12px;
+}
+
+.card-container {
+  background-color: #EEE;
+}
+
+.card {
+  background-color: #FFF;
+  border: 1px solid #E8E8E8;
+  border-radius: 2px;
+  box-shadow: 2px 2px 6px #D2D2D2;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  cursor: pointer;
+
+  p {
+    margin: 8px 0 0 0;
+  }
+}
+
+.card--header {
+  h3 {
+    display: inline-block;
+    margin: 0;
+    font-size: 1.3rem;
+    font-weight: bold;
+  }
+  span {
+    float: right;
+  }
 }

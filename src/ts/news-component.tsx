@@ -6,18 +6,18 @@ const moment = require('moment');
 moment.updateLocale('en', {
   relativeTime : {
     future: "in %s",
-    past: "%s ago",
-    s: "seconds",
-    m: "a minute",
-    mm: "%d minutes",
-    h: "an hour",
-    hh: "%d hours",
-    d: "a day",
-    dd: "%d days",
-    M: "a month",
-    MM: "%d months",
-    y: "a year",
-    yy: "%d years",
+    past: "%s",
+    s: "s",
+    m: "1m",
+    mm: "%dm",
+    h: "1h",
+    hh: "%dh",
+    d: "1d",
+    dd: "%dd",
+    M: "1m",
+    MM: "%dm",
+    y: "1y",
+    yy: "%dy",
   }
 });
 
@@ -34,14 +34,21 @@ export class NewsComponent extends
     super(props);
   }
 
+  handleNewsClick = event => {
+    window.open(this.props.news.link);
+  }
+
   render() {
     const source = this.props.news.source;
     const time = moment(this.props.news.timestamp * 1000).fromNow();
     const title = this.props.news.title;
     return (
-      <div>
-        <h3>{source}</h3>
-        <span>{time}</span>
+      <div className="card col-xs-12" onClick={this.handleNewsClick}>
+        <div className="card--header">
+          <h3>{source}</h3>
+          <span>{time}</span>
+        </div>
+        <div className="clearfix"></div>
         <p>{title}</p>
       </div>
     );
