@@ -27,16 +27,14 @@ export class SpecificTrendsChart
 
   render() {
     const history = this.props.history;
-    const fiddleData = [5, 25, -13, 12, 14, 19, -20, 30, 40, 20, 25, -40];
-    const fiddleBars = [50, 250, 130, 120, 140, 190, 200, 300, 400, 200, 250, 400];
     var data, options;
     if (history) {
       var interval = Math
-      .round((history.start - history.end)/ fiddleData.length);
+      .round((history.start - history.end)/ history.data.length);
       var timeStamps = [];
       var point = history.start;
       var currentTime = moment(point*1000).fromNow();
-      for (let i = 0; i < fiddleData.length; i++){
+      for (let i = 0; i < history.data.length; i++){
         if (i == 0){
           timeStamps.push(moment(point*1000).fromNow());
         } else {
@@ -55,7 +53,7 @@ export class SpecificTrendsChart
         datasets: [{
           label: 'Sentiment',
           type: 'line',
-          data: fiddleData,
+          data: history.data.map(trend => trend.sentiment),
           fill: false,
           borderWidth: 1.5,
           pointRadius: 3.5,
@@ -73,8 +71,7 @@ export class SpecificTrendsChart
         }, {
           type: 'bar',
           label: 'Tweets',
-          //data: history.data.map(trend => trend.volume),
-          data: fiddleBars,
+          data: history.data.map(trend => trend.volume),
           fill: false,
           backgroundColor: '#1da1f2',
           borderColor: '#1da1f2',
