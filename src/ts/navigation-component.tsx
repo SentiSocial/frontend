@@ -41,7 +41,7 @@ export class NavigationComponent
     return (
       <div className="navbar" style={{margin: '0px', border: 'none'}}>
         <nav className="navbar navbar-default navbar-fixed-top">
-          <div className="container-fluid">
+          <div className="container">
             <div className="navbar-header">
               <button type="button"
                 className="navbar-toggle collapsed"
@@ -61,9 +61,8 @@ export class NavigationComponent
             </div>
             <div className={`navbar-collapse ${isCollapsed}`}>
               <ul className="nav navbar-nav navbar-right">
-                <li><a target="_blank" href="about.html">About</a></li>
+                <li><a target="_blank" href="https://devpost.com/software/trendgator">DevPost</a></li>
                 <li><a target="_blank" href="https://github.com/omarchehab98/htv-client">GitHub</a></li>
-                <li><a target="_blank" href="privacy.html">Privacy</a></li>
               </ul>
             </div>
           </div>

@@ -48,7 +48,7 @@ export class PageSpecificTrends
     this.state = {
       history: undefined,
       content: [],
-      ghostCards: 3,
+      ghostCards: 4,
     };
     this.onGoingRequest = false;
     this.page = 0;
@@ -157,20 +157,45 @@ export class PageSpecificTrends
       // content will not reorder index key is fine
       ghostCards.push(<GhostCard key={i} />);
     }
-    return (
-      <div>
-        <SpecificTrendsChart history={this.state.history}/>
-        <main className="card-container container">
-          {this.state.content.map((content, i) => {
-            return content.type == 'news'
-            // content will not reorder index key is fine
-            ? <NewsComponent key={i} news={content} />
-            : <TweetComponent key={i} tweet={content} />;
-          })}
-          {ghostCards}
-          {this.contentRemaining == 0 && <EndOfContent />}
-        </main>
-      </div>
-    );
+    if (window.innerWidth < 992) {
+      return (
+        <div>
+          <SpecificTrendsChart history={this.state.history}/>
+          <main className="card-container container">
+            {this.state.content.map((content, i) => {
+              return content.type == 'news'
+              // content will not reorder index key is fine
+              ? <NewsComponent key={i} news={content} />
+              : <TweetComponent key={i} tweet={content} />;
+            })}
+            {ghostCards}
+            {this.contentRemaining == 0 && <EndOfContent />}
+          </main>
+        </div>
+      );
+    } else {
+      const cards = this.state.content.map((content, i) => {
+        return content.type == 'news'
+        // content will not reorder index key is fine
+        ? <NewsComponent key={i} news={content} />
+        : <TweetComponent key={i} tweet={content} />;
+      }).concat(ghostCards)
+        .concat(this.contentRemaining == 0 && [<EndOfContent />]);
+      const cards1 = cards.filter((card, i) => i % 2 == 0);
+      const cards2 = cards.filter((card, i) => i % 2 == 1);
+      return (
+        <div>
+          <SpecificTrendsChart history={this.state.history}/>
+          <main className="card-container container">
+            <div className="col-md-6">
+              {cards1}
+            </div>
+            <div className="col-md-6">
+              {cards2}
+            </div>
+          </main>
+        </div>
+      );
+    }
   }
 }

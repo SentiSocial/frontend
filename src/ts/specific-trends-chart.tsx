@@ -55,8 +55,8 @@ export class SpecificTrendsChart
           type: 'line',
           data: history.data.map(trend => trend.sentiment),
           fill: false,
-          borderWidth: 1.5,
-          pointRadius: 3.5,
+          borderWidth: 2,
+          pointRadius: 4,
           borderColor: '#666',
           backgroundColor: '#666',
           pointBorderColor: history.data
@@ -64,9 +64,9 @@ export class SpecificTrendsChart
           pointBackgroundColor: history.data
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
           pointHoverBackgroundColor: history.data
-            .map(trend => trend.sentiment > 0 ? '#226745' : '#672322'),
+            .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
           pointHoverBorderColor: history.data
-            .map(trend => trend.sentiment > 0 ? '#226745' : '#672322'),
+            .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
           yAxisID: 'y-axis-2'
         }, {
           type: 'bar',
@@ -132,7 +132,7 @@ export class SpecificTrendsChart
     }
 
     return (
-      <div>
+      <div className="container">
         <div className="chart-container">
           {history
             && <Chart.Bar data={data} options={options} />

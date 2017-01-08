@@ -19,16 +19,41 @@ interface TrendsChartState {
 */
 export class TrendsChart
   extends React.Component <TrendsChartProps, TrendsChartState> {
-
-  barsShown = 5;
+  barsShown;
 
   constructor(props){
     super(props);
     this.state = {
       scroll: 0,
     }
+    this.handleResize();
   }
 
+  componentDidMount() {
+      window.addEventListener("resize", this.handleResize);
+  }
+
+  componentWillUnmount() {
+      window.removeEventListener("resize", this.handleResize);
+  }
+
+  /**
+   * When the window is resized, update the number of bars shown based on what
+   * device it is.
+   */
+  handleResize() {
+    console.log(window.innerWidth);
+    if (window.innerWidth > 992) {
+      this.barsShown = 7;
+    } else {
+      this.barsShown = 5;
+    }
+  }
+
+  /**
+   * When a trend is clicked, notify the application to change the page.
+   * @author Omar Chehab
+   */
   handleClickEvent = event => {
     if (!event.length) {
       return;
@@ -158,8 +183,9 @@ export class TrendsChart
 
 
     return (
-      <div>
+      <div className="container">
         <div className="chart-container">
+          <h1 className="chart--title">The Trend Chart</h1>
           {trendsPacket &&
             <Chart.Bar data={data} options={options}
               onElementsClick={this.handleClickEvent}
@@ -180,7 +206,9 @@ export class TrendsChart
             onClick={this.handleRightEvent}
           />
         </div>
-        <div className="chart-container--line"/>
+        <div className="chart-container--line">
+          Click on any of the bars to filter the content
+        </div>
       </div>
     );
   }

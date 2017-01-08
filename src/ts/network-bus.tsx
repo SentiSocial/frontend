@@ -195,7 +195,7 @@ export class NetworkBus {
         } else if (page == 2) {
           callback(null, new Content(c));
         }
-      }, 2000);
+      }, 2500);
   }
 }
 

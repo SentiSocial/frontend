@@ -151,24 +151,67 @@ export class PageTrends
     const ghostCards = [];
     for (let i = 0; i < this.state.ghostCards; i++) {
       // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={i} />);
+      ghostCards.push(<GhostCard key={"gc:"+i} />);
     }
-    return (
-      <div>
-        <TrendsChart trends={this.state.trends}
-          onTrendClick={this.props.onTrendClick}
-        />
-        <main className="card-container container">
-          {this.state.content.map((content, i) => {
-            return content.type == 'news'
-            // content will not reorder index key is fine
-            ? <NewsComponent key={i} news={content} />
-            : <TweetComponent key={i} tweet={content} />;
-          })}
-          {ghostCards}
-          {this.contentRemaining == 0 && <EndOfContent />}
-        </main>
-      </div>
-    );
+    if (window.innerWidth < 992) {
+      return (
+        <div>
+          <main className="card-container container">
+            <div className="card col-xs-12">
+              <h1 className="website--title">News you care about.</h1>
+              <p className="website--description">All the trends you are most passionate about, tailored in one place</p>
+              <img src="http://c10.nrostatic.com/sites/default/files/styles/original_image_with_cropping/public/uploaded/donald-trump-grow-up.jpg?itok=n1PW3Myr"
+                className="img-responsive" />
+            </div>
+          </main>
+          <TrendsChart trends={this.state.trends}
+            onTrendClick={this.props.onTrendClick}
+          />
+          <main className="card-container container">
+            {this.state.content.map((content, i) => {
+              return content.type == 'news'
+              // content will not reorder index key is fine
+              ? <NewsComponent key={i} news={content} />
+              : <TweetComponent key={i} tweet={content} />;
+            })}
+            {ghostCards}
+            {this.contentRemaining == 0 && <EndOfContent />}
+          </main>
+        </div>
+      );
+    } else {
+      const cards = this.state.content.map((content, i) => {
+        return content.type == 'news'
+        // content will not reorder index key is fine
+        ? <NewsComponent key={i} news={content} />
+        : <TweetComponent key={i} tweet={content} />;
+      }).concat(ghostCards)
+        .concat(this.contentRemaining == 0 && [<EndOfContent />]);
+      const cards1 = cards.filter((card, i) => i % 2 == 0);
+      const cards2 = cards.filter((card, i) => i % 2 == 1);
+      return (
+        <div>
+          <main className="card-container container">
+            <div className="card col-xs-12">
+              <h1 className="website--title">News you care about.</h1>
+              <p className="website--description">All the trends you are most passionate about, tailored in one place</p>
+              <img src="http://c10.nrostatic.com/sites/default/files/styles/original_image_with_cropping/public/uploaded/donald-trump-grow-up.jpg?itok=n1PW3Myr"
+                className="website--image img-responsive" />
+            </div>
+          </main>
+          <TrendsChart trends={this.state.trends}
+            onTrendClick={this.props.onTrendClick}
+          />
+          <main className="card-container container">
+            <div className="col-md-6">
+              {cards1}
+            </div>
+            <div className="col-md-6">
+              {cards2}
+            </div>
+          </main>
+        </div>
+      );
+    }
   }
 }

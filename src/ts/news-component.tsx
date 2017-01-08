@@ -33,12 +33,23 @@ export class NewsComponent extends
     const time = moment(this.props.news.timestamp * 1000).fromNow();
     const title = this.props.news.title;
     return (
-      <div className="card col-xs-12" onClick={this.handleNewsClick}>
-        <h3>{title}</h3>
-        <div className="clearfix"></div>
-        <div className="card--header">
-        <p>{source}</p>
-        <span>{time}</span>
+      <div className="card col-xs-12"
+        style={{
+          paddingLeft: 0,
+          paddingRight: 0,
+        }}
+        onClick={this.handleNewsClick}
+      >
+        <img className="card--image img-responsive"
+          src={this.props.news.media}
+        />
+        <div className="col-xs-12">
+          <div className="card--header">
+            <p className="card--source">{source}</p>
+            <span className="card--time">{time}</span>
+          </div>
+          <div className="clearfix"></div>
+          <h3 className="card--title">{title}</h3>
         </div>
       </div>
     );

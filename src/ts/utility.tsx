@@ -67,3 +67,23 @@ moment.updateLocale('en', {
 });
 
 export {moment};
+
+
+/**
+ * Returns true half the time false otherwise. Fifty fifty yo. Fifty fifty.
+ * @author Omar Chehab
+ */
+export function fiftyFifty() {
+  return Math.round(Math.random()) == 1;
+}
+
+/**
+ * Returns a random range of two integers
+ * @param  {number} min
+ * @param  {number} max
+ * @return {number}
+ */
+export function randomRange(min, max) {
+  const diff = max - min;
+  return Math.random() * min + diff;
+}
