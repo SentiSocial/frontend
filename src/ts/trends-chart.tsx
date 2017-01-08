@@ -104,6 +104,7 @@ export class TrendsChart
       };
 
       options = {
+        //showScale: false,
         responsive: true,
         tooltips: {
           enabled: false
@@ -123,12 +124,14 @@ export class TrendsChart
             display: true,
             id: 'y-axis-1',
             gridLines: {
-              display: true
+              display: true,
+              drawBorder: false
             },
-            scaleLabel: {
+            labels: {
               display: false
             },
             ticks: {
+              display: false,
               stepSize: upperBound,
               max: upperBound,
               min: lowerBound

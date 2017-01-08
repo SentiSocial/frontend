@@ -1,29 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-const moment = require('moment');
-
-/**
- * This configures the format of the time displayed on the news card.
- * @author Omar Chehab
- */
-moment.updateLocale('en', {
-  relativeTime : {
-    future: "in %s",
-    past: "%s",
-    s: "s",
-    m: "1m",
-    mm: "%dm",
-    h: "1h",
-    hh: "%dh",
-    d: "1d",
-    dd: "%dd",
-    M: "1m",
-    MM: "%dm",
-    y: "1y",
-    yy: "%dy",
-  }
-});
+import {moment} from './utility';
 
 import {News} from './news';
 
