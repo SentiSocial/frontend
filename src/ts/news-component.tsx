@@ -3,6 +3,10 @@ import * as ReactDOM from 'react-dom';
 
 const moment = require('moment');
 
+/**
+ * This configures the format of the time displayed on the news card.
+ * @author Omar Chehab
+ */
 moment.updateLocale('en', {
   relativeTime : {
     future: "in %s",
@@ -27,6 +31,10 @@ interface NewsComponentProps {
   news: News;
 };
 
+/**
+ * NewsComponent handles the visual rendering of a News card.
+ * @author Omar Chehab
+ */
 export class NewsComponent extends
   React.Component<NewsComponentProps, undefined> {
 
@@ -34,6 +42,10 @@ export class NewsComponent extends
     super(props);
   }
 
+  /**
+   * When a News article is clicked, open the link in a new tab.
+   * @author Omar Chehab
+   */
   handleNewsClick = event => {
     window.open(this.props.news.link);
   }
