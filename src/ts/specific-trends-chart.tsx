@@ -6,6 +6,14 @@ import * as Chart from "react-chartjs-2"
 * @author Dennis Tismenko
 */
 
+interface SpecificTrendsChartProps{
+
+}
+
+interface SpecificTrendsChartState{
+
+}
+
 const BarChart = Chart.Bar;
 var data = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
@@ -82,7 +90,7 @@ const options = {
   }
 };
 
-export class SpecificTrendsChart extends React.Component {
+export class SpecificTrendsChart extends React.Component <SpecificTrendsChartProps, SpecificTrendsChartState> {
   render(){
   	return (
   		<BarChart data={data} options={options} />);
