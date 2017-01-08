@@ -18,8 +18,8 @@ export class TweetComponent extends
 
   render() {
     return (
-      <div>
-        <TweetEmbed id={this.props.tweet.id}></TweetEmbed>
+      <div className="card col-xs-12">
+        <TweetEmbed id={`${this.props.tweet.id}`} />
       </div>
     );
   }
