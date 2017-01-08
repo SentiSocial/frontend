@@ -20,6 +20,10 @@ interface PageTrendsState {
   remaining?: number;
 };
 
+/**
+ * This class handles rendering the homepage, it contains a graph and cards.
+ * @author Omar Chehab
+ */
 export class PageTrends extends React.Component<undefined, PageTrendsState> {
 
   constructor(props) {
@@ -32,8 +36,13 @@ export class PageTrends extends React.Component<undefined, PageTrendsState> {
     };
   }
 
+  /**
+   * When the component WILL mount, request the trends and content from the
+   * endpoint. Once they are loaded, update the state which will cause react to
+   * re-render.
+   * @author Omar Chehab
+   */
   componentWillMount() {
-    console.log('Component will mount');
     NetworkBus.getTrends((err, response) => {
       if (err) {
         console.error(err);
@@ -68,10 +77,10 @@ export class PageTrends extends React.Component<undefined, PageTrendsState> {
   render() {
     return (
       <div>
-      <div>
-        <TrendsChart trends={this.state.trends} />
-      </div>
-        <main>
+        <div>
+          <TrendsChart trends={this.state.trends} />
+        </div >
+        <main className="card-container container">
           {this.state.news.map((news, i) =>
             <NewsComponent key={i} news={news} />)}
           {this.state.tweets.map(tweet =>
