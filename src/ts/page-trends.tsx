@@ -10,6 +10,8 @@ import {Trends} from './trends';
 import {News} from './news';
 import {Tweet} from './tweet';
 
+import {TrendsChart} from './trends-chart';
+
 
 interface PageTrendsState {
   trends?: Trends;
@@ -66,6 +68,9 @@ export class PageTrends extends React.Component<undefined, PageTrendsState> {
   render() {
     return (
       <div>
+      <div>
+        <TrendsChart trends={this.state.trends} />
+      </div>
         <main>
           {this.state.news.map((news, i) =>
             <NewsComponent key={i} news={news} />)}
