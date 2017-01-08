@@ -8,6 +8,7 @@ import {NewsPacket} from './network-bus';
  */
 export class News implements NewsPacket {
   title: string;
+  link: string;
   timestamp: number; // unix
   source: string; // url
   media?: string; // url
@@ -18,6 +19,7 @@ export class News implements NewsPacket {
    */
   constructor(packet: NewsPacket) {
     this.title = packet.title;
+    this.link = packet.link;
     this.timestamp = packet.timestamp;
     this.source = packet.source;
     this.media = packet.media;
