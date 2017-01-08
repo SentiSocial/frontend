@@ -91,8 +91,11 @@ export class TrendsChart extends React.Component <TrendsChartProps, undefined> {
     }
 
     return (
-      <div className="chart-container">
-        {trendsPacket && <Chart.Bar data={data} options={options} />}
+      <div>
+        <div className="chart-container">
+          {trendsPacket && <Chart.Bar data={data} options={options} />}
+        </div>
+        <div className="chart-container--line"></div>
       </div>
     );
   }

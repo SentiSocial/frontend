@@ -77,9 +77,7 @@ export class PageTrends extends React.Component<undefined, PageTrendsState> {
   render() {
     return (
       <div>
-        <div>
-          <TrendsChart trends={this.state.trends} />
-        </div >
+        <TrendsChart trends={this.state.trends} />
         <main className="card-container container">
           {this.state.news.map((news, i) =>
             <NewsComponent key={i} news={news} />)}

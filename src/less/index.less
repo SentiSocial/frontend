@@ -10,7 +10,13 @@ body {
 .chart-container {
   background-color: #FFF;
   padding: 20px;
+  border-bottom: 1px solid #DDD;
+}
+
+.chart-container--line {
   border-bottom: 1px solid #CCC;
+  padding-bottom: 4px;
+  background-color: #EEE;
   box-shadow: 0 2px 4px #CCC;
 }
 
@@ -29,18 +35,22 @@ body {
   padding-bottom: 10px;
   cursor: pointer;
 
-  p {
-    margin: 8px 0 0 0;
+  h3 {
+    margin-top: 0;
+    margin-bottom: 8px;
+    font-size: 1.3rem;
+    font-weight: bold;
   }
 }
 
 .card--header {
-  h3 {
+  p {
     display: inline-block;
     margin: 0;
     font-size: 1.3rem;
-    font-weight: bold;
+    font-weight: normal;
   }
+
   span {
     float: right;
   }

@@ -56,12 +56,12 @@ export class NewsComponent extends
     const title = this.props.news.title;
     return (
       <div className="card col-xs-12" onClick={this.handleNewsClick}>
-        <div className="card--header">
-          <h3>{source}</h3>
-          <span>{time}</span>
-        </div>
+        <h3>{title}</h3>
         <div className="clearfix"></div>
-        <p>{title}</p>
+        <div className="card--header">
+        <p>{source}</p>
+        <span>{time}</span>
+        </div>
       </div>
     );
   }
