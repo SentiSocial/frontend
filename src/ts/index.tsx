@@ -1,6 +1,8 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
+
 import {NetworkBus} from './network-bus';
+import {PageTrends} from './page-trends';
 
 class Application extends React.Component<undefined, undefined> {
   constructor(props) {
@@ -10,6 +12,7 @@ class Application extends React.Component<undefined, undefined> {
   render() {
     return (
       <div>
+        <PageTrends />
       </div>
     );
   }
