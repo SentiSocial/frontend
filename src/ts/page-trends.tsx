@@ -12,6 +12,9 @@ import {Tweet} from './tweet';
 
 import {TrendsChart} from './trends-chart';
 
+interface PageTrendsProps {
+  onTrendClick: (selectedTrend) => void;
+}
 
 interface PageTrendsState {
   trends?: Trends;
@@ -24,7 +27,8 @@ interface PageTrendsState {
  * This class handles rendering the homepage, it contains a graph and cards.
  * @author Omar Chehab
  */
-export class PageTrends extends React.Component<undefined, PageTrendsState> {
+export class PageTrends
+  extends React.Component<PageTrendsProps, PageTrendsState> {
 
   constructor(props) {
     super(props);
@@ -77,7 +81,9 @@ export class PageTrends extends React.Component<undefined, PageTrendsState> {
   render() {
     return (
       <div>
-        <TrendsChart trends={this.state.trends} />
+        <TrendsChart trends={this.state.trends}
+          onTrendClick={this.props.onTrendClick}
+        />
         <main className="card-container container">
           {this.state.news.map((news, i) =>
             <NewsComponent key={i} news={news} />)}

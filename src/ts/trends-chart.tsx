@@ -5,6 +5,7 @@ import {TrendsPacket} from "./network-bus";
 
 interface TrendsChartProps {
   trends: TrendsPacket;
+  onTrendClick: (selectedTrend) => void;
 }
 
 interface TrendsChartState {
@@ -27,6 +28,17 @@ export class TrendsChart
       scroll: 0,
     }
   }
+
+  handleClickEvent = event => {
+    if (!event.length) {
+      return;
+    }
+    const clickedBar = event[0];
+    const i = clickedBar._index;
+    const trendsPacket = this.props.trends;
+    const clickedTrend = trendsPacket.trends[i];
+    this.props.onTrendClick(clickedTrend);
+  };
 
   /**
    * Event listener for scrolling left on the chart.
@@ -134,7 +146,9 @@ export class TrendsChart
       <div>
         <div className="chart-container">
           {trendsPacket &&
-            <Chart.Bar data={data} options={options} />
+            <Chart.Bar data={data} options={options}
+              onElementsClick={this.handleClickEvent}
+            />
           }
           <i className="glyphicon glyphicon-chevron-left"
             id="chart--left"
