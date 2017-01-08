@@ -35,7 +35,7 @@ export class SpecificTrendsChart
       var point = history.start;
       var currentTime = moment(point*1000).fromNow();
       for (let i = 0; i < history.data.length; i++){
-        if (i == 0){
+        if (i == 0 || i == history.data.length-1){
           timeStamps.push(moment(point*1000).fromNow());
         } else {
           if (moment(point*1000).fromNow() != currentTime)

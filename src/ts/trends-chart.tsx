@@ -85,6 +85,18 @@ export class TrendsChart
       // set the upper and lower bound of the graph
       const upperBound = absoluteMax + padding;
       const lowerBound = -absoluteMax - padding;
+      const minimum = 2;
+      var trendScore = trends.map(trend => trend.sentiment);
+      for (let i = 0; i < trendScore.length; i++){
+        if (Math.abs(trendScore[i]) < minimum){
+          if (trendScore[i] > 0){
+            trendScore[i] = minimum;
+          }
+          if (trendScore[i] < 0){
+            trendScore[i] = -minimum;
+          }
+        }
+      }
 
       data = {
         // array of trend names
@@ -93,7 +105,7 @@ export class TrendsChart
           type: 'bar',
           label: 'Tweets',
           // array of trend sentiments
-          data: trends.map(trend => trend.sentiment),
+          data: trendScore,
           backgroundColor: trends
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
           borderColor: '#666666',
