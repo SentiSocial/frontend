@@ -166,5 +166,5 @@ export interface NewsPacket {
 };
 
 export interface TweetPacket {
-  id: number;
+  id: string;
 };
