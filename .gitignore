@@ -1,3 +1,8 @@
 .npm
 node_modules
 npm-debug.log
+public/js
+public/js/bundle.js
+public/js/bundle.js.map
+public/css
+public/css/bundle.css
