@@ -2,12 +2,14 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {NetworkBus, SpecificTrendsDataPacket} from './network-bus';
+import {cutMerge} from './utility';
 
 import {NewsComponent} from './news-component';
 import {TweetComponent} from './tweet-component';
 
 import {News} from './news';
 import {Tweet} from './tweet';
+import {GhostCard, EndOfContent} from './ghostcard-component';
 
 import {SpecificTrendsChart} from './specific-trends-chart';
 
@@ -22,9 +24,8 @@ interface PageSpecificTrendsState {
     end: number;
     data: SpecificTrendsDataPacket[];
   },
-  news?: News[];
-  tweets?: Tweet[];
-  remaining?: number;
+  content?: any[];
+  ghostCards?: number;
 };
 
 /**
@@ -33,15 +34,24 @@ interface PageSpecificTrendsState {
  */
 export class PageSpecificTrends
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
+  // keeping track if there is a pagination request going on.
+  onGoingRequest;
+  // keeping track which page we are on
+  page;
+  // keeping track of how many pieces of content per request
+  contentPerRequest;
+  // keepung track of how much content is left on the server
+  contentRemaining;
 
   constructor(props) {
     super(props);
     this.state = {
       history: undefined,
-      news: [],
-      tweets: [],
-      remaining: -1,
+      content: [],
+      ghostCards: 3,
     };
+    this.onGoingRequest = false;
+    this.page = 0;
   }
 
   /**
@@ -66,40 +76,99 @@ export class PageSpecificTrends
   }
 
   /**
+   * When the component has mounted start detecting the scrolling.
+   * @author Omar Chehab
+   */
+  componentDidMount() {
+      window.addEventListener("scroll", this.handleScroll);
+  }
+
+  /**
+   * When the component is going to unmount stop detecting the scrolling.
+   * @author Omar Chehab
+   */
+  componentWillUnmount() {
+      window.removeEventListener("scroll", this.handleScroll);
+  }
+
+  /**
    * Gets news and tweets from the server
    * @param {number}  page  pagination page number
    * @author Omar Chehab
    */
   getPage(page) {
+    this.onGoingRequest = true;
     NetworkBus.getSpecificContent((err, response) => {
-      if (err) {
-        console.error(err);
-        return;
-      }
-      const newNews = response.news;
-      const newTweets = response.tweets;
-      const newRemaining = response.remaining;
-      this.setState(prevState => {
-        const news = prevState.news.concat(newNews);
-        const tweets = prevState.tweets.concat(newTweets);
-        return {
-          news: news,
-          tweets: tweets,
-          remaining: newRemaining,
-        };
-      })
+        if (err) {
+          console.error(err);
+          return;
+        }
+        const newNews = response.news;
+        const newTweets = response.tweets;
+        const newRemaining = response.remaining;
+        const numberOfNewContent = newNews.length + newTweets.length;
+        this.contentRemaining = newRemaining;
+        this.setState(prevState => {
+
+          prevState.content = prevState.content
+            .concat(cutMerge(newNews.map(news => {
+              news['type'] = 'news';
+              return news;
+            }), newTweets.map(content => {
+              content['type'] = 'tweet';
+              return content;
+            })));
+          // time is running out i have to bodge this till it works.
+          if (page == 0) {
+            this.contentPerRequest = prevState.content.length;
+          }
+          return {
+            content: prevState.content,
+            remaining: newRemaining,
+            ghostCards: 0
+          };
+        })
+        this.onGoingRequest = false;
     }, this.props.id, page);
   }
 
+  /**
+   * When the news and tweet container is scrolled, monitor it so you can load
+   * more content.
+   * @author Omar Chehab
+   */
+  handleScroll = event => {
+    // how many pixels can the user scroll?
+    const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
+    const serverHasContent = this.contentRemaining > 0;
+    const noOnGoingRequest = !this.onGoingRequest;
+    const reachedEnd = scrollLeft < window.innerHeight * 2;
+    if (serverHasContent && noOnGoingRequest && reachedEnd) {
+      this.setState(prevState => ({
+        ghostCards: this.contentRemaining % this.contentPerRequest,
+      }));
+      this.getPage(++this.page);
+    }
+  }
+
   render() {
+    const ghostCards = [];
+    for (let i = 0; i < this.state.ghostCards; i++) {
+      // content will not reorder index key is fine
+      ghostCards.push(<GhostCard key={i} />);
+    }
     return (
       <div>
         <SpecificTrendsChart history={this.state.history}/>
         <main className="card-container container">
-          {this.state.news.map((news, i) =>
-            <NewsComponent key={i} news={news} />)}
-          {this.state.tweets.map(tweet =>
-            <TweetComponent key={tweet.id} tweet={tweet} />)}
+          {this.state.content.map((content, i) => {
+            return content.type == 'news'
+            // content will not reorder index key is fine
+            ? <NewsComponent key={i} news={content} />
+            : <TweetComponent key={i} tweet={content} />;
+          })}
+          {ghostCards}
+          {this.contentRemaining == 0 && <EndOfContent />}
         </main>
       </div>
     );
