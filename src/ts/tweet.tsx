@@ -7,7 +7,7 @@ import {TweetPacket} from './network-bus';
  * @author Omar Chehab
  */
 export class Tweet implements TweetPacket {
-  id: number;
+  id: string;
 
   /**
    * @author Omar Chehab
