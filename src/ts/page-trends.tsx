@@ -191,14 +191,6 @@ export class PageTrends
       const cards2 = cards.filter((card, i) => i % 2 == 1);
       return (
         <div>
-          <main className="card-container container">
-            <div className="card col-xs-12">
-              <h1 className="website--title">News you care about.</h1>
-              <p className="website--description">All the trends you are most passionate about, tailored in one place</p>
-              <img src="http://c10.nrostatic.com/sites/default/files/styles/original_image_with_cropping/public/uploaded/donald-trump-grow-up.jpg?itok=n1PW3Myr"
-                className="website--image img-responsive" />
-            </div>
-          </main>
           <TrendsChart trends={this.state.trends}
             onTrendClick={this.props.onTrendClick}
           />

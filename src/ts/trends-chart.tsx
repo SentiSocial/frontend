@@ -110,7 +110,7 @@ export class TrendsChart
       // set the upper and lower bound of the graph
       const upperBound = absoluteMax + padding;
       const lowerBound = -absoluteMax - padding;
-      const minimum = 2;
+      const minimum = 0.5;
       var trendScore = trends.map(trend => trend.sentiment);
       for (let i = 0; i < trendScore.length; i++){
         if (Math.abs(trendScore[i]) < minimum){
@@ -168,7 +168,7 @@ export class TrendsChart
               display: false
             },
             ticks: {
-              display: false,
+              display: true,
               stepSize: upperBound,
               max: upperBound,
               min: lowerBound
