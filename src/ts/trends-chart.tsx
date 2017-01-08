@@ -1,25 +1,43 @@
 import * as React from "react";
 import * as Chart from "react-chartjs-2";
+import {TrendsPacket} from "./network-bus";
 
 /**
 * Handles data parsing and displaying data for a specific trend.
 * @author Dennis Tismenko
 */
 interface TrendsChartProps{
-
+  trends: TrendsPacket;
 }
 
-interface TrendsChartState{
 
-}
 
-const BarChart = Chart.Bar;
-var data = 4;
-var options = 4;
+export class TrendsChart extends React.Component <TrendsChartProps, undefined> {
 
-export class TrendsChart extends React.Component <TrendsChartProps, TrendsChartState> {
-  render() {
-    return (
-    <BarChart data={data} options={options} />);
+  constructor(props){
+    super(props);
   }
+
+  render() {
+    const trends = this.props.trends.trends;
+    const data = {
+      labels: trends.map(trend => trend.name),
+      datasets: [{
+        type: 'bar',
+        label: 'Tweets',
+        data: trends.map(trend => trend.sentiment),
+        fill: false,
+        backgroundColor: '#1da1f2',
+        borderColor: '#1da1f2',
+        hoverBackgroundColor: '#1da1f2',
+        hoverBorderColor: '#1da1f2',
+        yAxisID: 'y-axis-1'
+      }]
+    };
+    const options = {};
+    return (
+      <Chart.Bar data={data} options={options} />
+    );
+  }
+
 }

@@ -1,5 +1,6 @@
 import * as React from "react";
 import * as Chart from "react-chartjs-2"
+import {TrendsPacket} from "./network-bus";
 
 /**
 * Handles data parsing and displaying data for a specific trend.
