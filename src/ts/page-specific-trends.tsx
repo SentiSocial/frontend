@@ -70,7 +70,7 @@ export class PageSpecificTrends
       this.setState({
         history: specificTrend.history,
       });
-    }, this.props.id);
+    }, this.props.name);
 
     this.getPage(0);
   }
@@ -129,7 +129,7 @@ export class PageSpecificTrends
           };
         })
         this.onGoingRequest = false;
-    }, this.props.id, page);
+    }, this.props.name, page);
   }
 
   /**
