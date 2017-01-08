@@ -22,24 +22,41 @@ class Application extends React.Component<undefined, ApplicationState> {
    * When a trend from the TrendsChart is clicked, change the page.
    * @author Omar Chehab
    */
-  onTrendClick = (selectedTrend) => {
+  handleTrendClick = selectedTrend => {
     this.setState({
       selectedTrend: selectedTrend,
     });
-  }
+  };
+
+  /**
+   * When the back button from the Navigation component is clicked, go back to
+   * the homepage.
+   * @author Omar Chehab
+   */
+  handleBackEvent = event => {
+    this.setState({
+      selectedTrend: undefined,
+    });
+  };
 
   render() {
-    var page;
+    var page, title;
     if (this.state.selectedTrend) {
       // if there is a selected trend, display the specifcic trend page.
+      title = this.state.selectedTrend.name;
       page = false;
     } else {
       // if there is no trend selected, display the home page.
-      page = <PageTrends onTrendClick={this.onTrendClick} />;
+      title = 'Website Name';
+      page = <PageTrends onTrendClick={this.handleTrendClick} />;
     }
     return (
       <div>
-        <NavigationComponent />
+        <NavigationComponent
+          title={title}
+          onBackClick={this.handleBackEvent}
+          canGoBack={!!this.state.selectedTrend}
+        />
         {page}
       </div>
     );

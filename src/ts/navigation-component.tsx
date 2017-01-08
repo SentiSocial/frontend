@@ -1,6 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+interface NavigationComponentProps {
+  title: string;
+  canGoBack: boolean;
+  onBackClick: (event) => void;
+}
+
 interface NavigationComponentState {
   isCollapsed: boolean;
 }
@@ -10,7 +16,7 @@ interface NavigationComponentState {
  * @author Omar Chehab
  */
 export class NavigationComponent
-  extends React.Component<undefined, NavigationComponentState> {
+  extends React.Component<NavigationComponentProps, NavigationComponentState> {
 
   constructor(props) {
     super(props);
@@ -47,7 +53,11 @@ export class NavigationComponent
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
               </button>
-              <a className="navbar-brand" href="#">Website Title</a>
+              {this.props.canGoBack && <span className="glyphicon glyphicon-chevron-left"
+              id="navigation--back"
+              onClick={this.props.onBackClick}
+              />}
+              <span className="navbar-brand">{this.props.title}</span>
             </div>
             <div className={`navbar-collapse ${isCollapsed}`}>
               <ul className="nav navbar-nav navbar-right">
