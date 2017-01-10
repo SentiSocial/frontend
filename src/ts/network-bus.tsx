@@ -2,6 +2,8 @@ import {Promise} from 'promise-polyfill';
 if (!window['Promise']) window['Promise'] = Promise;
 import 'whatwg-fetch';
 
+import {networkBusDebug} from './network-bus-debug';
+
 import {Trends} from './trends';
 import {Content} from './content';
 import {SpecificTrends} from './specific-trends';
@@ -18,6 +20,8 @@ const ENDPOINTS = {
   specificContent: '/content/{name}?page={page}'
 };
 
+const DEBUG = false;
+
 /**
  * NetworkBus class handles all communications with the REST API.
  * @author Omar Chehab
@@ -29,6 +33,10 @@ export class NetworkBus {
    * @author Omar Chehab
    */
   static getTrends(callback: (error, response: Trends) => void) {
+    if (DEBUG) {
+      callback(null, networkBusDebug.getTrends);
+      return;
+    }
     const endpoint = ENDPOINTS.trends;
     const url = `${APIURL}${endpoint}`;
     window['fetch'](url)
@@ -50,6 +58,10 @@ export class NetworkBus {
    */
   static getContent(callback: (error, response: Content) => void,
     page: number) {
+      if (DEBUG) {
+        callback(null, networkBusDebug.getContent);
+        return;
+      }
     const endpoint = ENDPOINTS.content
       .replace(/{page}/, `${page}`);
     const url = `${APIURL}${endpoint}`;
@@ -74,6 +86,10 @@ export class NetworkBus {
    */
   static getSpecificTrends(callback: (error, response: SpecificTrends) => void,
     name: string) {
+    if (DEBUG) {
+      callback(null, networkBusDebug.getSpecificTrends);
+      return;
+    }
     name = encodeURIComponent(name);
     const endpoint = ENDPOINTS.specificTrends
       .replace(/{name}/, `${name}`);
@@ -97,6 +113,10 @@ export class NetworkBus {
    */
   static getSpecificContent(callback: (error, response: SpecificContent) => void,
     name: string, page: number) {
+    if (DEBUG) {
+      callback(null, networkBusDebug.getSpecificContent);
+      return;
+    }
     name = encodeURIComponent(name);
     const endpoint = ENDPOINTS.specificContent
       .replace(/{name}/, `${name}`)

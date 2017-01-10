@@ -168,7 +168,7 @@ export class TrendsChart
               display: false
             },
             ticks: {
-              display: true,
+              display: false,
               stepSize: upperBound,
               max: upperBound,
               min: lowerBound
