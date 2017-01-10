@@ -13,7 +13,7 @@ Check it out at [trend-gator.com](https://trend-gator.com).
 
 ## Installation
 
-Please note that this is the client repository. Are you looking for the [server](https://github.com/suchaHassle/htv-backend)?
+Please note that this is the client repository. Are you looking for the [server](https://github.com/trendgator/trendgator-server)?
 
 To build the project locally, clone the repository, and create the folder public/css.
 * `npm install`
