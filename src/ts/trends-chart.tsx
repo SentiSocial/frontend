@@ -101,12 +101,13 @@ export class TrendsChart
       const trends = trendsPacket.trends
         .slice(this.state.scroll, this.state.scroll + this.barsShown);
       // find the absolute maximum sentiment
-      const absoluteMax = trends.reduce(function (absoluteMax, trend) {
+      const absoluteMax = trendsPacket.trends.reduce(function (absoluteMax, trend) {
         const sentiment = Math.abs(trend.sentiment);
         return sentiment > absoluteMax ? sentiment : absoluteMax;
       }, 0);
       // give the bars some padding to be visually pleasing
       const padding = absoluteMax * 0.3;
+      //const padding = 0;
       // set the upper and lower bound of the graph
       const upperBound = absoluteMax + padding;
       const lowerBound = -absoluteMax - padding;
