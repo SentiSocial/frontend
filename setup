@@ -1,5 +1,6 @@
+#!/bin/bash
 npm install
 npm run build
-sudo rm -r /var/www/html
-sudo cp public /var/www
+sudo rm -f -r /var/www/html
+sudo cp -r ~/trendgator-client/public /var/www
 sudo mv /var/www/public /var/www/html
