@@ -23,13 +23,6 @@ body {
   transform: translate(-50%, -50%);
 }
 
-.website--title {
-  font-family: 'PT Serif', serif;
-  font-weight: bold;
-  margin-top: 0px;
-  font-size: 2.5rem;
-}
-
 .chart--title {
   font-family: 'PT Serif', serif;
   font-weight: bold;
@@ -67,7 +60,6 @@ body {
   margin-bottom: 9px;
   padding-top: 10px;
   padding-bottom: 10px;
-  cursor: pointer;
 
   .card--title {
     font-family: 'PT Serif', serif;
@@ -75,6 +67,27 @@ body {
     margin-bottom: 8px;
     font-size: 1.7rem;
     font-weight: bold;
+    cursor: pointer;
+  }
+
+  .card--image {
+    border-bottom: 1px solid #eee;
+    padding: 0 10px 10px 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+  }
+
+  .card--description {
+    margin: 15px 10px;
+    font-size: 1.6rem;
+  }
+
+  .card--showdescription {
+    font-size: 1.2rem;
+    font-weight: bold;
+    text-transform: lowercase;
+    margin-top: 18px;
+    cursor: pointer;
   }
 }
 
@@ -91,11 +104,6 @@ body {
   }
 }
 
-.card--image {
-  border-bottom: 1px solid #eee;
-  padding: 0 10px 10px 10px;
-  margin-bottom: 10px;
-}
 
 .chart--arrow {
   position: absolute;
@@ -104,6 +112,7 @@ body {
   font-size: 20px;
   cursor: pointer;
 }
+
 
 #chart--left {
   &:extend(.chart--arrow);
@@ -122,22 +131,16 @@ body {
   float: left;
 }
 
+#hideDescription {
+  margin-right: 8px;
+}
+
 twitterwidget {
     margin-left: auto;
     margin-right: auto;
 }
 
 @media (min-width: 992px) {
-  .website--title {
-    font-size: 3.8rem;
-  }
-  .website--description {
-    font-size: 1.9rem;
-  }
-  .website--image {
-    margin: 45px auto;
-    border-radius: 8px;
-  }
   .chart--title {
     text-align: center;
   }

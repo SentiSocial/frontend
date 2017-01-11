@@ -44,9 +44,9 @@ export class TrendsChart
   handleResize() {
     console.log(window.innerWidth);
     if (window.innerWidth > 992) {
-      this.barsShown = 7;
+      this.barsShown = 6;
     } else {
-      this.barsShown = 5;
+      this.barsShown = 4;
     }
   }
 
