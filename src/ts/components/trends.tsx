@@ -1,4 +1,8 @@
-import {TrendsPacket, TrendPacket} from './network-bus';
+import {TrendsPacket} from './network-bus';
+
+export interface TrendsPacket {
+  trends: TrendPacket[]
+};
 
 /**
  * Trends is an implementation of the news packet received from the endpoint.
@@ -16,3 +20,9 @@ export class Trends implements TrendsPacket {
     this.trends = packet.trends;
   }
 }
+
+export interface TrendPacket {
+  id: number;
+  name: string;
+  sentiment: number;
+};

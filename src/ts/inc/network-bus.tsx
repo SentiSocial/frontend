@@ -1,33 +1,37 @@
 import {Promise} from 'promise-polyfill';
-if (!window['Promise']) window['Promise'] = Promise;
 import 'whatwg-fetch';
 
-import {networkBusDebug} from './network-bus-debug';
+import {networkBusDebug, DEBUG} from './network-bus-debug';
 
 import {Trends} from './trends';
 import {Content} from './content';
 import {SpecificTrends} from './specific-trends';
 import {SpecificContent} from './specific-content';
 
-import {News} from './news';
-import {Tweet} from './tweet';
+import {News} from './components/news';
+import {Tweet} from './components/tweet';
 
-const APIURL = 'http://neptune.gunshippenguin.com:8080/v1';
-const ENDPOINTS = {
-  trends: '/trends',
-  specificTrends: '/trends/{name}',
-  content: '/content?page={page}',
-  specificContent: '/content/{name}?page={page}'
+const api = 'http://neptune.gunshippenguin.com:8080/v1';
+
+const endpoints = {
+  alltrends: () => `/alltrends`,
+  trend: name => `/trend/${name}`,
+  alltrendsContent: page => `/alltrends/content?page=${page}`,
+  trendContent: (name, page) => `/trend/${name}/content?page=${page}`
 };
 
-const DEBUG = false;
+if (!window['Promise']) window['Promise'] = Promise;
+
+function handleJSON(response) {
+   return response.json();
+}
 
 /**
  * NetworkBus class handles all communications with the REST API.
  * @author Omar Chehab
  */
 export class NetworkBus {
-
+  
   /**
    * Requests and parses the trends from the REST API.
    * @author Omar Chehab
@@ -37,19 +41,14 @@ export class NetworkBus {
       callback(null, networkBusDebug.getTrends);
       return;
     }
-    const endpoint = ENDPOINTS.trends;
-    const url = `${APIURL}${endpoint}`;
+    const endpoint = endpoints.alltrends();
+    const url = `${api}${endpoint}`;
     window['fetch'](url)
-      .then(function(response) {
-        return response.json();
-      }, function(error) {
-        callback(error, undefined);
-      })
+      .then(handleJSON,  error => callback(error, undefined))
       .then(function(response) {
         response = new Trends(response);
         callback(undefined, response);
       });
-      console.log('getTrends', url);
   }
 
   /**
@@ -62,22 +61,16 @@ export class NetworkBus {
         callback(null, networkBusDebug.getContent);
         return;
       }
-    const endpoint = ENDPOINTS.content
-      .replace(/{page}/, `${page}`);
-    const url = `${APIURL}${endpoint}`;
+    const endpoint = endpoints.alltrendsContent(page);
+    const url = `${api}${endpoint}`;
     window['fetch'](url)
-      .then(function(response) {
-        return response.json();
-      }, function(error) {
-        callback(error, undefined);
-      })
+      .then(handleJSON, error => callback(error, undefined))
       .then(function(response: ContentPacket) {
         response.news = response.news.map(news => new News(news));
         response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         response = new Content(response);
         callback(undefined, response);
       });
-      console.log('getContent', url);
   }
 
   /**
@@ -91,20 +84,15 @@ export class NetworkBus {
       return;
     }
     name = encodeURIComponent(name);
-    const endpoint = ENDPOINTS.specificTrends
-      .replace(/{name}/, `${name}`);
-    const url = `${APIURL}${endpoint}`;
+    const endpoint = endpoints.trend(name);
+    const url = `${api}${endpoint}`;
+    console.log(url);
     window['fetch'](url)
-      .then(function(response) {
-        return response.json();
-      }, function(error) {
-        callback(error, undefined);
-      })
+      .then(handleJSON, error => callback(error, undefined))
       .then(function(response) {
         response = new SpecificTrends(response);
         callback(undefined, response);
       });
-      console.log('getSpecificTrends', url);
   }
 
   /**
@@ -118,75 +106,15 @@ export class NetworkBus {
       return;
     }
     name = encodeURIComponent(name);
-    const endpoint = ENDPOINTS.specificContent
-      .replace(/{name}/, `${name}`)
-      .replace(/{page}/, `${page}`);
-    const url = `${APIURL}${endpoint}`;
+    const endpoint = endpoints.trendContent(name, page);
+    const url = `${api}${endpoint}`;
     window['fetch'](url)
-      .then(function(response) {
-        return response.json();
-      }, function(error) {
-        callback(error, undefined);
-      })
+      .then(handleJSON, error => callback(error, undefined))
       .then(function(response) {
         response.news = response.news.map(news => new News(news));
         response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         response = new SpecificContent(response);
         callback(undefined, response);
       });
-      console.log('getSpecificContent', url);
   }
 }
-
-// Endpoint Interfaces
-
-export interface TrendsPacket {
-  trends: TrendPacket[]
-};
-
-export interface ContentPacket {
-  news: NewsPacket[];
-  tweets: TweetPacket[];
-  remaining: number;
-};
-
-export interface SpecificTrendsPacket {
-  name: string;
-  history: {
-    start: number;
-    end: number;
-    data: SpecificTrendsDataPacket[];
-  }
-};
-
-export interface SpecificContentPacket {
-  news: NewsPacket[];
-  tweets: TweetPacket[];
-  remaining: number;
-};
-
-// Interfaces used by Endpoint Interfaces
-
-export interface TrendPacket {
-  id: number;
-  name: string;
-  sentiment: number;
-}
-
-export interface SpecificTrendsDataPacket {
-  sentiment: number;
-  volume: number;
-};
-
-export interface NewsPacket {
-  title: string;
-  source: string;
-  timestamp: number; // unix
-  link: string; // url
-  media?: string; // url
-  description: string;
-};
-
-export interface TweetPacket {
-  id: string;
-};

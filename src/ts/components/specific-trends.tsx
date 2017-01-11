@@ -1,5 +1,19 @@
 import {SpecificTrendsPacket, SpecificTrendsDataPacket} from './network-bus';
 
+export interface SpecificTrendsPacket {
+  name: string;
+  history: {
+    start: number;
+    end: number;
+    data: SpecificTrendsDataPacket[];
+  }
+};
+
+export interface SpecificTrendsDataPacket {
+  sentiment: number;
+  volume: number;
+};
+
 /**
  * SpecificTrends is an implementation of the news packet received from the
  * endpoint. This class is used solely for the purpose of encapsulating the

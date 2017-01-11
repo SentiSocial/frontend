@@ -1,3 +1,5 @@
+const DEBUG = false;
+
 const networkBusDebug = {
   getTrends: {
     "trends": [
@@ -477,4 +479,4 @@ const networkBusDebug = {
   },
 };
 
-export {networkBusDebug};
+export {networkBusDebug, DEBUG};

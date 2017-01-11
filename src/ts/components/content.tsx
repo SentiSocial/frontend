@@ -1,7 +1,11 @@
-import {ContentPacket} from './network-bus';
-
 import {News} from './news';
 import {Tweet} from './tweet';
+
+export interface ContentPacket {
+  news: NewsPacket[];
+  tweets: TweetPacket[];
+  remaining: number;
+};
 
 /**
  * Content is an implementation of the content packet received from the endpoint.
