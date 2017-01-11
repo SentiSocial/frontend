@@ -62,7 +62,7 @@ export class NavigationComponent
             <div className={`navbar-collapse ${isCollapsed}`}>
               <ul className="nav navbar-nav navbar-right">
                 <li><a target="_blank" href="https://devpost.com/software/trendgator">DevPost</a></li>
-                <li><a target="_blank" href="https://github.com/omarchehab98/htv-client">GitHub</a></li>
+                <li><a target="_blank" href="https://github.com/trendgator">GitHub</a></li>
               </ul>
             </div>
           </div>

@@ -44,9 +44,9 @@ export class TrendsChart
   handleResize() {
     console.log(window.innerWidth);
     if (window.innerWidth > 992) {
-      this.barsShown = 7;
+      this.barsShown = 6;
     } else {
-      this.barsShown = 5;
+      this.barsShown = 4;
     }
   }
 
@@ -101,12 +101,13 @@ export class TrendsChart
       const trends = trendsPacket.trends
         .slice(this.state.scroll, this.state.scroll + this.barsShown);
       // find the absolute maximum sentiment
-      const absoluteMax = trends.reduce(function (absoluteMax, trend) {
+      const absoluteMax = trendsPacket.trends.reduce(function (absoluteMax, trend) {
         const sentiment = Math.abs(trend.sentiment);
         return sentiment > absoluteMax ? sentiment : absoluteMax;
       }, 0);
       // give the bars some padding to be visually pleasing
       const padding = absoluteMax * 0.3;
+      //const padding = 0;
       // set the upper and lower bound of the graph
       const upperBound = absoluteMax + padding;
       const lowerBound = -absoluteMax - padding;
@@ -168,7 +169,7 @@ export class TrendsChart
               display: false
             },
             ticks: {
-              display: true,
+              display: false,
               stepSize: upperBound,
               max: upperBound,
               min: lowerBound

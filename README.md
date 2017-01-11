@@ -15,18 +15,18 @@ Check it out at [trend-gator.com](https://trend-gator.com).
 
 Please note that this is the client repository. Are you looking for the [server](https://github.com/trendgator/trendgator-server)?
 
-To build the project locally, clone the repository, and create the folder public/css.
+To build the project
 * `npm install`
 * `npm run build`
 
-To build the Javascript alone use
+To build the Javascript
 * `npm run build-js`
 
-To build the CSS alone use
+To build the CSS
 * `npm run build-css`
 
-To automatically build when you make changes to the src folder use
+To automatically build
 * `npm run build-live`
 
-To host it locally directly from node use
+To host directly from node
 * `npm run server`
