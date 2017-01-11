@@ -1,0 +1,5 @@
+npm install
+npm run build
+sudo rm -r /var/www/html
+sudo cp public /var/www
+sudo mv /var/www/public /var/www/html
