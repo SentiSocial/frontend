@@ -15,9 +15,6 @@ import {AllTrends, AllTrendsPacket} from '../classes/alltrends';
 import {Trend, TrendPacket} from '../classes/trend';
 import {Content, ContentPacket} from '../classes/content';
 
-import {News} from '../classes/news';
-import {Tweet} from '../classes/tweet';
-
 const api = 'http://neptune.gunshippenguin.com:8080/v1';
 
 const endpoints = {
@@ -90,7 +87,6 @@ export class NetworkBus {
     name = encodeURIComponent(name);
     const endpoint = endpoints.trend(name);
     const url = `${api}${endpoint}`;
-    console.log(url);
     window['fetch'](url)
       .then(handleJSON, error => callback(error, undefined))
       .then(function(response: TrendPacket) {
