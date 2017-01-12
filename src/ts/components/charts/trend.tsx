@@ -1,16 +1,12 @@
-import * as React from "react";
-import * as Chart from "react-chartjs-2"
+import * as React from 'react';
+import * as Chart from 'react-chartjs-2'
 
-import {SpecificTrendsDataPacket} from "./network-bus";
+import {TrendHistory} from '../../classes/trend';
 
-import {moment} from './utility';
+import {moment} from '../../inc/utility';
 
 interface SpecificTrendsChartProps {
-  history: {
-    start: number;
-    end: number;
-    data: SpecificTrendsDataPacket[];
-  };
+  history: TrendHistory[];
 };
 
 /**
@@ -29,55 +25,26 @@ export class SpecificTrendsChart
     const history = this.props.history;
     var data, options;
     if (history) {
-      var interval = Math
-      .round((history.start - history.end)/ history.data.length);
-      var timeStamps = [];
-      var point = history.start;
-      var currentTime = moment(point*1000).fromNow();
-      for (let i = 0; i < history.data.length; i++){
-        if (i == 0 || i == history.data.length-1){
-          timeStamps.push(moment(point*1000).fromNow());
-        } else {
-          if (moment(point*1000).fromNow() != currentTime)
-          {
-            timeStamps.push(moment(point*1000).fromNow());
-            currentTime = moment(point*1000).fromNow();
-          } else {
-            timeStamps.push("");
-          }
-        }
-        point -= interval;
-      }
       data = {
-        labels: timeStamps,
+        labels: history.map(trend => moment(trend.timestamp * 1000).fromNow()),
         datasets: [{
           label: 'Sentiment',
           type: 'line',
-          data: history.data.map(trend => trend.sentiment),
+          data: history.map(trend => trend.sentiment),
           fill: false,
           borderWidth: 2,
           pointRadius: 4,
           borderColor: '#666',
           backgroundColor: '#666',
-          pointBorderColor: history.data
+          pointBorderColor: history
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
-          pointBackgroundColor: history.data
+          pointBackgroundColor: history
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
-          pointHoverBackgroundColor: history.data
+          pointHoverBackgroundColor: history
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
-          pointHoverBorderColor: history.data
+          pointHoverBorderColor: history
             .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
           yAxisID: 'y-axis-2'
-        }, {
-          type: 'bar',
-          label: 'Tweets',
-          data: history.data.map(trend => trend.volume),
-          fill: false,
-          backgroundColor: '#1da1f2',
-          borderColor: '#1da1f2',
-          hoverBackgroundColor: '#1da1f2',
-          hoverBorderColor: '#1da1f2',
-          yAxisID: 'y-axis-1'
         }]
       };
 

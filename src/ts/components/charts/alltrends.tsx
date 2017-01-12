@@ -1,10 +1,10 @@
-import * as React from "react";
-import * as Chart from "react-chartjs-2";
+import * as React from 'react';
+import * as Chart from 'react-chartjs-2';
 
-import {TrendsPacket} from "./network-bus";
+import {AllTrends} from '../../classes/alltrends';
 
 interface TrendsChartProps {
-  trends: TrendsPacket;
+  trends: AllTrends;
   onTrendClick: (selectedTrend) => void;
 }
 
@@ -42,7 +42,6 @@ export class TrendsChart
    * device it is.
    */
   handleResize() {
-    console.log(window.innerWidth);
     if (window.innerWidth > 992) {
       this.barsShown = 6;
     } else {
