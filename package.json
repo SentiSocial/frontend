@@ -1,6 +1,6 @@
 {
   "name": "trendgator-client",
-  "version": "1.0",
+  "version": "1.0.0",
   "description": "TrendGator - A Trend Aggregator",
   "main": "index.js",
   "dependencies": {
