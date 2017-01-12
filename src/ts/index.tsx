@@ -1,15 +1,15 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus, TrendPacket} from './network-bus';
-import {NavigationComponent} from './navigation-component';
-import {PageTrends} from './page-trends';
-import {PageSpecificTrends} from './page-specific-trends';
-import {SpecificTrendsChart} from './specific-trends-chart';
+import {NetworkBus} from './inc/network-bus';
+import {Trend} from './classes/trend';
+import {NavigationComponent} from './components/navigation';
+import {PageTrends} from './pages/alltrends';
+import {PageSpecificTrends} from './pages/trend';
 
 interface ApplicationState {
-  selectedTrend: TrendPacket;
-}
+  selectedTrend: Trend;
+};
 
 class Application extends React.Component<undefined, ApplicationState> {
   constructor(props) {
@@ -45,10 +45,9 @@ class Application extends React.Component<undefined, ApplicationState> {
     var page, title;
     if (this.state.selectedTrend) {
       // if there is a selected trend, display the specifcic trend page.
-      const id = selectedTrend.id;
       const name = selectedTrend.name;
       title = name;
-      page = <PageSpecificTrends id={id} name={name} />;
+      page = <PageSpecificTrends name={name} />;
     } else {
       // if there is no trend selected, display the home page.
       title = 'TrendGator';
