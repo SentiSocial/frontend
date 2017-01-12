@@ -1,26 +1,32 @@
+/**
+ * Promise polyfill
+ */
 import {Promise} from 'promise-polyfill';
+if (!window['Promise']) window['Promise'] = Promise;
+/**
+ * Fetch polyfill
+ */
 import 'whatwg-fetch';
 
-import {networkBusDebug, DEBUG} from './network-bus-debug';
+const DEBUG = true;
+import {networkBusDebug} from './network-bus-debug';
 
-import {Trends} from './trends';
-import {Content} from './content';
-import {SpecificTrends} from './specific-trends';
-import {SpecificContent} from './specific-content';
+import {AllTrends, AllTrendsPacket} from '../classes/alltrends';
+import {Trend, TrendPacket} from '../classes/trend';
+import {Content, ContentPacket} from '../classes/content';
 
-import {News} from './components/news';
-import {Tweet} from './components/tweet';
+import {News} from '../classes/news';
+import {Tweet} from '../classes/tweet';
 
 const api = 'http://neptune.gunshippenguin.com:8080/v1';
 
 const endpoints = {
   alltrends: () => `/alltrends`,
-  trend: name => `/trend/${name}`,
   alltrendsContent: page => `/alltrends/content?page=${page}`,
+  trend: name => `/trend/${name}`,
   trendContent: (name, page) => `/trend/${name}/content?page=${page}`
 };
 
-if (!window['Promise']) window['Promise'] = Promise;
 
 function handleJSON(response) {
    return response.json();
@@ -31,22 +37,22 @@ function handleJSON(response) {
  * @author Omar Chehab
  */
 export class NetworkBus {
-  
+
   /**
    * Requests and parses the trends from the REST API.
    * @author Omar Chehab
    */
-  static getTrends(callback: (error, response: Trends) => void) {
+  static fetchAllTrends(callback: (error, response: AllTrends) => void) {
     if (DEBUG) {
-      callback(null, networkBusDebug.getTrends);
+      callback(undefined, new AllTrends(networkBusDebug.fetchAllTrends));
       return;
     }
     const endpoint = endpoints.alltrends();
     const url = `${api}${endpoint}`;
     window['fetch'](url)
       .then(handleJSON,  error => callback(error, undefined))
-      .then(function(response) {
-        response = new Trends(response);
+      .then(function(response: AllTrendsPacket) {
+        response = new AllTrends(response);
         callback(undefined, response);
       });
   }
@@ -55,10 +61,10 @@ export class NetworkBus {
    * Requests and parses the content from the REST API.
    * @author Omar Chehab
    */
-  static getContent(callback: (error, response: Content) => void,
+  static fetchAllTrendsContent(callback: (error, response: Content) => void,
     page: number) {
       if (DEBUG) {
-        callback(null, networkBusDebug.getContent);
+        callback(undefined, new Content(networkBusDebug.fetchAllTrendsContent));
         return;
       }
     const endpoint = endpoints.alltrendsContent(page);
@@ -66,8 +72,6 @@ export class NetworkBus {
     window['fetch'](url)
       .then(handleJSON, error => callback(error, undefined))
       .then(function(response: ContentPacket) {
-        response.news = response.news.map(news => new News(news));
-        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
         response = new Content(response);
         callback(undefined, response);
       });
@@ -77,10 +81,10 @@ export class NetworkBus {
    * Requests and parses the specific trends from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificTrends(callback: (error, response: SpecificTrends) => void,
+  static fetchTrend(callback: (error, response: Trend) => void,
     name: string) {
     if (DEBUG) {
-      callback(null, networkBusDebug.getSpecificTrends);
+      callback(undefined, new Trend(networkBusDebug.fetchTrend));
       return;
     }
     name = encodeURIComponent(name);
@@ -89,8 +93,8 @@ export class NetworkBus {
     console.log(url);
     window['fetch'](url)
       .then(handleJSON, error => callback(error, undefined))
-      .then(function(response) {
-        response = new SpecificTrends(response);
+      .then(function(response: TrendPacket) {
+        response = new Trend(response);
         callback(undefined, response);
       });
   }
@@ -99,10 +103,10 @@ export class NetworkBus {
    * Requests and parses the specific content from the REST API.
    * @author Omar Chehab
    */
-  static getSpecificContent(callback: (error, response: SpecificContent) => void,
+  static fetchTrendContent(callback: (error, response: Content) => void,
     name: string, page: number) {
     if (DEBUG) {
-      callback(null, networkBusDebug.getSpecificContent);
+      callback(undefined, new Content(networkBusDebug.fetchTrendContent));
       return;
     }
     name = encodeURIComponent(name);
@@ -110,10 +114,8 @@ export class NetworkBus {
     const url = `${api}${endpoint}`;
     window['fetch'](url)
       .then(handleJSON, error => callback(error, undefined))
-      .then(function(response) {
-        response.news = response.news.map(news => new News(news));
-        response.tweets = response.tweets.map(tweet => new Tweet(tweet));
-        response = new SpecificContent(response);
+      .then(function(response: ContentPacket) {
+        response = new Content(response);
         callback(undefined, response);
       });
   }
