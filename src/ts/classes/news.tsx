@@ -33,7 +33,6 @@ export class News implements NewsPacket {
     this.title = packet.title;
     this.link = packet.link;
     this.timestamp = moment(packet.timestamp * 1000).fromNow();
-    console.log(this.timestamp);
     this.source = packet.source;
     this.media = packet.media;
     this.description = packet.description;
