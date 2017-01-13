@@ -1,6 +1,10 @@
 #!/bin/bash
+# Setup script is specific to the server this site is being deployed to.
+# It is run automatically by Omar Chehab's deployment script when a commit
+# is pushed to master.
+# https://github.com/omarchehab98/deploy
 npm install
 npm run build
-sudo rm -f -r /var/www/html
-sudo cp -r ~/trendgator-client/public /var/www
-sudo mv /var/www/public /var/www/html
+# Passwordless sudo is required.
+sudo rm -f -r /var/www/html/*
+sudo cp -r public/* /var/www/html

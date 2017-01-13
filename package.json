@@ -32,16 +32,16 @@
     "build": "npm run build-js && npm run build-css",
     "build-live": "nodemon -w src -e ts,tsx,less -x \"npm run build\"",
     "build-js": "tsc && browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
-    "build-css": "mkdir -p public/css && lessc src/less/index.less | uglifycss > public/css/bundle.css"
+    "build-css": "lessc src/less/index.less | uglifycss > public/css/bundle.css"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omarchehab98/htv-client.git"
+    "url": "git+https://github.com/trendgator/trendgator-client.git"
   },
   "author": "Omar Chehab, Dennis Tismenko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omarchehab98/htv-client/issues"
+    "url": "https://github.com/trendgator/trendgator-client/issues"
   },
-  "homepage": "https://github.com/omarchehab98/htv-client#readme"
+  "homepage": "https://github.com/trendgator/trendgator-client#readme"
 }
