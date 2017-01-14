@@ -29,10 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     switch ($branch) {
       case 'refactoring':
-        echo "sudo $bash $deploy $repository $branch 2>&1\n\n";
-        $output = array();
-        exec("sudo $bash $deploy $repository $branch 2>&1", $output);
-        file_put_contents('/var/www/ERROR_DEBUG.log', var_export($output, true));
+        exec("sudo /bin/bash -c '/home/ubuntu/deploy/deploy trendgator-client refactoring >/dev/null 2>/dev/null &'");
+        echo "sudo /bin/bash -c '/home/ubuntu/deploy/deploy trendgator-client refactoring >/dev/null 2>/dev/null &'";
         break;
     }
     die;
