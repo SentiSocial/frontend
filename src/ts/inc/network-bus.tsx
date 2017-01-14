@@ -8,7 +8,7 @@ if (!window['Promise']) window['Promise'] = Promise;
  */
 import 'whatwg-fetch';
 
-const DEBUG = true;
+const DEBUG = false;
 import {networkBusDebug} from './network-bus-debug';
 
 import {AllTrends, AllTrendsPacket} from '../classes/alltrends';

@@ -2,6 +2,8 @@
 $bash = "/bin/bash";
 // Where is your deploy script located?
 $deploy = "/home/ubuntu/deploy/deploy";
+
+$async = ">/dev/null 2>/dev/null &";
 // Get the secret token from the environment variables.
 $secret_token = getenv('WEBHOOK_SECRET_TOKEN');
 
@@ -29,8 +31,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     switch ($branch) {
       case 'refactoring':
-        exec("sudo /bin/bash -c '/home/ubuntu/deploy/deploy trendgator-client refactoring >/dev/null 2>/dev/null &'");
-        echo "sudo /bin/bash -c '/home/ubuntu/deploy/deploy trendgator-client refactoring >/dev/null 2>/dev/null &'";
+        exec("sudo $bash -c '$deploy $repository $branch $async'");
+        echo exec('whoami') . ":";
+        echo "\nsudo $bash -c '$deploy $repository $branch $async'";
         break;
     }
     die;
