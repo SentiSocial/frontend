@@ -29,12 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
     preg_match('/(?<=refs\/heads\/).+/i', $payload['ref'], $branch);
     $branch = $branch[0];
 
-    switch ($branch) {
-      case 'refactoring':
-        exec("sudo $bash -c '$deploy $repository $branch $async'");
-        echo exec('whoami') . ":";
-        echo "\nsudo $bash -c '$deploy $repository $branch $async'";
-        break;
-    }
+    exec("sudo $bash -c '$deploy $repository $branch $async'");
+    echo exec('whoami') . ":";
+    echo "\nsudo $bash -c '$deploy $repository $branch $async'";
     die;
 }
