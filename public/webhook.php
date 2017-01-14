@@ -9,9 +9,9 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $request_body = file_get_contents('php://input');
     $payload = json_decode($request_body, JSON_OBJECT_AS_ARRAY);
 
-    $generated_signature = "sha1=".hash_hmac('sha1', $request_body, $secret_token);
+    $generated_signature = hash_hmac('sha1', $request_body, $secret_token);
     $received_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
-    
+
     // Authenticating GitHub using the secret token.
     if ($received_signature != $generated_signature) die;
 
@@ -25,9 +25,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     switch ($branch) {
       case 'refactoring':
-        shell_exec("${deploy} '${repository}'");
-        echo "Deployed $branch branch!";
-	break;
+        echo passthru("${deploy} '${repository}' $branch");
+        break;
     }
     die;
 }
