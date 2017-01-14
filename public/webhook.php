@@ -1,10 +1,14 @@
 <?php
+$bash = "/bin/bash";
 // Where is your deploy script located?
-$deploy = 'bash /home/ubuntu/deploy/deploy';
+$deploy = "/home/ubuntu/deploy/deploy";
 // Get the secret token from the environment variables.
 $secret_token = getenv('WEBHOOK_SECRET_TOKEN');
 
 switch ($_SERVER['REQUEST_METHOD']) {
+  case 'GET':
+    echo 'Webhook is installed.';
+    break;
   case 'POST':
     $request_body = file_get_contents('php://input');
     $payload = json_decode($request_body, JSON_OBJECT_AS_ARRAY);
@@ -25,8 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     switch ($branch) {
       case 'refactoring':
-        echo "${deploy} '${repository}' $branch";
-        echo passthru("${deploy} '${repository}' $branch");
+        echo "$bash $deploy $repository $branch";
+        echo passthru("$bash $deploy $repository $branch");
         break;
     }
     die;
