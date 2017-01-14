@@ -24,9 +24,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
     $branch = $branch[0];
 
     switch ($branch) {
-      case 'master':
+      case 'refactoring':
         shell_exec("${deploy} '${repository}'");
         break;
     }
+    echo 'I deployed the new commits! Thanks for telling me about it. <3';
     die;
 }
