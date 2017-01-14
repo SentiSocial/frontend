@@ -29,8 +29,10 @@ switch ($_SERVER['REQUEST_METHOD']) {
 
     switch ($branch) {
       case 'refactoring':
-        echo "$bash $deploy $repository $branch";
-        echo passthru("$bash $deploy $repository $branch");
+        echo "$bash $deploy $repository $branch 2>&1\n\n";
+        $output = array();
+        exec("$bash $deploy $repository $branch 2>&1", $output);
+        print_r($output);
         break;
     }
     die;
