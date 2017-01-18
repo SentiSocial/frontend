@@ -4,8 +4,8 @@ import * as ReactDOM from 'react-dom';
 import {NetworkBus} from '../inc/network-bus';
 import {cutMerge} from '../inc/utility';
 
-import {NewsCard} from '../components/cards/news';
-import {News} from '../classes/news';
+import {ArticleCard} from '../components/cards/article';
+import {Article} from '../classes/article';
 import {TweetCard} from '../components/cards/tweet';
 import {Tweet} from '../classes/tweet';
 import {TrendHistory} from '../classes/trend';
@@ -35,9 +35,7 @@ export class PageSpecificTrends
   // keeping track which page we are on
   page;
   // keeping track of how many pieces of content per request
-  contentPerRequest;
-  // keepung track of how much content is left on the server
-  contentRemaining;
+  contentLastRequest;
 
   constructor(props) {
     super(props);
@@ -99,20 +97,18 @@ export class PageSpecificTrends
           console.error(err);
           return;
         }
-        const newNews = response.news;
+        const newArticles = response.articles;
         const newTweets = response.tweets;
-        const newRemaining = response.remaining;
-        const numberOfNewContent = newNews.length + newTweets.length;
-        this.contentRemaining = newRemaining;
+        const numberOfNewContent = newArticles.length + newTweets.length;
         this.setState(prevState => {
 
           prevState.content = prevState.content
-            .concat(cutMerge(newNews.map(news => {
-              news['type'] = 'news';
-              return news;
-            }), newTweets.map(content => {
-              content['type'] = 'tweet';
-              return content;
+            .concat(cutMerge(newArticles.map(article => {
+              article['type'] = 'article';
+              return article;
+            }), newTweets.map(tweet => {
+              tweet['type'] = 'tweet';
+              return tweet;
             })));
           // time is running out i have to bodge this till it works.
           if (page == 0) {
@@ -120,7 +116,6 @@ export class PageSpecificTrends
           }
           return {
             content: prevState.content,
-            remaining: newRemaining,
             ghostCards: 0
           };
         })
@@ -136,12 +131,12 @@ export class PageSpecificTrends
   handleScroll = event => {
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
-    const serverHasContent = this.contentRemaining > 0;
+    const serverHasContent = true;
     const noOnGoingRequest = !this.onGoingRequest;
-    const reachedEnd = scrollLeft < window.innerHeight * 2;
+    const reachedEnd = scrollLeft < window.innerHeight * 1.5;
     if (serverHasContent && noOnGoingRequest && reachedEnd) {
       this.setState(prevState => ({
-        ghostCards: this.contentRemaining % this.contentPerRequest,
+        ghostCards: 4,
       }));
       this.getPage(++this.page);
     }
@@ -159,9 +154,9 @@ export class PageSpecificTrends
           <SpecificTrendsChart history={this.state.history}/>
           <main className="card-container container">
             {this.state.content.map((content, i) => {
-              return content.type == 'news'
+              return content.type == 'article'
               // content will not reorder index key is fine
-              ? <NewsCard key={i} news={content} />
+              ? <ArticleCard key={i} article={content} />
               : <TweetCard key={i} tweet={content} />;
             })}
             {ghostCards}
@@ -170,9 +165,9 @@ export class PageSpecificTrends
       );
     } else {
       const cards = this.state.content.map((content, i) => {
-        return content.type == 'news'
+        return content.type == 'article'
         // content will not reorder index key is fine
-        ? <NewsCard key={i} news={content} />
+        ? <ArticleCard key={i} article={content} />
         : <TweetCard key={i} tweet={content} />;
       }).concat(ghostCards);
       const cards1 = cards.filter((card, i) => i % 2 == 0);

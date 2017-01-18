@@ -13,15 +13,17 @@ import {networkBusDebug} from './network-bus-debug';
 
 import {AllTrends, AllTrendsPacket} from '../classes/alltrends';
 import {Trend, TrendPacket} from '../classes/trend';
-import {Content, ContentPacket} from '../classes/content';
+import {Content, ContentPacket, TrendTweetsPacket, TrendArticlesPacket} from '../classes/content';
 
 const api = 'http://neptune.gunshippenguin.com:8080/v1';
 
 const endpoints = {
-  alltrends: () => `/alltrends`,
-  alltrendsContent: page => `/alltrends/content?page=${page}`,
-  trend: name => `/trend/${name}`,
-  trendContent: (name, page) => `/trend/${name}/content?page=${page}`
+  alltrends: () => `${api}/alltrends`,
+  alltrendsTweets: max_id => `${api}/alltrends/tweets?max_id=${max_id}`,
+  alltrendsArticles: max_id => `${api}/alltrends/articles?max_id=${max_id}`,
+  trend: name => `${api}/trend/${name}`,
+  trendTweets: (name, max_id) => `${api}/trend/${name}/tweets?max_id=${max_id}`,
+  trendArticles: (name, max_id) => `${api}/trend/${name}/articles?max_id=${max_id}`
 };
 
 
@@ -60,10 +62,10 @@ export class NetworkBus {
    */
   static fetchAllTrendsContent(callback: (error, response: Content) => void,
     page: number) {
-      if (DEBUG) {
-        callback(undefined, new Content(networkBusDebug.fetchAllTrendsContent));
-        return;
-      }
+    if (DEBUG) {
+      callback(undefined, new Content(networkBusDebug.fetchAllTrendsContent));
+      return;
+    }
     const endpoint = endpoints.alltrendsContent(page);
     const url = `${api}${endpoint}`;
     window['fetch'](url)
@@ -101,17 +103,35 @@ export class NetworkBus {
    */
   static fetchTrendContent(callback: (error, response: Content) => void,
     name: string, page: number) {
+    
+  }
+  
+  static fetchTrendTweets(callback: (error, response: TweetsPacket) => void,
+    name: string, max_id: string) {
     if (DEBUG) {
-      callback(undefined, new Content(networkBusDebug.fetchTrendContent));
+      callback(undefined, networkBusDebug.fetchTrendTweets));
       return;
     }
     name = encodeURIComponent(name);
-    const endpoint = endpoints.trendContent(name, page);
-    const url = `${api}${endpoint}`;
-    window['fetch'](url)
+    const endpoint = endpoints.trendTweets(name, max_id);
+    window['fetch'](endpoint)
       .then(handleJSON, error => callback(error, undefined))
-      .then(function(response: ContentPacket) {
-        response = new Content(response);
+      .then(function(response: TrendTweetsPacket) {
+        callback(undefined, response);
+      });
+  }
+  
+  static fetchTrendArticles(callback: (error, response: ArticlePacket) => void,
+    name: string, max_id: string) {
+    if (DEBUG) {
+      callback(undefined, networkBusDebug.fetchTrendArticles));
+      return;
+    }
+    name = encodeURIComponent(name);
+    const endpoint = endpoints.trendArticles(name, max_id);
+    window['fetch'](endpoint)
+      .then(handleJSON, error => callback(error, undefined))
+      .then(function(response: TrendArticlesPacket) {
         callback(undefined, response);
       });
   }

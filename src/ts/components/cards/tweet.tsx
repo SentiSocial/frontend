@@ -20,7 +20,7 @@ export class TweetCard extends
   render() {
     return (
       <Card>
-        <TweetEmbed id={`${this.props.tweet.id}`} />
+        <TweetEmbed id={`${this.props.tweet.embed_id}`} />
       </Card>
     );
   }

@@ -1,11 +1,14 @@
-import {News, NewsPacket} from './news';
+import {Article, ArticlePacket} from './article';
 import {Tweet, TweetPacket} from './tweet';
 
-export interface ContentPacket {
-  news: NewsPacket[];
+export interface TrendTweetsPacket {
   tweets: TweetPacket[];
-  remaining: number;
 };
+
+export interface TrendArticlesPacket {
+  articles: ArticlePacket[];
+};
+
 
 /**
  * SpecificContent is an implementation of the specific content packet received
@@ -13,17 +16,15 @@ export interface ContentPacket {
  * the operations on the data.
  * @author Omar Chehab
  */
-export class Content implements ContentPacket {
-  news: News[];
+export class Content implements TrendTweetsPacket, TrendArticlesPacket {
+  articles: Article[];
   tweets: Tweet[];
-  remaining: number;
 
   /**
    * @author Omar Chehab
    */
-  constructor(packet: ContentPacket) {
-    this.news = packet.news.map(news => new News(news));
+  constructor(packet: TrendTweetsPacket&TrendArticlesPacket) {
+    this.articles = packet.articles.map(news => new Article(article));
     this.tweets = packet.tweets.map(tweet => new Tweet(tweet));
-    this.remaining = packet.remaining;
   }
 }

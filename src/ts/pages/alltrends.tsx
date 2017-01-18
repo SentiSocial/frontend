@@ -5,10 +5,10 @@ import {NetworkBus} from '../inc/network-bus';
 import {cutMerge} from '../inc/utility';
 
 import {AllTrends, AllTrendsData} from '../classes/alltrends';
-import {News} from '../classes/news';
+import {Article} from '../classes/article';
 import {Tweet} from '../classes/tweet';
 
-import {NewsCard} from '../components/cards/news';
+import {ArticleCard} from '../components/cards/article';
 import {TweetCard} from '../components/cards/tweet';
 import {GhostCard} from '../components/cards/ghost';
 
@@ -35,9 +35,7 @@ export class PageTrends
   // keeping track which page we are on
   page;
   // keeping track of how many pieces of content per request
-  contentPerRequest;
-  // keepung track of how much content is left on the server
-  contentRemaining;
+  contentPerRequest
 
   constructor(props) {
     super(props);
@@ -99,17 +97,17 @@ export class PageTrends
           console.error(err);
           return;
         }
-        const newNews = response.news;
+        const newArticles = response.articles;
         const newTweets = response.tweets;
         const newRemaining = response.remaining;
-        const numberOfNewContent = newNews.length + newTweets.length;
+        const numberOfNewContent = newArticles.length + newTweets.length;
         this.contentRemaining = newRemaining;
         this.setState(prevState => {
 
           prevState.content = prevState.content
-            .concat(cutMerge(newNews.map(news => {
-              news['type'] = 'news';
-              return news;
+            .concat(cutMerge(newArticles.map(article => {
+              article['type'] = 'article';
+              return article;
             }), newTweets.map(content => {
               content['type'] = 'tweet';
               return content;
@@ -120,7 +118,6 @@ export class PageTrends
           }
           return {
             content: prevState.content,
-            remaining: newRemaining,
             ghostCards: 0
           };
         })
@@ -136,12 +133,12 @@ export class PageTrends
   handleScroll = event => {
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
-    const serverHasContent = this.contentRemaining > 0;
+    const serverHasContent = true;
     const noOnGoingRequest = !this.onGoingRequest;
     const reachedEnd = scrollLeft < window.innerHeight * 2;
     if (serverHasContent && noOnGoingRequest && reachedEnd) {
       this.setState(prevState => ({
-        ghostCards: this.contentRemaining % this.contentPerRequest,
+        ghostCards: 4,
       }));
       this.getPage(++this.page);
     }
@@ -150,9 +147,9 @@ export class PageTrends
   render() {
     const content = this.state.content;
     var cards = content.map((content, i) => {
-      return content.type == 'news'
+      return content.type == 'article'
       // content will not reorder index key is fine
-      ? <NewsCard key={i} news={content} />
+      ? <ArticleCard key={i} article={content} />
       : <TweetCard key={i} tweet={content} />;
     });
     var cardsComponent;

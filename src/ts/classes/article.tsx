@@ -1,9 +1,7 @@
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-
 import {moment} from '../inc/utility';
 
-export interface NewsPacket {
+export interface ArticlePacket {
+   _id: string;
    title: string;
    source: string;
    timestamp: number; // unix
@@ -18,7 +16,8 @@ export interface NewsPacket {
  * on the data.
  * @author Omar Chehab
  */
-export class News implements NewsPacket {
+export class Article implements ArticlePacket {
+  _id: string;
   title: string;
   link: string;
   timestamp: number; // unix
@@ -29,7 +28,8 @@ export class News implements NewsPacket {
   /**
    * @author Omar Chehab
    */
-  constructor(packet: NewsPacket) {
+  constructor(packet: ArticlePacket) {
+    this._id = packet._id;
     this.title = packet.title;
     this.link = packet.link;
     this.timestamp = moment(packet.timestamp * 1000).fromNow();
