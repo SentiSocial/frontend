@@ -1,5 +1,9 @@
 import {moment} from '../inc/utility';
 
+export interface ContentArticlesPacket {
+  articles: ArticlePacket[];
+}
+
 export interface ArticlePacket {
    _id: string;
    title: string;
@@ -24,6 +28,7 @@ export class Article implements ArticlePacket {
   source: string; // url
   media?: string; // url
   description: string;
+  type: string;
 
   /**
    * @author Omar Chehab
@@ -36,5 +41,6 @@ export class Article implements ArticlePacket {
     this.source = packet.source;
     this.media = packet.media;
     this.description = packet.description;
+    this.type = 'Article';
   }
 }

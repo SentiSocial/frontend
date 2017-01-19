@@ -1,3 +1,7 @@
+export interface ContentTweetsPacket {
+  tweets: TweetPacket[];
+}
+
 export interface TweetPacket {
   _id: string;
   embed_id: string;
@@ -12,6 +16,7 @@ export interface TweetPacket {
 export class Tweet implements TweetPacket {
   _id: string;
   embed_id: string;
+  type: string;
 
   /**
    * @author Omar Chehab
@@ -19,5 +24,6 @@ export class Tweet implements TweetPacket {
   constructor(packet: TweetPacket) {
     this._id = packet._id;
     this.embed_id = packet.embed_id;
+    this.type = 'Tweet';
   }
 }

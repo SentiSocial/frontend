@@ -153,9 +153,54 @@ const networkBusDebug = {
       }
     ]
   },
-  fetchAllTrendsContent: {
-    "news": [
+  fetchAllTrendsTweets: {
+    "tweets": [
       {
+        "_id": "0",
+        "embed_id": "818182430054092800"
+      },
+      {
+        "_id": "1",
+        "embed_id": "818177167209197569"
+      },
+      {
+        "_id": "2",
+        "embed_id": "818140127167795200"
+      },
+      {
+        "_id": "3",
+        "embed_id": "818168768908107778"
+      },
+      {
+        "_id": "4",
+        "embed_id": "818102490675625984"
+      },
+      {
+        "_id": "5",
+        "embed_id": "818172085667299331"
+      },
+      {
+        "_id": "6",
+        "embed_id": "818162768851456000"
+      },
+      {
+        "_id": "7",
+        "embed_id": "818180261628219392"
+      },
+      {
+        "_id": "8",
+        "embed_id": "818171718770507776"
+      },
+      {
+        "_id": "9",
+        "embed_id": "818066438997020672"
+      }
+    ]
+  },
+  fetchAllTrendsArticles: {
+    "articles": [
+      {
+        "_id": "0",
         "title": "Cal fires head coach Dykes after 4 seasons",
         "timestamp": 1483905890,
         "source": "ESPN",
@@ -164,6 +209,7 @@ const networkBusDebug = {
         "description": "Cal has fired football coach Sonny Dykes after he posted a 19-30 record with the Golden Bears over the past four seasons."
       },
       {
+        "_id": "1",
         "title": "Martin Shkreli harasses Teen Vogue writer, has Twitter account suspended",
         "timestamp": 1483905189,
         "source": "Ars Technica",
@@ -172,6 +218,7 @@ const networkBusDebug = {
         "description": "Before suspension, Shkreli describes his Duca-related posts as \"unrequited love.\""
       },
       {
+        "_id": "2",
         "title": "At least 4 Israeli soldiers killed in truck ramming attack in Jerusalem, driver shot dead",
         "timestamp": 1483879860,
         "source": "Business Insider",
@@ -180,6 +227,7 @@ const networkBusDebug = {
         "description": "A truck driven by a Palestinian rammed into pedestrians on a popular promenade in Jerusalem on Sunday. Israeli police called it a deliberate attack."
       },
       {
+        "_id": "3",
         "title": "Pittsburgh Steelers to use franchise tag on Le'Veon Bell",
         "timestamp": 1483893840,
         "source": "NFL News",
@@ -187,60 +235,7 @@ const networkBusDebug = {
         "media": "http:\/\/static.nfl.com\/static\/content\/public\/photo\/2017\/01\/08\/0ap3000000771343_thumbnail_200_150.jpg",
         "description": "Le'Veon Bell doesn't want to leave Pittsburgh. The Steelers aren't planning to let him go. NFL Network Insider Ian Rapoport reported on NFL GameDay Morning that the Steelers will franchise tag Bell."
       }
-    ],
-    "tweets": [
-      {
-        "text": "SEVENTH WOODS. BISCUITS. https:\/\/t.co\/o6nuwR4jIF",
-        "id": "818182430054092800",
-        "popularity": 218
-      },
-      {
-        "text": "Oh how I hope we get expert analysis from Jay Feely every time there is a touchback. Just because. \n#MIAvsPIT",
-        "id": "818177167209197569",
-        "popularity": 14
-      },
-      {
-        "text": "#PleaseStayOutOfMy @ObertoBeefJerky!!!",
-        "id": "818140127167795200",
-        "popularity": 13
-      },
-      {
-        "text": "I've decided to act like a kid until I have my own! Can't wait to be a mom someday! #NoKidsChallenge https:\/\/t.co\/3gcGEwJhZB",
-        "id": "818168768908107778",
-        "popularity": 16
-      },
-      {
-        "text": "Manning.\nRodgers.\nLambeau.\n\nIt's on. #NYGvsGB #NFLPlayoffs https:\/\/t.co\/AUgIuTPD0i",
-        "id": "818102490675625984",
-        "popularity": 1215
-      },
-      {
-        "text": "It's great that Phil Simms gets to watch the replay and none of us do. Good work, CBS.",
-        "id": "818172085667299331",
-        "popularity": 18
-      },
-      {
-        "text": "Matt Moore converts a 3rd-&amp;-13 with a 36-yard pass to Kenny Stills. #Dolphins at the Pitt 26.",
-        "id": "818162768851456000",
-        "popularity": 7
-      },
-      {
-        "text": "\u201cRobert Cohn was once middleweight boxing champion of Princeton. Do not  think that I am v much impressed, he was a choker.\"\n#TrumpHemingway",
-        "id": "818180261628219392",
-        "popularity": 23
-      },
-      {
-        "text": "\"Pharma bro\" Martin Shkreli suspended from Twitter after harassing woman journalist https:\/\/t.co\/80scuKl9ef https:\/\/t.co\/RdxxolWBQ5",
-        "id": "818171718770507776",
-        "popularity": 99
-      },
-      {
-        "text": "Vehicular attack in Jerusalem wounds at least 10, according to Magen David Adom of Israel's emergency services. https:\/\/t.co\/YiUepD1BLx",
-        "id": "818066438997020672",
-        "popularity": 502
-      }
-    ],
-    "remaining": 9
+    ]
   },
   fetchTrend: {
     "name": "Jerusalem",
@@ -275,9 +270,74 @@ const networkBusDebug = {
       }
     ]
   },
-  fetchTrendContent: {
-    "news": [
+  fetchTrendTweets: {
+    "tweets": [
       {
+        "_id": "0",
+        "embed_id": "818066438997020672"
+      },
+      {
+        "_id": "1",
+        "embed_id": "818100554400460800"
+      },
+      {
+        "_id": "2",
+        "embed_id": "818071378469519361"
+      },
+      {
+        "_id": "3",
+        "embed_id": "818070729505771521"
+      },
+      {
+        "_id": "4",
+        "embed_id": "818071986786144257"
+      },
+      {
+        "_id": "5",
+        "embed_id": "818067961063690240"
+      },
+      {
+        "_id": "6",
+        "embed_id": "818070785067716609"
+      },
+      {
+        "_id": "7",
+        "embed_id": "818098833099984897"
+      },
+      {
+        "_id": "8",
+        "embed_id": "817579263318720512"
+      },
+      {
+        "_id": "9",
+        "embed_id": "818099185299779585"
+      },
+      {
+        "_id": "10",
+        "embed_id": "818126973952200704"
+      },
+      {
+        "_id": "11",
+        "embed_id": "818100178494386181"
+      },
+      {
+        "_id": "12",
+        "embed_id": "818125794513944576"
+      },
+      {
+        "_id": "13",
+        "embed_id": "818176368609525763"
+      },
+      {
+        "_id": "14",
+        "embed_id": "818126844067278848"
+      }
+    ]
+  },
+  fetchTrendArticles: {
+    "articles": [
+      {
+        "_id": "0",
         "title": "Jerusalem truck attack kills four Israeli soldiers",
         "timestamp": 1483904505,
         "source": "ABC News",
@@ -286,6 +346,7 @@ const networkBusDebug = {
         "description": "Four Israeli soldiers are killed after a Palestinian deliberately rams his truck into a crowd, police say."
       },
       {
+        "_id": "1",
         "title": "Truck attack kills 4 Israeli soldiers in Jerusalem",
         "timestamp": 1483901451,
         "source": "Associated Press",
@@ -294,6 +355,7 @@ const networkBusDebug = {
         "description": "JERUSALEM (AP) \u2014 A Palestinian truck driver on Sunday rammed his vehicle into a crowd of Israeli soldiers at a popular Jerusalem tourist spot, killing four people and wounding 17 others in the deadliest single attack of\u2026"
       },
       {
+        "_id": "2",
         "title": "Jerusalem lorry attack: Four Israelis soldiers killed",
         "timestamp": 1483904848,
         "source": "BBC News",
@@ -302,6 +364,7 @@ const networkBusDebug = {
         "description": "Four Israeli officer cadets, all in their twenties, are killed by a Palestinian attacker in a lorry."
       },
       {
+        "_id": "3",
         "title": "Shocking moment Palestinian truck driver mows down Israeli soldiers",
         "timestamp": 1483900692,
         "source": "Daily Mail",
@@ -310,6 +373,7 @@ const networkBusDebug = {
         "description": "Israel's prime minister Benjamin Netanyahu says the Palestinian attacker who mowed down and killed four Israeli soldiers and wounded 15 in Jerusalem was an ISIS terrorist."
       },
       {
+        "_id": "4",
         "title": "IS blamed as lorry hits soldiers in Jerusalem",
         "timestamp": 1483875840,
         "source": "Sky News",
@@ -318,6 +382,7 @@ const networkBusDebug = {
         "description": "Israeli PM Benjamin Netanyahu says all the signs are that the driver in the deadly attack was a supporter of Islamic State."
       },
       {
+        "_id": "5",
         "title": "Four soldiers dead in Jerusalem truck attack",
         "timestamp": 1483901200,
         "source": "The Guardian (UK)",
@@ -326,6 +391,7 @@ const networkBusDebug = {
         "description": "Palestinian driver ploughs into soldiers gathered at a promenade overlooking the Old City, killing four people and injured a dozen"
       },
       {
+        "_id": "6",
         "title": "At Least 4 Dead In Jerusalem Truck-Ramming Attack",
         "timestamp": 1483902950,
         "source": "The Huffington Post",
@@ -334,6 +400,7 @@ const networkBusDebug = {
         "description": "An Israeli bus driver who witnessed the incident said on the radio the truck plowed into a group of soldiers, and that they fired on the driver, who reve..."
       },
       {
+        "_id": "7",
         "title": "Jerusalem truck attack: Suspect, 4 slain soldiers identified",
         "timestamp": 1483904585,
         "source": "CNN",
@@ -342,6 +409,7 @@ const networkBusDebug = {
         "description": "Israeli police have identified the Jerusalem attack suspect as 28-year-old Fadi Qunbar of East Jerusalem."
       },
       {
+        "_id": "8",
         "title": "At least 4 dead, scores wounded after truck attacker plows into Jerusalem crowd",
         "timestamp": 1483886369,
         "source": "CNBC",
@@ -350,6 +418,7 @@ const networkBusDebug = {
         "description": "A truck rammed into a crowd of soldiers on a popular promenade in Jerusalem Sunday, killing at least four and wounding 15, NBC News reports."
       },
       {
+        "_id": "9",
         "title": "At least 4 Israeli soldiers killed in truck ramming attack in Jerusalem, driver shot dead",
         "timestamp": 1483879860,
         "source": "Business Insider",
@@ -358,6 +427,7 @@ const networkBusDebug = {
         "description": "A truck driven by a Palestinian rammed into pedestrians on a popular promenade in Jerusalem on Sunday. Israeli police called it a deliberate attack."
       },
       {
+        "_id": "10",
         "title": "Palestinian Truck Attack Kills 4 in Jerusalem",
         "timestamp": 1483867042,
         "source": "Time",
@@ -366,6 +436,7 @@ const networkBusDebug = {
         "description": "Three women and a man were killed in the attack"
       },
       {
+        "_id": "11",
         "title": "4 killed, 17 wounded in Jerusalem truck attack",
         "timestamp": 1483860781,
         "source": "USA Today",
@@ -374,6 +445,7 @@ const networkBusDebug = {
         "description": "Truck rams into group of Israeli soldiers, killing four people and wounding 15 others, Israeli police and rescue services said."
       },
       {
+        "_id": "12",
         "title": "Four Israeli soldiers killed in truck attack in Jerusalem",
         "timestamp": 1483859460,
         "source": "The Washington Post",
@@ -382,6 +454,7 @@ const networkBusDebug = {
         "description": "Netanyahu says the Palestinian assailant was \u2018inspired\u2019 by ISIS but offers no evidence."
       },
       {
+        "_id": "13",
         "title": "At least four dead after truck rams into crowd on promenade in Jerusalem",
         "timestamp": 1483894773,
         "source": "Metro",
@@ -390,6 +463,7 @@ const networkBusDebug = {
         "description": "Warning: Contains graphic footage"
       },
       {
+        "_id": "14",
         "title": "At least four dead in Palestinian truck attack in Jerusalem",
         "timestamp": 1483903984,
         "source": "Reuters",
@@ -398,6 +472,7 @@ const networkBusDebug = {
         "description": "A Palestinian rammed his truck into a group of Israeli soldiers on a popular promenade in Jerusalem on Sunday, killing four of them in an attack that Prime Minister Benjamin Netanyahu said is likely to have been inspired by Islamic State."
       },
       {
+        "_id": "15",
         "title": "Jerusalem truck attack: Suspect, 4 slain soldiers identified",
         "timestamp": 1483904585,
         "source": "Google News",
@@ -406,6 +481,7 @@ const networkBusDebug = {
         "description": "Israeli police have identified the Jerusalem attack suspect as 28-year-old Fadi Qunbar of East Jerusalem."
       },
       {
+        "_id": "16",
         "title": "At least 4 Israeli soldiers killed in truck ramming attack in Jerusalem, driver shot dead",
         "timestamp": 1483879860,
         "source": "Business Insider (UK)",
@@ -414,6 +490,7 @@ const networkBusDebug = {
         "description": "A truck driven by a Palestinian rammed into pedestrians on a popular promenade in Jerusalem on Sunday. Israeli police called it a deliberate attack."
       },
       {
+        "_id": "17",
         "title": "Four soldiers dead in Jerusalem truck attack",
         "timestamp": 1483901200,
         "source": "The Guardian (AU)",
@@ -421,55 +498,7 @@ const networkBusDebug = {
         "media": "https:\/\/i.guim.co.uk\/img\/media\/03861794d99feb12e20c7da3d47e7cdea91b13d8\/0_333_5184_3110\/master\/5184.jpg?w=1200&h=630&q=55&auto=format&usm=12&fit=crop&crop=faces%2Centropy&bm=normal&ba=bottom%2Cleft&blend64=aHR0cHM6Ly91cGxvYWRzLmd1aW0uY28udWsvMjAxNi8wNS8yNS9vdmVybGF5LWxvZ28tMTIwMC05MF9vcHQucG5n&s=8f6ac09ea29f14daa0e8fbc6affe87be",
         "description": "Palestinian driver ploughs into soldiers gathered at a promenade overlooking the Old City, killing four people and injured a dozen"
       }
-    ],
-    "tweets": [
-      {
-        "id": "818066438997020672"
-      },
-      {
-        "id": "818100554400460800"
-      },
-      {
-        "id": "818071378469519361"
-      },
-      {
-        "id": "818070729505771521"
-      },
-      {
-        "id": "818071986786144257"
-      },
-      {
-        "id": "818067961063690240"
-      },
-      {
-        "id": "818070785067716609"
-      },
-      {
-        "id": "818098833099984897"
-      },
-      {
-        "id": "817579263318720512"
-      },
-      {
-        "id": "818099185299779585"
-      },
-      {
-        "id": "818126973952200704"
-      },
-      {
-        "id": "818100178494386181"
-      },
-      {
-        "id": "818125794513944576"
-      },
-      {
-        "id": "818176368609525763"
-      },
-      {
-        "id": "818126844067278848"
-      }
-    ],
-    "remaining": 9
+    ]
   },
 };
 

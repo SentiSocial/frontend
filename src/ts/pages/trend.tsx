@@ -30,22 +30,19 @@ interface PageSpecificTrendsState {
  */
 export class PageSpecificTrends
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
-  // keeping track if there is a pagination request going on.
-  onGoingRequest;
-  // keeping track which page we are on
-  page;
-  // keeping track of how many pieces of content per request
-  contentLastRequest;
+  tweets_max_id;
+  articles_max_id;
+  networkState;
 
   constructor(props) {
     super(props);
+    this.networkState = 'idle';
+
     this.state = {
       history: undefined,
       content: [],
       ghostCards: 4,
     };
-    this.onGoingRequest = false;
-    this.page = 0;
   }
 
   /**
@@ -66,7 +63,7 @@ export class PageSpecificTrends
       });
     }, this.props.name);
 
-    this.getPage(0);
+    this.getContent();
   }
 
   /**
@@ -87,40 +84,75 @@ export class PageSpecificTrends
 
   /**
    * Gets news and tweets from the server
-   * @param {number}  page  pagination page number
    * @author Omar Chehab
    */
-  getPage(page) {
-    this.onGoingRequest = true;
-    NetworkBus.fetchTrendContent((err, response) => {
-        if (err) {
-          console.error(err);
-          return;
-        }
-        const newArticles = response.articles;
-        const newTweets = response.tweets;
-        const numberOfNewContent = newArticles.length + newTweets.length;
-        this.setState(prevState => {
+  getContent() {
+    var tweetsResponse;
+    var articlesResponse;
 
-          prevState.content = prevState.content
-            .concat(cutMerge(newArticles.map(article => {
-              article['type'] = 'article';
-              return article;
-            }), newTweets.map(tweet => {
-              tweet['type'] = 'tweet';
-              return tweet;
-            })));
-          // time is running out i have to bodge this till it works.
-          if (page == 0) {
-            this.contentPerRequest = prevState.content.length;
-          }
-          return {
-            content: prevState.content,
-            ghostCards: 0
-          };
-        })
-        this.onGoingRequest = false;
-    }, this.props.name, page);
+    this.networkState = 'fetching';
+
+    const handleResponse = (err, response) => {
+      if (err) {
+        console.error(err);
+        return;
+      }
+
+      if (!tweetsResponse || !articlesResponse) {
+        return;
+      }
+
+      this.networkState = 'rendering';
+
+      const tweets = tweetsResponse;
+      if (tweets.length) {
+        this.tweets_max_id = tweets[tweets.length - 1]._id;
+      } else {
+        this.tweets_max_id = null;
+      }
+
+      const articles = articlesResponse;
+      if (articles.length) {
+        this.articles_max_id = articles[articles.length - 1]._id;
+      } else {
+        this.articles_max_id = null;
+      }
+
+      const content = cutMerge(tweets, articles);
+
+      this.setState(prev => ({
+        content: prev.content.concat(content),
+        ghostCards: 0
+      }));
+    };
+
+    if (this.tweets_max_id !== null) {
+      NetworkBus.fetchTrendTweets((err, response) => {
+          tweetsResponse = response.tweets.map(tweet => {
+            return new Tweet(tweet);
+          });;
+          handleResponse(err, response);
+        },
+        this.props.name,
+        this.tweets_max_id
+      );
+    } else {
+      tweetsResponse = [];
+    }
+
+    if (this.articles_max_id !== null) {
+      NetworkBus.fetchTrendArticles((err, response) => {
+          articlesResponse = response.articles.map(article => {
+            return new Article(article);
+          });
+          handleResponse(err, response);
+        },
+        this.props.name,
+        this.articles_max_id
+      );
+    } else {
+      articlesResponse = [];
+    }
   }
 
   /**
@@ -129,32 +161,37 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   handleScroll = event => {
+    const networkIsIdle = this.networkState == 'idle';
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
-    const serverHasContent = true;
-    const noOnGoingRequest = !this.onGoingRequest;
     const reachedEnd = scrollLeft < window.innerHeight * 1.5;
-    if (serverHasContent && noOnGoingRequest && reachedEnd) {
+    if (networkIsIdle && reachedEnd) {
       this.setState(prevState => ({
         ghostCards: 4,
       }));
-      this.getPage(++this.page);
+      this.getContent();
     }
   }
 
   render() {
+    if (this.networkState == 'rendering') {
+      this.networkState = 'idle';
+    }
+
+    const content = this.state.content;
     const ghostCards = [];
     for (let i = 0; i < this.state.ghostCards; i++) {
       // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={i} />);
+      ghostCards.push(<GhostCard key={content.length + i} />);
     }
+
     if (window.innerWidth < 992) {
       return (
         <div>
           <SpecificTrendsChart history={this.state.history}/>
           <main className="card-container container">
-            {this.state.content.map((content, i) => {
-              return content.type == 'article'
+            {content.map((content, i) => {
+              return content.type == 'Article'
               // content will not reorder index key is fine
               ? <ArticleCard key={i} article={content} />
               : <TweetCard key={i} tweet={content} />;
@@ -164,8 +201,8 @@ export class PageSpecificTrends
         </div>
       );
     } else {
-      const cards = this.state.content.map((content, i) => {
-        return content.type == 'article'
+      const cards = content.map((content, i) => {
+        return content.type == 'Article'
         // content will not reorder index key is fine
         ? <ArticleCard key={i} article={content} />
         : <TweetCard key={i} tweet={content} />;
