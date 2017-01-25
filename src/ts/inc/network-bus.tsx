@@ -20,22 +20,16 @@ const api = 'http://neptune.gunshippenguin.com:8080/v1';
 
 const endpoints = {
   alltrends: () => `${api}/alltrends`,
-  alltrendsTweets: (max_id) => {
-    max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    return `${api}/alltrends/tweets${max_id}`;
-  },
-  alltrendsArticles: (max_id) => {
-    max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    return `${api}/alltrends/articles${max_id}`;
-  },
   trend: (name) => `${api}/trend/${name}`,
-  trendTweets: (name, max_id) => {
+  trendTweets: (name, max_id?, limit) => {
     max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    return `${api}/trend/${name}/tweets${max_id}`;
+    limit = (max_id == undefined ? '?' : '&') + `limit=${limit}`;
+    return `${api}/trend/${name}/tweets${max_id}${limit}`;
   },
-  trendArticles: (name, max_id) => {
+  trendArticles: (name, max_id?, limit) => {
     max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    return `${api}/trend/${name}/articles${max_id}`;
+    limit = (max_id == undefined ? '?' : '&') + `limit=${limit}`;
+    return `${api}/trend/${name}/articles${max_id}${limit}`;
   }
 };
 
@@ -70,44 +64,6 @@ export class NetworkBus {
   }
 
   /**
-   * Requests and parses the content from the REST API.
-   * @author Omar Chehab
-   */
-  static fetchAllTrendsTweets(callback: (error, response: ContentTweetsPacket) => void,
-    max_id?: string) {
-    const endpoint = endpoints.alltrendsTweets(max_id);
-    console.log(endpoint);
-    if (DEBUG) {
-      callback(undefined, networkBusDebug.fetchAllTrendsTweets);
-      return;
-    }
-    window['fetch'](endpoint)
-      .then(handleJSON, error => callback(error, undefined))
-      .then(function(response: ContentTweetsPacket) {
-        callback(undefined, response);
-      });
-  }
-
-  /**
-   * Requests and parses the content from the REST API.
-   * @author Omar Chehab
-   */
-  static fetchAllTrendsArticles(callback: (error, response: ContentArticlesPacket) => void,
-    max_id?: string) {
-    const endpoint = endpoints.alltrendsArticles(max_id);
-    console.log(endpoint);
-    if (DEBUG) {
-      callback(undefined, networkBusDebug.fetchAllTrendsArticles);
-      return;
-    }
-    window['fetch'](endpoint)
-      .then(handleJSON, error => callback(error, undefined))
-      .then(function(response: ContentArticlesPacket) {
-        callback(undefined, response);
-      });
-  }
-
-  /**
    * Requests and parses the specific trends from the REST API.
    * @author Omar Chehab
    */
@@ -129,9 +85,9 @@ export class NetworkBus {
   }
 
   static fetchTrendTweets(callback: (error, response: ContentTweetsPacket) => void,
-    name: string, max_id?: string) {
+    name: string, max_id?: string, limit: number) {
     name = encodeURIComponent(name);
-    const endpoint = endpoints.trendTweets(name, max_id);
+    const endpoint = endpoints.trendTweets(name, max_id, limit);
     console.log(endpoint);
     if (DEBUG) {
       callback(undefined, networkBusDebug.fetchTrendTweets);
@@ -145,9 +101,9 @@ export class NetworkBus {
   }
 
   static fetchTrendArticles(callback: (error, response: ContentArticlesPacket) => void,
-    name: string, max_id?: string) {
+    name: string, max_id?: string, limit: number) {
     name = encodeURIComponent(name);
-    const endpoint = endpoints.trendArticles(name, max_id);
+    const endpoint = endpoints.trendArticles(name, max_id, limit);
     console.log(endpoint);
     if (DEBUG) {
       callback(undefined, networkBusDebug.fetchTrendArticles);

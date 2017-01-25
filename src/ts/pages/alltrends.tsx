@@ -30,13 +30,16 @@ interface PageTrendsState {
  */
 export class PageTrends
   extends React.Component<PageTrendsProps, PageTrendsState> {
-  tweets_max_id;
-  articles_max_id;
-  networkState;
-
+  trendsMeta;
+  trendsMetaIndex;
+  prevRequestTime;
+  
   constructor(props) {
     super(props);
-
+    this.trendsMeta = [];
+    this.trendsMetaIndex = 0;
+    this.prevRequestTime = 0;
+    
     this.state = {
       trends: undefined,
       content: [],
@@ -59,10 +62,17 @@ export class PageTrends
       const trends = response;
       this.setState({
         trends: trends,
-      })
+      });
+      
+      trends.forEach(trend => {
+        this.trendsMeta.push({
+          name: trend.name,
+          tweets_max_id: undefined,
+          articles_max_id: undefined,
+        });
+      });
+      this.getContent();
     });
-
-    this.getContent();
   }
 
   /**
@@ -70,7 +80,7 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentDidMount() {
-      window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener("scroll", this.handleScroll);
   }
 
   /**
@@ -78,7 +88,7 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentWillUnmount() {
-      window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener("scroll", this.handleScroll);
   }
 
 
@@ -87,68 +97,43 @@ export class PageTrends
    * @author Omar Chehab
    */
   getContent() {
-    var tweetsResponse;
-    var articlesResponse;
-
-    this.networkState = 'fetching';
-
-    const handleResponse = (err, response) => {
-      if (err) {
-        console.error(err);
-        return;
+    this.prevRequestTime = Date.now();
+    var trends = this.state.trends;
+    var nOfTrends = trends.length;
+    var index = this.trendsMetaIndex;
+    var content = [];
+    var moreContent = index < nOfTrends;
+    var requests = [];
+    while (moreContent) {
+      if (trendsMeta[index].articles_max_id !== null) {
+        let i = index * 2;
+        requests[i] = false;
+        NetworkBus.fetchTrendArticles((error, response) => {
+          requests[i] = response.articles;
+          if (requests.indexOf() == i) {
+             content = content.concat(requests[i]);
+             delete requests[i];
+             let next = i + 1;
+             while (requests[next]) {
+               content = content.concat(response.articles
+               next += 1;
+             }
+          }
+        }, trends[index].name, trendsMeta[index].articles_max_id, 2);
       }
-
-      if (!tweetsResponse || !articlesResponse) {
-        return;
+      if (trendsMeta[index].tweets_max_id !== null) {
+        let i = index * 2 + 1;
+        requests[i] = false;
+        NetworkBus.fetchTrendTweets((error, response) => {
+          i
+        }, trends[index].name, trendsMeta[index].tweets_max_id, 3);
       }
-
-      this.networkState = 'rendering';
-      const tweets = tweetsResponse;
-      if (tweets.length) {
-        this.tweets_max_id = tweets[tweets.length - 1]._id;
+      index += 1;
+      if (index >= nOfTrends) {
+        moreContent = false;
       } else {
-        this.tweets_max_id = null;
+        moreContent = index - this.trendsMetaIndex < 3;
       }
-
-      const articles = articlesResponse;
-      if (articles.length) {
-        this.articles_max_id = articles[articles.length - 1]._id;
-      } else {
-        this.articles_max_id = null;
-      }
-
-      const content = cutMerge(tweets, articles);
-
-      this.setState(prev => ({
-        content: prev.content.concat(content),
-        ghostCards: 0
-      }));
-    };
-
-    if (this.tweets_max_id !== null) {
-      NetworkBus.fetchAllTrendsTweets((err, response) => {
-          tweetsResponse = response.tweets.map(tweet => {
-            return new Tweet(tweet);
-          });;
-          handleResponse(err, response);
-        },
-        this.tweets_max_id
-      );
-    } else {
-      tweetsResponse = [];
-    }
-
-    if (this.articles_max_id !== null) {
-      NetworkBus.fetchAllTrendsArticles((err, response) => {
-          articlesResponse = response.articles.map(article => {
-            return new Article(article);
-          });
-          handleResponse(err, response);
-        },
-        this.articles_max_id
-      );
-    } else {
-      articlesResponse = [];
     }
   }
 
@@ -158,7 +143,6 @@ export class PageTrends
    * @author Omar Chehab
    */
   handleScroll = event => {
-    const networkIsIdle = this.networkState == 'idle';
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
     const reachedEnd = scrollLeft < window.innerHeight * 1.5;
@@ -166,15 +150,13 @@ export class PageTrends
       this.setState(prevState => ({
         ghostCards: 4,
       }));
-      this.getContent();
+      if (Date.now() > this.prevRequestTime + 3000) {
+        this.getContent();
+      }
     }
   }
 
   render() {
-    if (this.networkState == 'rendering') {
-      this.networkState = 'idle';
-    }
-
     const content = this.state.content;
     var cards = content.map((content, i) => {
       return content.type == 'Article'
