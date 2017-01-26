@@ -19,7 +19,7 @@ interface PageTrendsProps {
 }
 
 interface PageTrendsState {
-  trends?: AllTrends;
+  trendsPacket?: AllTrends;
   content?: any[];
   ghostCards?: number;
 };
@@ -33,15 +33,15 @@ export class PageTrends
   trendsMeta;
   trendsMetaIndex;
   prevRequestTime;
-  
+
   constructor(props) {
     super(props);
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
     this.prevRequestTime = 0;
-    
+
     this.state = {
-      trends: undefined,
+      trendsPacket: undefined,
       content: [],
       ghostCards: 4,
     };
@@ -59,12 +59,13 @@ export class PageTrends
         console.error(err);
         return;
       }
-      const trends = response;
-      this.setState({
-        trends: trends,
-      });
+      const trendsPacket = response;
       
-      trends.forEach(trend => {
+      this.setState({
+        trendsPacket: trendsPacket,
+      });
+
+      trendsPacket.trends.forEach(trend => {
         this.trendsMeta.push({
           name: trend.name,
           tweets_max_id: undefined,
@@ -98,43 +99,7 @@ export class PageTrends
    */
   getContent() {
     this.prevRequestTime = Date.now();
-    var trends = this.state.trends;
-    var nOfTrends = trends.length;
-    var index = this.trendsMetaIndex;
-    var content = [];
-    var moreContent = index < nOfTrends;
-    var requests = [];
-    while (moreContent) {
-      if (trendsMeta[index].articles_max_id !== null) {
-        let i = index * 2;
-        requests[i] = false;
-        NetworkBus.fetchTrendArticles((error, response) => {
-          requests[i] = response.articles;
-          if (requests.indexOf() == i) {
-             content = content.concat(requests[i]);
-             delete requests[i];
-             let next = i + 1;
-             while (requests[next]) {
-               content = content.concat(response.articles
-               next += 1;
-             }
-          }
-        }, trends[index].name, trendsMeta[index].articles_max_id, 2);
-      }
-      if (trendsMeta[index].tweets_max_id !== null) {
-        let i = index * 2 + 1;
-        requests[i] = false;
-        NetworkBus.fetchTrendTweets((error, response) => {
-          i
-        }, trends[index].name, trendsMeta[index].tweets_max_id, 3);
-      }
-      index += 1;
-      if (index >= nOfTrends) {
-        moreContent = false;
-      } else {
-        moreContent = index - this.trendsMetaIndex < 3;
-      }
-    }
+    const trends = this.state.trendsPacket;
   }
 
   /**
@@ -146,13 +111,12 @@ export class PageTrends
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
     const reachedEnd = scrollLeft < window.innerHeight * 1.5;
-    if (networkIsIdle && reachedEnd) {
+    const waited = Date.now() > this.prevRequestTime + 3000;
+    if (waited && reachedEnd) {
       this.setState(prevState => ({
         ghostCards: 4,
       }));
-      if (Date.now() > this.prevRequestTime + 3000) {
-        this.getContent();
-      }
+      this.getContent();
     }
   }
 
@@ -194,7 +158,7 @@ export class PageTrends
     }
     return (
       <div>
-        <TrendsChart trends={this.state.trends}
+        <TrendsChart trends={this.state.trendsPacket}
           onTrendClick={this.props.onTrendClick}
         />
         {cardsComponent}
