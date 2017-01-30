@@ -3,7 +3,7 @@ import * as Chart from 'react-chartjs-2'
 
 import {TrendHistory} from '../../classes/trend';
 
-import {moment} from '../../inc/utility';
+import {moment} from '../../classes/helpers';
 
 interface SpecificTrendsChartProps {
   history: TrendHistory[];

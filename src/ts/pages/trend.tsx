@@ -1,8 +1,9 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus} from '../inc/network-bus';
-import {cutMerge} from '../inc/utility';
+import {NetworkBus} from '../classes/networkbus';
+import {cutMerge} from '../classes/helpers';
+import {InfiniteScroll} from '../classes/infinitescroll';
 
 import {ArticleCard} from '../components/cards/article';
 import {Article} from '../classes/article';
@@ -32,11 +33,13 @@ export class PageSpecificTrends
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
   tweets_max_id;
   articles_max_id;
-  networkState;
+  infiniteScroll;
 
   constructor(props) {
     super(props);
-    this.networkState = 'idle';
+    this.tweets_max_id = undefined;
+    this.articles_max_id = undefined;
+    this.infiniteScroll = new InfiniteScroll(this.getContent);
 
     this.state = {
       history: undefined,
@@ -71,7 +74,7 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   componentDidMount() {
-      window.addEventListener("scroll", this.handleScroll);
+      this.infiniteScroll.mount();
   }
 
   /**
@@ -79,7 +82,7 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   componentWillUnmount() {
-      window.removeEventListener("scroll", this.handleScroll);
+      this.infiniteScroll.unmount();
   }
 
   /**
@@ -87,141 +90,110 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   getContent() {
-    var tweetsResponse;
-    var articlesResponse;
+    var content = [];
+    var responseCounter = 0;
 
-    this.networkState = 'fetching';
-
-    const handleResponse = (err, response) => {
-      if (err) {
-        console.error(err);
+    const handleResponse = () => {
+      if (responseCounter < 2) {
         return;
       }
 
-      if (!tweetsResponse || !articlesResponse) {
-        return;
-      }
-
-      this.networkState = 'rendering';
-
-      const tweets = tweetsResponse;
-      if (tweets.length) {
-        this.tweets_max_id = tweets[tweets.length - 1]._id;
-      } else {
-        this.tweets_max_id = null;
-      }
-
-      const articles = articlesResponse;
-      if (articles.length) {
-        this.articles_max_id = articles[articles.length - 1]._id;
-      } else {
-        this.articles_max_id = null;
-      }
-
-      const content = cutMerge(tweets, articles);
-
-      this.setState(prev => ({
-        content: prev.content.concat(content),
-        ghostCards: 0
+      content = cutMerge(content[0], content[1]);
+      this.setState(prevState => ({
+        content: prevState.content.concat(content)
       }));
     };
 
     if (this.tweets_max_id !== null) {
-      NetworkBus.fetchTrendTweets((err, response) => {
-          tweetsResponse = response.tweets.map(tweet => {
-            return new Tweet(tweet);
-          });;
-          handleResponse(err, response);
-        },
-        this.props.name,
-        this.tweets_max_id
-      );
-    } else {
-      tweetsResponse = [];
+      NetworkBus.fetchTrendTweets((err, tweets) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
+
+        responseCounter += 1;
+        if (!tweets.length) {
+          this.tweets_max_id = null;
+          return;
+        }
+
+        content.push(tweets);
+        this.tweets_max_id = tweets[tweets.length - 1]._id;
+
+        handleResponse();
+      }, this.props.name, this.tweets_max_id, 10);
     }
 
     if (this.articles_max_id !== null) {
-      NetworkBus.fetchTrendArticles((err, response) => {
-          articlesResponse = response.articles.map(article => {
-            return new Article(article);
-          });
-          handleResponse(err, response);
-        },
-        this.props.name,
-        this.articles_max_id
-      );
-    } else {
-      articlesResponse = [];
-    }
-  }
+      NetworkBus.fetchTrendArticles((err, articles) => {
+        if (err) {
+          console.error(err);
+          return;
+        }
 
-  /**
-   * When the news and tweet container is scrolled, monitor it so you can load
-   * more content.
-   * @author Omar Chehab
-   */
-  handleScroll = event => {
-    const networkIsIdle = this.networkState == 'idle';
-    // how many pixels can the user scroll?
-    const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
-    const reachedEnd = scrollLeft < window.innerHeight * 1.5;
-    if (networkIsIdle && reachedEnd) {
-      this.setState(prevState => ({
-        ghostCards: 4,
-      }));
-      this.getContent();
+        responseCounter += 1;
+        if (!articles.length) {
+          this.articles_max_id = null;
+          return;
+        }
+
+        content.push(articles);
+        this.articles_max_id = articles[articles.length - 1]._id;
+
+        handleResponse();
+      },
+      this.props.name, this.articles_max_id, 10 );
+    }
+
+    const moreContent = this.tweets_max_id !== null && this.articles_max_id !== null;
+    if (!moreContent) {
+      this.setState({
+        ghostCards: 0
+      });
     }
   }
 
   render() {
-    if (this.networkState == 'rendering') {
-      this.networkState = 'idle';
-    }
-
     const content = this.state.content;
+    var cards = content.map((content, i) => {
+      return content.type == 'Article'
+      // content will not reorder index key is fine
+      ? <ArticleCard key={i} article={content} />
+      : <TweetCard key={i} tweet={content} />;
+    });
+
     const ghostCards = [];
     for (let i = 0; i < this.state.ghostCards; i++) {
       // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={content.length + i} />);
+      ghostCards.push(<GhostCard key={`GC${i}`} />);
     }
 
-    if (window.innerWidth < 992) {
-      return (
-        <div>
-          <SpecificTrendsChart history={this.state.history}/>
-          <main className="card-container container">
-            {content.map((content, i) => {
-              return content.type == 'Article'
-              // content will not reorder index key is fine
-              ? <ArticleCard key={i} article={content} />
-              : <TweetCard key={i} tweet={content} />;
-            })}
-            {ghostCards}
-          </main>
+    cards = cards.concat(ghostCards)
+
+    var cardsComponent;
+    if (window.innerWidth < 768) {
+      cardsComponent = (
+        <div className="col-xs-12">
+          {cards}
         </div>
       );
     } else {
-      const cards = content.map((content, i) => {
-        return content.type == 'Article'
-        // content will not reorder index key is fine
-        ? <ArticleCard key={i} article={content} />
-        : <TweetCard key={i} tweet={content} />;
-      }).concat(ghostCards);
-      const cards1 = cards.filter((card, i) => i % 2 == 0);
-      const cards2 = cards.filter((card, i) => i % 2 == 1);
-      return (
-        <div>
-          <SpecificTrendsChart history={this.state.history}/>
-          <main className="card-container container">
-            <div className="col-md-6">
-              {cards1}
-            </div>
-            <div className="col-md-6">
-              {cards2}
-            </div>
-          </main>
+      cardsComponent = [
+        <div className="col-sm-6">
+          {cards.filter((card, i) => i % 2 == 0)}
+        </div>,
+        <div className="col-sm-6">
+          {cards.filter((card, i) => i % 2 == 1)}
         </div>
-      );
+      ];
     }
+    return (
+      <div>
+        <SpecificTrendsChart history={this.state.history}/>
+        <main className="card-container container">
+          {cardsComponent}
+        </main>
+      </div>
+    );
   }
 }

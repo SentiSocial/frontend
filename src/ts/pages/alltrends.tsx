@@ -1,8 +1,10 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus} from '../inc/network-bus';
-import {cutMerge} from '../inc/utility';
+import {NetworkBus} from '../classes/networkbus';
+import {cutMerge} from '../classes/helpers';
+import {RequestChain} from '../classes/requestchain';
+import {InfiniteScroll} from '../classes/infinitescroll';
 
 import {AllTrends, AllTrendsData} from '../classes/alltrends';
 import {Article} from '../classes/article';
@@ -32,13 +34,13 @@ export class PageTrends
   extends React.Component<PageTrendsProps, PageTrendsState> {
   trendsMeta;
   trendsMetaIndex;
-  prevRequestTime;
+  infiniteScroll;
 
   constructor(props) {
     super(props);
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
-    this.prevRequestTime = 0;
+    this.infiniteScroll = new InfiniteScroll(this.getContent);
 
     this.state = {
       trendsPacket: undefined,
@@ -60,7 +62,7 @@ export class PageTrends
         return;
       }
       const trendsPacket = response;
-      
+
       this.setState({
         trendsPacket: trendsPacket,
       });
@@ -72,6 +74,7 @@ export class PageTrends
           articles_max_id: undefined,
         });
       });
+
       this.getContent();
     });
   }
@@ -81,7 +84,7 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentDidMount() {
-    window.addEventListener("scroll", this.handleScroll);
+    this.infiniteScroll.mount();
   }
 
   /**
@@ -89,7 +92,7 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentWillUnmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    this.infiniteScroll.unmount();
   }
 
 
@@ -98,25 +101,82 @@ export class PageTrends
    * @author Omar Chehab
    */
   getContent() {
-    this.prevRequestTime = Date.now();
-    const trends = this.state.trendsPacket;
-  }
+    const trends = this.trendsMeta;
 
-  /**
-   * When the news and tweet container is scrolled, monitor it so you can load
-   * more content.
-   * @author Omar Chehab
-   */
-  handleScroll = event => {
-    // how many pixels can the user scroll?
-    const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
-    const reachedEnd = scrollLeft < window.innerHeight * 1.5;
-    const waited = Date.now() > this.prevRequestTime + 3000;
-    if (waited && reachedEnd) {
-      this.setState(prevState => ({
-        ghostCards: 4,
-      }));
-      this.getContent();
+    var chain = new RequestChain();
+
+    var end = this.trendsMetaIndex + 3;
+    while (this.trendsMetaIndex < end && this.trendsMetaIndex < this.trendsMeta.length) {
+      this.trendsMetaIndex += 1;
+      const trend = trends[this.trendsMetaIndex];
+      let content = [];
+      let responseCounter = 0;
+
+      const handleResponse = () => {
+        if (responseCounter < 2) {
+          return;
+        }
+
+        content = cutMerge(content[0], content[1]);
+        this.setState(prevState => ({
+          content: prevState.content.concat(content)
+        }));
+      }
+
+      if (trend.tweets_max_id !== null) {
+        let tweetChainId = chain.register((error, tweets) => {
+          if (error) {
+            console.error(error);
+            return;
+          }
+
+          responseCounter += 1;
+          if (!tweets.length) {
+            trend.tweets_max_id = null;
+            return;
+          }
+
+          content.push(tweets);
+          trend.tweets_max_id = tweets[tweets.length - 1]._id;
+
+          handleResponse();
+        });
+        NetworkBus.fetchTrendTweets((error, response) => {
+          chain.response(tweetChainId, [error, response]);
+        }, trend.name, trend.tweets_max_id, 3);
+      }
+
+
+      if (trend.tweets_max_id !== null) {
+        let articleChainId = chain.register((error, articles) => {
+          if (error) {
+            console.error(error);
+            return;
+          }
+
+          responseCounter += 1;
+          if (!articles.length) {
+            trend.articles_max_id = null;
+            return;
+          }
+
+          content.push(articles);
+          trend.articles_max_id = articles[articles.length - 1]._id;
+
+          handleResponse();
+        });
+
+        NetworkBus.fetchTrendArticles((error, response) => {
+          chain.response(articleChainId, [error, response]);
+        }, trend.name, trend.articles_max_id, 3);
+      }
+    }
+
+    const moreContent = this.trendsMetaIndex < this.trendsMeta.length;
+    if (!moreContent) {
+      this.setState({
+        ghostCards: 0,
+      });
     }
   }
 
@@ -132,36 +192,36 @@ export class PageTrends
     const ghostCards = [];
     for (let i = 0; i < this.state.ghostCards; i++) {
       // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={content.length + i} />);
+      ghostCards.push(<GhostCard key={`GC${i}`} />);
     }
 
     cards = cards.concat(ghostCards)
 
     var cardsComponent;
-    if (window.innerWidth >= 992) {
+    if (window.innerWidth < 768) {
       cardsComponent = (
-        <main className="card-container container">
-          <div className="col-md-6">
-            {cards.filter((card, i) => i % 2 == 0)}
-          </div>
-          <div className="col-md-6">
-            {cards.filter((card, i) => i % 2 == 1)}
-          </div>
-        </main>
+        <div className="col-xs-12">
+          {cards}
+        </div>
       );
     } else {
-      cardsComponent = (
-        <main className="card-container container">
-          {cards}
-        </main>
-      );
+      cardsComponent = [
+        <div className="col-sm-6">
+          {cards.filter((card, i) => i % 2 == 0)}
+        </div>,
+        <div className="col-sm-6">
+          {cards.filter((card, i) => i % 2 == 1)}
+        </div>
+      ];
     }
+
     return (
       <div>
         <TrendsChart trends={this.state.trendsPacket}
-          onTrendClick={this.props.onTrendClick}
-        />
-        {cardsComponent}
+          onTrendClick={this.props.onTrendClick}/>
+        <main className="card-container container">
+          {cardsComponent}
+        </main>
       </div>
     );
   }

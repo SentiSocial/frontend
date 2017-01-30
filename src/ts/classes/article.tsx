@@ -1,4 +1,4 @@
-import {moment} from '../inc/utility';
+import {moment} from '../classes/helpers';
 
 export interface ContentArticlesPacket {
   articles: ArticlePacket[];

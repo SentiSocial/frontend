@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus} from './inc/network-bus';
+import {NetworkBus} from './classes/networkbus';
 import {Trend} from './classes/trend';
 import {NavigationComponent} from './components/navigation';
 import {PageTrends} from './pages/alltrends';
@@ -50,7 +50,7 @@ class Application extends React.Component<undefined, ApplicationState> {
       page = <PageSpecificTrends name={name} />;
     } else {
       // if there is no trend selected, display the home page.
-      title = 'TrendGator';
+      title = 'Senti Social';
       page = <PageTrends onTrendClick={this.handleTrendClick} />;
     }
     return (

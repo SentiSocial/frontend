@@ -64,7 +64,7 @@ export class ArticleCard extends React.Component<ArticleCardProps, ArticleCardSt
             <i id="hideDescription"
               className={`glyphicon glyphicon-chevron-${hidden ? 'down' : 'up' }`}
             />
-            <span>{hidden ? 'more' : 'less' } details</span>
+            <span>Show {hidden ? 'more' : 'less' }</span>
           </div>
           <p className={`card--description ${hidden ? 'hidden' : ''}`}>
             {article.description}

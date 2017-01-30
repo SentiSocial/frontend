@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Card} from './card';
-import {fiftyFifty, randomRange} from '../../inc/utility';
+import {fiftyFifty, randomRange} from '../../classes/helpers';
 
 export function GhostCard(props) {
   return (
