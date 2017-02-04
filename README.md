@@ -3,13 +3,13 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)]()
 
-Created at The University of Toronto Scarborough's Hack the Valley 2017
+Created at University of Toronto Scarborough's Hack the Valley 2017
 
 SentiSocial is a Twitter based news aggregation and sentiment analysis tool.
 This repository contains the SentiSocial frontend, which queries the backend for
-information related to current trends, and tweets, news and sentiment values
-related to each one. All of this information is the displayed nicely for the
-user to view.
+information related to current trends, tweets, news and sentiment values
+related to each one. It is written in TypeScript and Less, built on React,
+uses Bootstrap and ChartJS.
 
 The SentiSocial backend can be found [here](github.com/SentiSocial/sentisocial-backend)
 
@@ -20,18 +20,24 @@ The SentiSocial backend can be found [here](github.com/SentiSocial/sentisocial-b
 
 ## Installation
 
-To build the project
-* `npm install`
+```
+npm install
+npm test
+npm run build
+npm start
+```
+
+To build the project for production
 * `npm run build`
 
-To build the Javascript
-* `npm run build-js`
+To build the project for development
+* `npm run build-dev`
 
-To build the CSS
-* `npm run build-css`
+For consistent code style
+* `npm run lint`
 
-To automatically build
-* `npm run build-live`
+To run all the tests
+* `npm test`
 
-To host directly from node
-* `npm run server`
+To host the website directly from node on port 80
+* `npm start`
