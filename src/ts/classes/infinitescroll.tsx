@@ -34,7 +34,7 @@ export class InfiniteScroll {
     // how many pixels can the user scroll?
     const scrollLeft = document.body.scrollHeight - document.body.scrollTop;
     const reachedEnd = scrollLeft < window.innerHeight * 1.5;
-    const waited = Date.now() > this.prevRequestTime + 3000;
+    const waited = Date.now() > this.prevRequestTime + 1000;
     if (waited && reachedEnd) {
       this.prevRequestTime = Date.now();
       this.callback();

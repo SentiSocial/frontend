@@ -121,16 +121,13 @@ export class PageTrends
         }
 
         content = cutMerge(content[0], content[1]);
-        console.log(content);
         this.setState(prev => ({
           content: prev.content.concat(content)
         }));
       };
 
       if (trend.tweets_max_id !== null) {
-        let tweetChainId =
-
-        chain.register((error, tweets) => {
+        let tweetChainId = chain.register((error, tweets) => {
           if (error) {
             console.error(error);
             return;

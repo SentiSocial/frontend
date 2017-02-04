@@ -43,6 +43,7 @@ export class ArticleCard extends React.Component<ArticleCardProps, ArticleCardSt
     const hidden = this.state.descriptionHidden;
     return (
       <Card>
+        {this.props.trend && <p className="card--trend">{this.props.trend}</p>}
         {article.media && <img className="card--image img-responsive"
           src={article.media}
           onClick={this.handleArticleClick}/>}

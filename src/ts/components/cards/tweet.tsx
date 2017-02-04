@@ -20,6 +20,7 @@ export class TweetCard extends
   render() {
     return (
       <Card>
+        {this.props.trend && <p className="card--trend">{this.props.trend}</p>}
         <TweetEmbed id={`${this.props.tweet.embed_id}`} />
       </Card>
     );
