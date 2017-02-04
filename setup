@@ -2,5 +2,5 @@
 npm install
 npm run build
 sudo rm -f -r /var/www/html
-sudo cp -r ~/trendgator-client/public /var/www
+sudo cp -r ~/sentisocial-frontend/public /var/www
 sudo mv /var/www/public /var/www/html
