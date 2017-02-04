@@ -3,7 +3,7 @@
 
 [![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)]()
 
-Created at University of Toronto Scarborough's Hack the Valley 2017
+Created at The University of Toronto Scarborough's Hack the Valley 2017
 
 SentiSocial is a Twitter based news aggregation and sentiment analysis tool.
 This repository contains the SentiSocial frontend, which queries the backend for
