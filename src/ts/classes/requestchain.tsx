@@ -47,7 +47,7 @@ export class RequestChain {
       throw new ChainEmptyError();
     }
     const requests = this.requests;
-    const r = requests.find(r => r.id == id);
+    const r = requests.find(r => r.id === id);
     r.response = response;
     while (!this.isEmpty() && this.requests[0].response) {
       const oldest = requests.shift();
@@ -60,7 +60,7 @@ export class RequestChain {
    * @return {boolean}
    */
   isEmpty() {
-    return this.requests.length == 0;
+    return this.requests.length === 0;
   }
 }
 

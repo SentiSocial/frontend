@@ -11,7 +11,7 @@ export function GhostCard(props) {
       <GhostCardLine style={{ marginTop: '12px' }} />
       {fiftyFifty() && <GhostCardLine />}
       {fiftyFifty() && <GhostCardLine />}
-      <GhostCardLine style={{ width: (randomRange(20, 60))+'%' }} />
+      <GhostCardLine style={{ width: randomRange(20, 60) + '%' }} />
     </Card>
   );
 }

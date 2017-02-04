@@ -21,11 +21,13 @@ export class TrendsChart
   extends React.Component <TrendsChartProps, TrendsChartState> {
   barsShown;
 
-  constructor(props){
+  constructor(props) {
     super(props);
+
     this.state = {
       scroll: 0,
-    }
+    };
+
     this.handleResize();
   }
 
@@ -62,7 +64,7 @@ export class TrendsChart
     const trendsPacket = this.props.trends;
     const clickedTrend = trendsPacket.trends[i];
     this.props.onTrendClick(clickedTrend);
-  };
+  }
 
   /**
    * Event listener for scrolling left on the chart.
@@ -74,7 +76,7 @@ export class TrendsChart
     this.setState(prevState => ({
       scroll: Math.max(prevState.scroll - 1, 0),
     }));
-  };
+  }
 
   /**
    * Event listener for scrolling right on the chart.
@@ -86,14 +88,14 @@ export class TrendsChart
     this.setState(prevState => ({
       scroll: Math.min(prevState.scroll + 1, numberOfTrends - this.barsShown),
     }));
-  };
+  }
 
   /**
    * @author Dennis Tismenko
    */
   render() {
     const trendsPacket = this.props.trends;
-    var data, options, leftMost, rightMost;
+    let data, options, leftMost, rightMost;
     // trends comes is undefined when not loaded
     if (trendsPacket) {
       // only take a portion of the trends array based on the current scroll.
@@ -106,18 +108,18 @@ export class TrendsChart
       }, 0);
       // give the bars some padding to be visually pleasing
       const padding = absoluteMax * 0.3;
-      //const padding = 0;
+      // const padding = 0;
       // set the upper and lower bound of the graph
       const upperBound = absoluteMax + padding;
       const lowerBound = -absoluteMax - padding;
       const minimum = 0.5;
-      var trendScore = trends.map(trend => trend.sentiment);
-      for (let i = 0; i < trendScore.length; i++){
-        if (Math.abs(trendScore[i]) < minimum){
-          if (trendScore[i] > 0){
+      let trendScore = trends.map(trend => trend.sentiment);
+      for (let i = 0; i < trendScore.length; i++) {
+        if (Math.abs(trendScore[i]) < minimum) {
+          if (trendScore[i] > 0) {
             trendScore[i] = minimum;
           }
-          if (trendScore[i] < 0){
+          if (trendScore[i] < 0) {
             trendScore[i] = -minimum;
           }
         }
@@ -141,7 +143,7 @@ export class TrendsChart
       };
 
       options = {
-        //showScale: false,
+        // showScale: false,
         responsive: true,
         tooltips: {
           enabled: false
@@ -177,8 +179,8 @@ export class TrendsChart
         }
       };
 
-      leftMost = this.state.scroll == 0;
-      rightMost = this.state.scroll == trendsPacket.trends.length - this.barsShown;
+      leftMost = this.state.scroll === 0;
+      rightMost = this.state.scroll === trendsPacket.trends.length - this.barsShown;
     }
 
 

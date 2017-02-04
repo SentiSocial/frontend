@@ -103,9 +103,9 @@ export class PageTrends
   getContent() {
     const trends = this.trendsMeta;
 
-    var chain = new RequestChain();
+    let chain = new RequestChain();
 
-    var end = this.trendsMetaIndex + 3;
+    let end = this.trendsMetaIndex + 3;
     while (this.trendsMetaIndex < end && this.trendsMetaIndex < this.trendsMeta.length) {
       this.trendsMetaIndex += 1;
       const trend = trends[this.trendsMetaIndex];
@@ -121,7 +121,7 @@ export class PageTrends
         this.setState(prevState => ({
           content: prevState.content.concat(content)
         }));
-      }
+      };
 
       if (trend.tweets_max_id !== null) {
         let tweetChainId = chain.register((error, tweets) => {
@@ -182,8 +182,8 @@ export class PageTrends
 
   render() {
     const content = this.state.content;
-    var cards = content.map((content, i) => {
-      return content.type == 'Article'
+    let cards = content.map((content, i) => {
+      return content.type === 'Article'
       // content will not reorder index key is fine
       ? <ArticleCard key={i} article={content} />
       : <TweetCard key={i} tweet={content} />;
@@ -195,9 +195,9 @@ export class PageTrends
       ghostCards.push(<GhostCard key={`GC${i}`} />);
     }
 
-    cards = cards.concat(ghostCards)
+    cards = cards.concat(ghostCards);
 
-    var cardsComponent;
+    let cardsComponent;
     if (window.innerWidth < 768) {
       cardsComponent = (
         <div className="col-xs-12">
@@ -207,10 +207,10 @@ export class PageTrends
     } else {
       cardsComponent = [
         <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 == 0)}
+          {cards.filter((card, i) => i % 2 === 0)}
         </div>,
         <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 == 1)}
+          {cards.filter((card, i) => i % 2 === 1)}
         </div>
       ];
     }

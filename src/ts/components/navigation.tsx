@@ -34,7 +34,7 @@ export class NavigationComponent
     this.setState(prevState => ({
       isCollapsed: !prevState.isCollapsed,
     }));
-  };
+  }
 
   render() {
     const isCollapsed = this.state.isCollapsed ? 'collapse' : '';

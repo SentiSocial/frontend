@@ -90,8 +90,8 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   getContent() {
-    var content = [];
-    var responseCounter = 0;
+    let content = [];
+    let responseCounter = 0;
 
     const handleResponse = () => {
       if (responseCounter < 2) {
@@ -155,8 +155,8 @@ export class PageSpecificTrends
 
   render() {
     const content = this.state.content;
-    var cards = content.map((content, i) => {
-      return content.type == 'Article'
+    let cards = content.map((content, i) => {
+      return content.type === 'Article'
       // content will not reorder index key is fine
       ? <ArticleCard key={i} article={content} />
       : <TweetCard key={i} tweet={content} />;
@@ -168,9 +168,9 @@ export class PageSpecificTrends
       ghostCards.push(<GhostCard key={`GC${i}`} />);
     }
 
-    cards = cards.concat(ghostCards)
+    cards = cards.concat(ghostCards);
 
-    var cardsComponent;
+    let cardsComponent;
     if (window.innerWidth < 768) {
       cardsComponent = (
         <div className="col-xs-12">
@@ -180,10 +180,10 @@ export class PageSpecificTrends
     } else {
       cardsComponent = [
         <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 == 0)}
+          {cards.filter((card, i) => i % 2 === 0)}
         </div>,
         <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 == 1)}
+          {cards.filter((card, i) => i % 2 === 1)}
         </div>
       ];
     }

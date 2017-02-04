@@ -1,5 +1,5 @@
 export interface AllTrendsPacket {
-  trends: AllTrendsDataPacket[]
+  trends: AllTrendsDataPacket[];
 };
 
 export interface AllTrendsDataPacket {

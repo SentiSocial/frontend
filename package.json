@@ -3,8 +3,7 @@
   "version": "1.0.0",
   "description": "Social media sentiment analysis and news aggregation",
   "main": "index.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chartjs": "0.0.29",
     "@types/es6-promise": "0.0.32",
@@ -13,21 +12,27 @@
     "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "browserify": "^13.3.0",
+    "jest": "^18.1.0",
     "less": "^2.7.2",
     "lodash": "^4.17.4",
     "minifyify": "^7.3.4",
     "moment": "^2.17.1",
+    "pre-commit": "^1.2.2",
     "promise-polyfill": "^6.0.2",
     "react": "^15.4.2",
     "react-chartjs-2": "^1.6.2",
     "react-dom": "^15.4.2",
     "react-tweet-embed": "^1.0.3",
+    "ts-jest": "^18.0.2",
+    "tslint": "^4.4.2",
     "typescript": "^2.1.4",
     "uglifycss": "0.0.25",
     "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
     "start": "http-server -p 80 ./public",
+    "test": "",
+    "lint": "tslint src/ts/**/**",
     "build": "NODE_ENV=production npm run build-js && npm run build-css",
     "build-js": "tsc && browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
     "build-css": "lessc src/less/index.less | uglifycss > public/css/bundle.css",
@@ -35,6 +40,10 @@
     "build-dev-js": "tsc && browserify public/js/ts/index.js > public/js/bundle.js",
     "build-dev-css": "lessc src/less/index.less > public/css/bundle.css"
   },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"

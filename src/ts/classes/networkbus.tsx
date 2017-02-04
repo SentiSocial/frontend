@@ -16,13 +16,13 @@ const endpoints = {
   alltrends: () => `${api}/alltrends`,
   trend: (name) => `${api}/trend/${name}`,
   trendTweets: (name, max_id, limit) => {
-    max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    limit = (max_id == undefined ? '?' : '&') + `limit=${limit}`;
+    max_id = max_id === undefined ? '' : `?max_id=${max_id}`;
+    limit = (max_id === undefined ? '?' : '&') + `limit=${limit}`;
     return `${api}/trend/${name}/tweets${max_id}${limit}`;
   },
   trendArticles: (name, max_id, limit) => {
-    max_id = max_id == undefined ? '' : `?max_id=${max_id}`;
-    limit = (max_id == undefined ? '?' : '&') + `limit=${limit}`;
+    max_id = max_id === undefined ? '' : `?max_id=${max_id}`;
+    limit = (max_id === undefined ? '?' : '&') + `limit=${limit}`;
     return `${api}/trend/${name}/articles${max_id}${limit}`;
   }
 };

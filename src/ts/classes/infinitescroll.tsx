@@ -17,14 +17,14 @@ export class InfiniteScroll {
    * @author Omar Chehab
    */
   mount() {
-    window.addEventListener("scroll", this.handleScroll);
+    window.addEventListener('scroll', this.handleScroll);
   }
 
   /**
    * @author Omar Chehab
    */
   unmount() {
-    window.removeEventListener("scroll", this.handleScroll);
+    window.removeEventListener('scroll', this.handleScroll);
   }
 
   /**
