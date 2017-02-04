@@ -1,10 +1,17 @@
-# TrendGator - A Trend Aggregator
+# sentisocial-frontend
+## Web frontend for SentiSocial
 
-We presented at [Hack The Valley 2017](https://www.hackvalley.com)!
+[![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)]()
 
-You can find more information about our submission at [Devpost](https://devpost.com/software/trendgator).
+Created at The University of Toronto Scarborough's Hack the Valley 2017
 
-Check it out at [trend-gator.com](https://trend-gator.com).
+SentiSocial is a Twitter based news aggregation and sentiment analysis tool.
+This repository contains the SentiSocial frontend, which queries the backend for
+information related to current trends, and tweets, news and sentiment values
+related to each one. All of this information is the displayed nicely for the
+user to view.
+
+The SentiSocial backend can be found [here](github.com/SentiSocial/sentisocial-backend)
 
 ## Prerequisites
 
@@ -12,8 +19,6 @@ Check it out at [trend-gator.com](https://trend-gator.com).
 * Node Package Manager
 
 ## Installation
-
-Please note that this is the client repository. Are you looking for the [server](https://github.com/trendgator/trendgator-server)?
 
 To build the project
 * `npm install`
