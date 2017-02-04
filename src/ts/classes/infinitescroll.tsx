@@ -10,7 +10,7 @@ export class InfiniteScroll {
    */
   constructor(callback) {
     this.callback = callback;
-    this.prevRequestTime = Number.MAX_VALUE;
+    this.prevRequestTime = 0;
   }
 
   /**

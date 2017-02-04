@@ -37,6 +37,9 @@ export class PageSpecificTrends
 
   constructor(props) {
     super(props);
+
+    this.getContent = this.getContent.bind(this);
+
     this.tweets_max_id = undefined;
     this.articles_max_id = undefined;
     this.infiniteScroll = new InfiniteScroll(this.getContent);
@@ -94,6 +97,7 @@ export class PageSpecificTrends
     let responseCounter = 0;
 
     const handleResponse = () => {
+      responseCounter += 1;
       if (responseCounter < 2) {
         return;
       }
@@ -111,14 +115,13 @@ export class PageSpecificTrends
           return;
         }
 
-        responseCounter += 1;
-        if (!tweets.length) {
+        if (tweets.length) {
+          this.tweets_max_id = tweets[tweets.length - 1]._id;
+        } else {
           this.tweets_max_id = null;
-          return;
         }
 
         content.push(tweets);
-        this.tweets_max_id = tweets[tweets.length - 1]._id;
 
         handleResponse();
       }, this.props.name, this.tweets_max_id, 10);
@@ -131,18 +134,16 @@ export class PageSpecificTrends
           return;
         }
 
-        responseCounter += 1;
-        if (!articles.length) {
+        if (articles.length) {
+          this.articles_max_id = articles[articles.length - 1]._id;
+        } else {
           this.articles_max_id = null;
-          return;
         }
 
         content.push(articles);
-        this.articles_max_id = articles[articles.length - 1]._id;
 
         handleResponse();
-      },
-      this.props.name, this.articles_max_id, 10 );
+      }, this.props.name, this.articles_max_id, 10);
     }
 
     const moreContent = this.tweets_max_id !== null && this.articles_max_id !== null;

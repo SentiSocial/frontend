@@ -2,7 +2,7 @@ import {Promise} from 'promise-polyfill';
 if (!window['Promise']) window['Promise'] = Promise;
 import 'whatwg-fetch';
 
-const DEBUG = true;
+const DEBUG = false;
 import {networkBusDebug} from './networkbus-debug';
 
 import {AllTrends, AllTrendsPacket} from '../classes/alltrends';
@@ -16,14 +16,14 @@ const endpoints = {
   alltrends: () => `${api}/alltrends`,
   trend: (name) => `${api}/trend/${name}`,
   trendTweets: (name, max_id, limit) => {
-    max_id = max_id === undefined ? '' : `?max_id=${max_id}`;
-    limit = (max_id === undefined ? '?' : '&') + `limit=${limit}`;
-    return `${api}/trend/${name}/tweets${max_id}${limit}`;
+    limit = limit === undefined ? '' : `?limit=${limit}`;
+    max_id = max_id === undefined ? '' : `&max_id=${max_id}`;
+    return `${api}/trend/${name}/tweets${limit}${max_id}`;
   },
   trendArticles: (name, max_id, limit) => {
-    max_id = max_id === undefined ? '' : `?max_id=${max_id}`;
-    limit = (max_id === undefined ? '?' : '&') + `limit=${limit}`;
-    return `${api}/trend/${name}/articles${max_id}${limit}`;
+    limit = limit === undefined ? '' : `?limit=${limit}`;
+    max_id = max_id === undefined ? '' : `&max_id=${max_id}`;
+    return `${api}/trend/${name}/articles${limit}${max_id}`;
   }
 };
 

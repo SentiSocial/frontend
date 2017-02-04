@@ -45,8 +45,7 @@ export class ArticleCard extends React.Component<ArticleCardProps, ArticleCardSt
       <Card>
         {article.media && <img className="card--image img-responsive"
           src={article.media}
-          onClick={this.handleArticleClick}
-        />}
+          onClick={this.handleArticleClick}/>}
         <div className="col-xs-12">
           <div className="card--header">
             <p className="card--source">{article.source}</p>
@@ -54,16 +53,13 @@ export class ArticleCard extends React.Component<ArticleCardProps, ArticleCardSt
           </div>
           <div className="clearfix"></div>
           <h3 className="card--title"
-            onClick={this.handleArticleClick}
-          >
+            onClick={this.handleArticleClick}>
             {article.title}
           </h3>
           <div className="card--showdescription"
-            onClick={this.handleHideDescriptionClick}
-          >
+            onClick={this.handleHideDescriptionClick}>
             <i id="hideDescription"
-              className={`glyphicon glyphicon-chevron-${hidden ? 'down' : 'up' }`}
-            />
+              className={`glyphicon glyphicon-chevron-${hidden ? 'down' : 'up' }`}/>
             <span>Show {hidden ? 'more' : 'less' }</span>
           </div>
           <p className={`card--description ${hidden ? 'hidden' : ''}`}>

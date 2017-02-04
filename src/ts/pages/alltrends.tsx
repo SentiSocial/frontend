@@ -38,6 +38,9 @@ export class PageTrends
 
   constructor(props) {
     super(props);
+
+    this.getContent = this.getContent.bind(this);
+
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
     this.infiniteScroll = new InfiniteScroll(this.getContent);
@@ -102,42 +105,44 @@ export class PageTrends
    */
   getContent() {
     const trends = this.trendsMeta;
-
     let chain = new RequestChain();
 
-    let end = this.trendsMetaIndex + 3;
-    while (this.trendsMetaIndex < end && this.trendsMetaIndex < this.trendsMeta.length) {
-      this.trendsMetaIndex += 1;
-      const trend = trends[this.trendsMetaIndex];
+    let index = this.trendsMetaIndex;
+    let end = index + 3;
+    while (index < end && index < trends.length) {
+      const trend = trends[index];
       let content = [];
       let responseCounter = 0;
 
       const handleResponse = () => {
+        responseCounter += 1;
         if (responseCounter < 2) {
           return;
         }
 
         content = cutMerge(content[0], content[1]);
-        this.setState(prevState => ({
-          content: prevState.content.concat(content)
+        console.log(content);
+        this.setState(prev => ({
+          content: prev.content.concat(content)
         }));
       };
 
       if (trend.tweets_max_id !== null) {
-        let tweetChainId = chain.register((error, tweets) => {
+        let tweetChainId =
+
+        chain.register((error, tweets) => {
           if (error) {
             console.error(error);
             return;
           }
 
-          responseCounter += 1;
           if (!tweets.length) {
+            trend.tweets_max_id = tweets[tweets.length - 1]._id;
+          } else {
             trend.tweets_max_id = null;
-            return;
           }
 
           content.push(tweets);
-          trend.tweets_max_id = tweets[tweets.length - 1]._id;
 
           handleResponse();
         });
@@ -154,14 +159,13 @@ export class PageTrends
             return;
           }
 
-          responseCounter += 1;
-          if (!articles.length) {
+          if (articles.length) {
+            trend.articles_max_id = articles[articles.length - 1]._id;
+          } else {
             trend.articles_max_id = null;
-            return;
           }
 
           content.push(articles);
-          trend.articles_max_id = articles[articles.length - 1]._id;
 
           handleResponse();
         });
@@ -170,9 +174,12 @@ export class PageTrends
           chain.response(articleChainId, [error, response]);
         }, trend.name, trend.articles_max_id, 3);
       }
-    }
 
-    const moreContent = this.trendsMetaIndex < this.trendsMeta.length;
+      index += 1;
+    }
+    this.trendsMetaIndex = index;
+
+    const moreContent = index < trends.length;
     if (!moreContent) {
       this.setState({
         ghostCards: 0,
