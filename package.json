@@ -12,6 +12,8 @@
     "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "browserify": "^13.3.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.7.1",
     "jest": "^18.1.0",
     "less": "^2.7.2",
     "lodash": "^4.17.4",
@@ -20,6 +22,7 @@
     "pre-commit": "^1.2.2",
     "promise-polyfill": "^6.0.2",
     "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
     "react-chartjs-2": "^1.6.2",
     "react-dom": "^15.4.2",
     "react-tweet-embed": "^1.0.3",
@@ -31,7 +34,7 @@
   },
   "scripts": {
     "start": "http-server -p 80 ./public",
-    "test": "",
+    "test": "jest",
     "lint": "tslint src/ts/**/**",
     "build": "NODE_ENV=production npm run build-js && npm run build-css",
     "build-js": "tsc && browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
@@ -42,8 +45,21 @@
   },
   "pre-commit": [
     "lint",
-    "test"
+    "test",
+    "build"
   ],
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"

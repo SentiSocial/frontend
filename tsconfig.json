@@ -4,16 +4,19 @@
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
-        "rootDir": "src/ts",
+        "rootDirs": [
+          "src/ts",
+          "spec"
+        ],
         "outDir": "public/js/ts",
         "jsx": "React"
     },
     "include": [
-      "src/**/*"
+      "src"
     ],
     "exclude": [
       "node_modules",
-      "typings/main",
-      "typings/main.d.ts"
+      "!node_modules/@types",
+      "spec"
   ]
 }

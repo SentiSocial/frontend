@@ -117,7 +117,7 @@ const networkBusDebug = {
         'id': 22
       },
       {
-        'name': 'Le'Veon',
+        'name': 'Le\'Veon',
         'sentiment': 0.73333333333333,
         'id': 23
       },
@@ -286,7 +286,7 @@ const networkBusDebug = {
         'source': 'Daily Mail',
         'link': 'http:\/\/www.dailymail.co.uk\/~\/article-4099046\/index.html',
         'media': 'http:\/\/i.dailymail.co.uk\/i\/pix\/2017\/01\/08\/16\/3BF38DAF00000578-0-image-a-51_1483893460680.jpg',
-        'description': 'Israel's prime minister Benjamin Netanyahu says the Palestinian attacker who mowed down and killed four Israeli soldiers and wounded 15 in Jerusalem was an ISIS terrorist.'
+        'description': 'Israel\'s prime minister Benjamin Netanyahu says the Palestinian attacker who mowed down and killed four Israeli soldiers and wounded 15 in Jerusalem was an ISIS terrorist.'
       },
       {
         '_id': '4',
