@@ -30,3 +30,15 @@ To automatically build
 
 To host directly from node
 * `npm run server`
+
+## Development
+
+Client project is built using
+
+* [Typescript](https://www.typescriptlang.org/)
+* [Less](http://lesscss.org/)
+* [React](https://facebook.github.io/react/)
+* [Bootstrap](http://getbootstrap.com/)
+* [ChartJS](http://www.chartjs.org/)
+
+For versions check package.json
