@@ -6,10 +6,10 @@ import {cutMerge} from '../classes/helpers';
 import {InfiniteScroll} from '../classes/infinitescroll';
 
 import {ArticleCard} from '../components/cards/article';
-import {Article} from '../classes/article';
+import {Article} from '../types/article';
 import {TweetCard} from '../components/cards/tweet';
-import {Tweet} from '../classes/tweet';
-import {TrendHistory} from '../classes/trend';
+import {Tweet} from '../types/tweet';
+import {TrendHistory} from '../types/trend';
 
 import {GhostCard} from '../components/cards/ghost';
 

@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Chart from 'react-chartjs-2';
 
-import {AllTrends} from '../../classes/alltrends';
+import {AllTrends} from '../../types/alltrends';
 
 interface TrendsChartProps {
   trends: AllTrends;

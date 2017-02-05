@@ -1,7 +1,7 @@
 import * as React from 'react';
 import * as Chart from 'react-chartjs-2'
 
-import {TrendHistory} from '../../classes/trend';
+import {TrendHistory} from '../../types/trend';
 
 import {moment} from '../../classes/helpers';
 

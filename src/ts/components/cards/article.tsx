@@ -1,7 +1,7 @@
 import * as React from 'react';
 
 import {Card} from './card';
-import {Article} from '../../classes/article';
+import {Article} from '../../types/article';
 
 interface ArticleCardProps {
   article: Article;

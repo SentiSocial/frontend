@@ -6,9 +6,9 @@ import {cutMerge} from '../classes/helpers';
 import {RequestChain} from '../classes/requestchain';
 import {InfiniteScroll} from '../classes/infinitescroll';
 
-import {AllTrends, AllTrendsData} from '../classes/alltrends';
-import {Article} from '../classes/article';
-import {Tweet} from '../classes/tweet';
+import {AllTrends, AllTrendsData} from '../types/alltrends';
+import {Article} from '../types/article';
+import {Tweet} from '../types/tweet';
 
 import {ArticleCard} from '../components/cards/article';
 import {TweetCard} from '../components/cards/tweet';

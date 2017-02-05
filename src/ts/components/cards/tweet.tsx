@@ -4,7 +4,7 @@ import * as ReactDOM from 'react-dom';
 import TweetEmbed from 'react-tweet-embed';
 
 import {Card} from './card';
-import {Tweet} from '../../classes/tweet';
+import {Tweet} from '../../types/tweet';
 
 interface TweetCardProps {
   tweet: Tweet;
