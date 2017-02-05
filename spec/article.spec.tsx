@@ -5,7 +5,7 @@ import { shallow } from 'enzyme';
 
 import { Card } from '../src/ts/components/cards/card';
 import { ArticleCard } from '../src/ts/components/cards/article';
-import { Article } from '../src/ts/classes/article';
+import { Article } from '../src/ts/types/article';
 
 describe('<Article />', () => {
   let someArticle;
