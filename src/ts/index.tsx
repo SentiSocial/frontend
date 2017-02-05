@@ -1,8 +1,12 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
+import 'whatwg-fetch';
+import {Promise} from 'promise-polyfill';
+if (!window['Promise']) window['Promise'] = Promise;
+
 import {NetworkBus} from './classes/networkbus';
-import {Trend} from './classes/trend';
+import {Trend} from './types/trend';
 import {NavigationComponent} from './components/navigation';
 import {PageTrends} from './pages/alltrends';
 import {PageSpecificTrends} from './pages/trend';

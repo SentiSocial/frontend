@@ -2,9 +2,9 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {NetworkBus} from '../classes/networkbus';
-import {cutMerge} from '../classes/helpers';
-import {RequestChain} from '../classes/requestchain';
 import {InfiniteScroll} from '../classes/infinitescroll';
+import {RequestChain} from '../classes/requestchain';
+import {cutMerge} from '../classes/helpers';
 
 import {AllTrends, AllTrendsData} from '../types/alltrends';
 import {Article} from '../types/article';
@@ -32,13 +32,16 @@ interface PageTrendsState {
  */
 export class PageTrends
   extends React.Component<PageTrendsProps, PageTrendsState> {
+  networkBus;
+  infiniteScroll;
+
   trendsMeta;
   trendsMetaIndex;
-  infiniteScroll;
 
   constructor(props) {
     super(props);
 
+    this.networkBus = new NetworkBus(window['fetch']);
     this.getContent = this.getContent.bind(this);
 
     this.trendsMeta = [];
@@ -59,7 +62,7 @@ export class PageTrends
    * @author Omar Chehab
    */
   componentWillMount() {
-    NetworkBus.fetchAllTrends((err, response) => {
+    this.networkBus.fetchAllTrends((err, response) => {
       if (err) {
         console.error(err);
         return;
@@ -143,9 +146,9 @@ export class PageTrends
 
           handleResponse();
         });
-        NetworkBus.fetchTrendTweets((error, response) => {
+        this.networkBus.fetchTrendTweets((error, response) => {
           chain.response(tweetChainId, [error, response]);
-        }, trend.name, trend.tweets_max_id, 3);
+        }, trend.name, 3, trend.tweets_max_id);
       }
 
 
@@ -167,9 +170,9 @@ export class PageTrends
           handleResponse();
         });
 
-        NetworkBus.fetchTrendArticles((error, response) => {
+        this.networkBus.fetchTrendArticles((error, response) => {
           chain.response(articleChainId, [error, response]);
-        }, trend.name, trend.articles_max_id, 3);
+        }, trend.name, 3, trend.articles_max_id);
       }
 
       index += 1;

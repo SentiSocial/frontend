@@ -2,8 +2,8 @@ import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
 import {NetworkBus} from '../classes/networkbus';
-import {cutMerge} from '../classes/helpers';
 import {InfiniteScroll} from '../classes/infinitescroll';
+import {cutMerge} from '../classes/helpers';
 
 import {ArticleCard} from '../components/cards/article';
 import {Article} from '../types/article';
@@ -31,13 +31,16 @@ interface PageSpecificTrendsState {
  */
 export class PageSpecificTrends
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
+  networkBus;
+  infiniteScroll;
+
   tweets_max_id;
   articles_max_id;
-  infiniteScroll;
 
   constructor(props) {
     super(props);
 
+    this.networkBus = new NetworkBus(window['fetch']);
     this.getContent = this.getContent.bind(this);
 
     this.tweets_max_id = undefined;
@@ -58,7 +61,7 @@ export class PageSpecificTrends
    * @author Omar Chehab
    */
   componentWillMount() {
-    NetworkBus.fetchTrend((err, response) => {
+    this.networkBus.fetchTrend((err, response) => {
       if (err) {
         console.error(err);
         return;
@@ -109,7 +112,7 @@ export class PageSpecificTrends
     };
 
     if (this.tweets_max_id !== null) {
-      NetworkBus.fetchTrendTweets((err, tweets) => {
+      this.networkBus.fetchTrendTweets((err, tweets) => {
         if (err) {
           console.error(err);
           return;
@@ -124,11 +127,11 @@ export class PageSpecificTrends
         content.push(tweets);
 
         handleResponse();
-      }, this.props.name, this.tweets_max_id, 10);
+      }, this.props.name, 10, this.tweets_max_id);
     }
 
     if (this.articles_max_id !== null) {
-      NetworkBus.fetchTrendArticles((err, articles) => {
+      this.networkBus.fetchTrendArticles((err, articles) => {
         if (err) {
           console.error(err);
           return;
@@ -143,7 +146,7 @@ export class PageSpecificTrends
         content.push(articles);
 
         handleResponse();
-      }, this.props.name, this.articles_max_id, 10);
+      }, this.props.name, 10, this.articles_max_id);
     }
 
     const moreContent = this.tweets_max_id !== null && this.articles_max_id !== null;
