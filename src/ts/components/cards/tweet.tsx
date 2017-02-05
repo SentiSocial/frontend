@@ -8,6 +8,7 @@ import {Tweet} from '../../classes/tweet';
 
 interface TweetCardProps {
   tweet: Tweet;
+  trend?: string;
 };
 
 export class TweetCard extends

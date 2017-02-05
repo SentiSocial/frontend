@@ -5,6 +5,7 @@ import {Article} from '../../classes/article';
 
 interface ArticleCardProps {
   article: Article;
+  trend?: string;
 };
 
 interface ArticleCardState {
