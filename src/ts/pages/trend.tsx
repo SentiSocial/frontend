@@ -15,6 +15,8 @@ import {GhostCard} from '../components/cards/ghost';
 
 import {SpecificTrendsChart} from '../components/charts/trend';
 
+import {fakeFetch} from './fakefetch';
+
 interface PageSpecificTrendsProps {
   name: string;
 };
@@ -40,7 +42,8 @@ export class PageSpecificTrends
   constructor(props) {
     super(props);
 
-    this.networkBus = new NetworkBus(window['fetch']);
+    // this.networkBus = new NetworkBus(window['fetch']);
+    this.networkBus = new NetworkBus(fakeFetch);
     this.getContent = this.getContent.bind(this);
 
     this.tweets_max_id = undefined;

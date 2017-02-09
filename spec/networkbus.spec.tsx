@@ -89,7 +89,7 @@ describe('NetworkBus', () => {
 
     const fakeFetch = url => {
       assert.equal(url, `${endpoint}/alltrends`);
-      return Promise(function(resolve) {
+      return new Promise(function(resolve) {
         resolve({
           json: () => Promise.resolve(someResponse)
         })

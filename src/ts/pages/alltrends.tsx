@@ -16,6 +16,8 @@ import {GhostCard} from '../components/cards/ghost';
 
 import {TrendsChart} from '../components/charts/alltrends';
 
+import {fakeFetch} from './fakefetch';
+
 interface PageTrendsProps {
   onTrendClick: (selectedTrend) => void;
 }
@@ -41,7 +43,8 @@ export class PageTrends
   constructor(props) {
     super(props);
 
-    this.networkBus = new NetworkBus(window['fetch']);
+    // this.networkBus = new NetworkBus(window['fetch']);
+    this.networkBus = new NetworkBus(fakeFetch);
     this.getContent = this.getContent.bind(this);
 
     this.trendsMeta = [];
