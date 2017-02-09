@@ -13,7 +13,7 @@ import {TrendHistory} from '../types/trend';
 
 import {GhostCard} from '../components/cards/ghost';
 
-import {SpecificTrendsChart} from '../components/charts/trend';
+import {TrendChartVisual} from '../components/charts/trend';
 
 import {fakeFetch} from './fakefetch';
 
@@ -196,7 +196,7 @@ export class PageSpecificTrends
     }
     return (
       <div>
-        <SpecificTrendsChart history={this.state.history}/>
+        <TrendChartVisual history={this.state.history}/>
         <main className="card-container container">
           {cardsComponent}
         </main>
