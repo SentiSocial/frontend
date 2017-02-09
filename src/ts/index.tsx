@@ -20,7 +20,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     super(props);
     this.state = {
       selectedTrend: undefined,
-    }
+    };
   }
 
   /**
@@ -31,7 +31,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       selectedTrend: selectedTrend,
     });
-  };
+  }
 
   /**
    * When the back button from the Navigation component is clicked, go back to
@@ -42,11 +42,11 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       selectedTrend: undefined,
     });
-  };
+  }
 
   render() {
     const selectedTrend = this.state.selectedTrend;
-    var page, title;
+    let page, title;
     if (this.state.selectedTrend) {
       // if there is a selected trend, display the specifcic trend page.
       const name = selectedTrend.name;
