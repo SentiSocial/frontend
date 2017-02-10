@@ -1,6 +1,7 @@
 # sentisocial-frontend
 ## Web frontend for SentiSocial
 
+[![Travis](https://img.shields.io/travis/SentiSocial/sentisocial-frontend.svg)](https://travis-ci.org/SentiSocial/sentisocial-frontend)
 [![License: MIT](https://img.shields.io/badge/license-MIT-brightgreen.svg)]()
 
 Created at The University of Toronto Scarborough's Hack the Valley 2017
