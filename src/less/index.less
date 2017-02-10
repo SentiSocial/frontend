@@ -7,6 +7,11 @@ body {
   background-color: #EEE;
 }
 
+.col {
+  float: left;
+  width: 100%;
+}
+
 .loading--title {
   font-size: 3rem;
   position: absolute;
@@ -68,6 +73,14 @@ body {
   margin-bottom: 9px;
   padding-top: 10px;
   padding-bottom: 10px;
+  transform: translateY(50%);
+  opacity: 0;
+  transition: 0.5s transform, 0.5s opacity;
+
+  &.card--visible {
+    transform: initial;
+    opacity: initial;
+  }
 
   .card--title {
     font-family: 'PT Serif', serif;

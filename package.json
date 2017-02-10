@@ -26,9 +26,10 @@
     "react-chartjs-2": "^1.6.2",
     "react-dom": "^15.4.2",
     "react-tweet-embed": "^1.0.3",
+    "react-visibility-sensor": "^3.6.2",
     "ts-jest": "^18.0.2",
     "tslint": "^4.4.2",
-    "typescript": "^2.1.4",
+    "typescript": "^2.1.6",
     "uglifycss": "0.0.25",
     "whatwg-fetch": "^2.0.1"
   },
@@ -39,9 +40,9 @@
     "build": "NODE_ENV=production npm run build-js && npm run build-css",
     "build-js": "tsc && browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
     "build-css": "lessc src/less/index.less | uglifycss > public/css/bundle.css",
-    "build-dev": "npm run build-dev-js && npm run build-dev-css",
-    "build-dev-js": "tsc && browserify public/js/ts/index.js > public/js/bundle.js",
-    "build-dev-css": "lessc src/less/index.less > public/css/bundle.css"
+    "build:dev": "npm run build-js:dev && npm run build-css:dev",
+    "build-js:dev": "tsc && browserify public/js/ts/index.js > public/js/bundle.js",
+    "build-css:dev": "lessc src/less/index.less > public/css/bundle.css"
   },
   "pre-commit": [
     "lint",
@@ -69,7 +70,5 @@
   "bugs": {
     "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
   },
-  "homepage": {
-    "url": "https://github.com/trendgator/trendgator-client/issues"
-  }
+  "homepage": "https://github.com/sentisocial/sentisocial-frontend/issues"
 }

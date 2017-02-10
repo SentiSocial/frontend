@@ -5,6 +5,9 @@
 * @author Dennis Tismenko
 */
 export function cutMerge(news, tweets) {
+  if (!news.length && !tweets.length) return [];
+  else if (!news.length) return tweets;
+  else if (!tweets.length) return news;
   let smallArray, largeArray;
   // Determines the smaller and larger array
   if (news.length < tweets.length) {

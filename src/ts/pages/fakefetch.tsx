@@ -1,6 +1,5 @@
 const fakeFetch = (url) => {
   let data;
-  console.log(url);
   if (url.endsWith('/alltrends')) {
     data = {
       trends: [{
@@ -67,7 +66,6 @@ const fakeFetch = (url) => {
       }]
     };
   }
-  console.log(data);
   return new Promise((resolve) => {
     resolve({
       json: () => Promise.resolve(data)

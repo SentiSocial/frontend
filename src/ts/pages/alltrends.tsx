@@ -16,7 +16,7 @@ import {GhostCard} from '../components/cards/ghost';
 
 import {TrendsChart} from '../components/charts/alltrends';
 
-import {fakeFetch} from './fakefetch';
+// import {fakeFetch} from './fakefetch';
 
 interface PageTrendsProps {
   onTrendClick: (selectedTrend) => void;
@@ -43,8 +43,8 @@ export class PageTrends
   constructor(props) {
     super(props);
 
-    // this.networkBus = new NetworkBus(window['fetch']);
-    this.networkBus = new NetworkBus(fakeFetch);
+    this.networkBus = new NetworkBus(window['fetch'].bind(window));
+    // this.networkBus = new NetworkBus(fakeFetch);
     this.getContent = this.getContent.bind(this);
 
     this.trendsMeta = [];
@@ -125,10 +125,9 @@ export class PageTrends
         if (responseCounter < 2) {
           return;
         }
-
-        content = cutMerge(content[0], content[1]);
+        let newContent = cutMerge(content[0], content[1]);
         this.setState(prev => ({
-          content: prev.content.concat(content)
+          content: prev.content.concat(newContent)
         }));
       };
 
@@ -139,7 +138,7 @@ export class PageTrends
             return;
           }
 
-          if (!tweets.length) {
+          if (tweets.length) {
             trend.tweets_max_id = tweets[tweets.length - 1]._id;
           } else {
             trend.tweets_max_id = null;
@@ -152,10 +151,13 @@ export class PageTrends
         this.networkBus.fetchTrendTweets((error, response) => {
           chain.response(tweetChainId, [error, response]);
         }, trend.name, 3, trend.tweets_max_id);
+      } else {
+        content.push([]);
+        handleResponse();
       }
 
 
-      if (trend.tweets_max_id !== null) {
+      if (trend.articles_max_id !== null) {
         let articleChainId = chain.register((error, articles) => {
           if (error) {
             console.error(error);
@@ -176,6 +178,9 @@ export class PageTrends
         this.networkBus.fetchTrendArticles((error, response) => {
           chain.response(articleChainId, [error, response]);
         }, trend.name, 3, trend.articles_max_id);
+      } else {
+        content.push([]);
+        handleResponse();
       }
 
       index += 1;
@@ -192,11 +197,11 @@ export class PageTrends
 
   render() {
     const content = this.state.content;
-    let cards = content.map((content, i) => {
-      return content.type === 'Article'
+    let cards = content.map((c, i) => {
+      return c.type === 'Article'
       // content will not reorder index key is fine
-      ? <ArticleCard key={i} article={content} />
-      : <TweetCard key={i} tweet={content} />;
+      ? <ArticleCard key={i} article={c} />
+      : <TweetCard key={i} tweet={c} />;
     });
 
     const ghostCards = [];

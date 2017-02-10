@@ -25,16 +25,21 @@
     <img class="loading--image" src="img/loading.gif" alt="Loading..."></img>
   </div>
   <div id="root"></div>
-  <script>
-    document.getElementById('loading').style.display = 'initial';
-  </script>
   <noscript>
     <div id="no-js">
       Your browser does not have JavaScript enabled. Please enable JavaScript in
       order to view our content. For information on how to enable JavaScript in
       your browser, please reference
-      <a href="http://www.enable-javascript.com/"> this guide</a>.
+      <a href="http://enable-javascript.com"> this guide</a>.
     </div>
   </noscript>
+  <script>
+    (function() {
+      var loading = document.getElementById('loading')
+      if (loading) {
+        loading.style.display = 'initial'
+      }
+    })()
+  </script>
 </body>
 </html>
