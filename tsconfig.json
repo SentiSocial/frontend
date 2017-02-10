@@ -1,6 +1,6 @@
 {
    "compileOnSave": false,
-    "compilerOptions": {
+   "compilerOptions": {
         "module": "commonjs",
         "target": "es5",
         "noImplicitAny": false,
@@ -9,6 +9,9 @@
         "jsx": "React"
     },
     "include": [
-      "src/**/*"
+      "src"
+    ],
+    "exclude": [
+      "spec"
     ]
 }

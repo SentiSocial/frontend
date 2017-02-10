@@ -1,22 +1,26 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import {NetworkBus, TrendPacket} from './network-bus';
-import {NavigationComponent} from './navigation-component';
-import {PageTrends} from './page-trends';
-import {PageSpecificTrends} from './page-specific-trends';
-import {SpecificTrendsChart} from './specific-trends-chart';
+import 'whatwg-fetch';
+import {Promise} from 'promise-polyfill';
+if (!window['Promise']) window['Promise'] = Promise;
+
+import {NetworkBus} from './classes/networkbus';
+import {Trend} from './types/trend';
+import {NavigationComponent} from './components/navigation';
+import {PageTrends} from './pages/alltrends';
+import {PageSpecificTrends} from './pages/trend';
 
 interface ApplicationState {
-  selectedTrend: TrendPacket;
-}
+  selectedTrend: Trend;
+};
 
 class Application extends React.Component<undefined, ApplicationState> {
   constructor(props) {
     super(props);
     this.state = {
       selectedTrend: undefined,
-    }
+    };
   }
 
   /**
@@ -27,7 +31,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       selectedTrend: selectedTrend,
     });
-  };
+  }
 
   /**
    * When the back button from the Navigation component is clicked, go back to
@@ -38,20 +42,19 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       selectedTrend: undefined,
     });
-  };
+  }
 
   render() {
     const selectedTrend = this.state.selectedTrend;
-    var page, title;
+    let page, title;
     if (this.state.selectedTrend) {
       // if there is a selected trend, display the specifcic trend page.
-      const id = selectedTrend.id;
       const name = selectedTrend.name;
       title = name;
-      page = <PageSpecificTrends id={id} name={name} />;
+      page = <PageSpecificTrends name={name} />;
     } else {
       // if there is no trend selected, display the home page.
-      title = 'TrendGator';
+      title = 'Senti Social';
       page = <PageTrends onTrendClick={this.handleTrendClick} />;
     }
     return (

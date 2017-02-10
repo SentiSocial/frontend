@@ -1,10 +1,9 @@
 {
-  "name": "trendgator-client",
+  "name": "sentisocial-frontend",
   "version": "1.0.0",
-  "description": "TrendGator - A Trend Aggregator",
+  "description": "Social media sentiment analysis and news aggregation",
   "main": "index.js",
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "@types/chartjs": "0.0.29",
     "@types/es6-promise": "0.0.32",
@@ -13,35 +12,63 @@
     "@types/react-dom": "^0.14.20",
     "bootstrap": "^3.3.7",
     "browserify": "^13.3.0",
+    "chai": "^3.5.0",
+    "enzyme": "^2.7.1",
+    "jest": "^18.1.0",
     "less": "^2.7.2",
     "lodash": "^4.17.4",
     "minifyify": "^7.3.4",
     "moment": "^2.17.1",
-    "nodemon": "^1.11.0",
+    "pre-commit": "^1.2.2",
     "promise-polyfill": "^6.0.2",
     "react": "^15.4.2",
+    "react-addons-test-utils": "^15.4.2",
     "react-chartjs-2": "^1.6.2",
     "react-dom": "^15.4.2",
     "react-tweet-embed": "^1.0.3",
-    "typescript": "^2.1.4",
+    "react-visibility-sensor": "^3.6.2",
+    "ts-jest": "^18.0.2",
+    "tslint": "^4.4.2",
+    "typescript": "^2.1.6",
     "uglifycss": "0.0.25",
     "whatwg-fetch": "^2.0.1"
   },
   "scripts": {
-    "server": "http-server -p 80 ./public",
-    "build": "npm run build-js && npm run build-css",
-    "build-live": "nodemon -w src -e ts,tsx,less -x \"npm run build\"",
+    "start": "http-server -p 80 ./public",
+    "test": "jest",
+    "lint": "tslint src/ts/**/**",
+    "build": "NODE_ENV=production npm run build-js && npm run build-css",
     "build-js": "tsc && browserify -d -p [ minifyify --map bundle.js.map --output public/js/bundle.js.map ] public/js/ts/index.js > public/js/bundle.js",
-    "build-css": "mkdir -p public/css && lessc src/less/index.less | uglifycss > public/css/bundle.css"
+    "build-css": "lessc src/less/index.less | uglifycss > public/css/bundle.css",
+    "build:dev": "npm run build-js:dev && npm run build-css:dev",
+    "build-js:dev": "tsc && browserify public/js/ts/index.js > public/js/bundle.js",
+    "build-css:dev": "lessc src/less/index.less > public/css/bundle.css"
+  },
+  "pre-commit": [
+    "lint",
+    "test",
+    "build"
+  ],
+  "jest": {
+    "transform": {
+      ".(ts|tsx)": "<rootDir>/node_modules/ts-jest/preprocessor.js"
+    },
+    "testRegex": "(/__tests__/.*|\\.(test|spec))\\.(ts|tsx|js)$",
+    "moduleFileExtensions": [
+      "ts",
+      "tsx",
+      "js"
+    ],
+    "testResultsProcessor": "<rootDir>/node_modules/ts-jest/coverageprocessor.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/omarchehab98/htv-client.git"
+    "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"
   },
   "author": "Omar Chehab, Dennis Tismenko",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/omarchehab98/htv-client/issues"
+    "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
   },
-  "homepage": "https://github.com/omarchehab98/htv-client#readme"
+  "homepage": "https://github.com/sentisocial/sentisocial-frontend/issues"
 }

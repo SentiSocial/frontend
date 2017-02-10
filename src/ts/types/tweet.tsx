@@ -1,4 +1,11 @@
-import {TweetPacket} from './network-bus';
+export interface ContentTweetsPacket {
+  tweets: TweetPacket[];
+}
+
+export interface TweetPacket {
+  _id: string;
+  embed_id: string;
+};
 
 /**
  * Tweet is an implementation of the tweet packet received from the endpoint.
@@ -7,12 +14,16 @@ import {TweetPacket} from './network-bus';
  * @author Omar Chehab
  */
 export class Tweet implements TweetPacket {
-  id: string;
+  _id: string;
+  embed_id: string;
+  type: string;
 
   /**
    * @author Omar Chehab
    */
   constructor(packet: TweetPacket) {
-    this.id = packet.id;
+    this._id = packet._id;
+    this.embed_id = packet.embed_id;
+    this.type = 'Tweet';
   }
 }

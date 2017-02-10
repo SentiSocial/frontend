@@ -7,10 +7,23 @@ body {
   background-color: #EEE;
 }
 
+.col {
+  float: left;
+  width: 100%;
+}
+
 .loading--title {
   font-size: 3rem;
   position: absolute;
-  top: 40%;
+  top: 20%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.loading--logo {
+  width: 128px;
+  position: absolute;
+  top: 45%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -18,7 +31,7 @@ body {
 .loading--image {
   width: 32px;
   position: absolute;
-  top: 65%;
+  top: 75%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -60,6 +73,14 @@ body {
   margin-bottom: 9px;
   padding-top: 10px;
   padding-bottom: 10px;
+  transform: translateY(50%);
+  opacity: 0;
+  transition: 0.5s transform, 0.5s opacity;
+
+  &.card--visible {
+    transform: initial;
+    opacity: initial;
+  }
 
   .card--title {
     font-family: 'PT Serif', serif;
@@ -74,6 +95,8 @@ body {
     border-bottom: 1px solid #eee;
     padding: 0 10px 10px 10px;
     margin-bottom: 10px;
+    margin-left: auto;
+    margin-right: auto;
     cursor: pointer;
   }
 
@@ -92,6 +115,11 @@ body {
 }
 
 .card--header {
+  .card--trend {
+    font-family: 'PT Serif',serif;
+    font-weight: bold;
+  }
+
   .card--source {
     display: inline-block;
     margin: 0;

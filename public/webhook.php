@@ -1,15 +1,21 @@
 <?php
+$bash = "/bin/bash";
 // Where is your deploy script located?
-$deploy = 'bash /home/ubuntu/deploy/deploy';
+$deploy = "/home/ubuntu/deploy/deploy";
+
+$async = ">/dev/null 2>/dev/null &";
 // Get the secret token from the environment variables.
 $secret_token = getenv('WEBHOOK_SECRET_TOKEN');
 
 switch ($_SERVER['REQUEST_METHOD']) {
+  case 'GET':
+    echo 'Webhook is installed.';
+    break;
   case 'POST':
     $request_body = file_get_contents('php://input');
     $payload = json_decode($request_body, JSON_OBJECT_AS_ARRAY);
 
-    $generated_signature = hash_hmac('sha1', $request_body, $secret_token);
+    $generated_signature = 'sha1='.hash_hmac('sha1', $request_body, $secret_token);
     $received_signature = $_SERVER['HTTP_X_HUB_SIGNATURE'];
 
     // Authenticating GitHub using the secret token.
@@ -23,10 +29,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
     preg_match('/(?<=refs\/heads\/).+/i', $payload['ref'], $branch);
     $branch = $branch[0];
 
-    switch ($branch) {
-      case 'master':
-        shell_exec("${deploy} '${repository}'");
-        break;
-    }
+    exec("sudo $bash -c '$deploy $repository $branch $async'");
+    echo exec('whoami') . ":";
+    echo "\nsudo $bash -c '$deploy $repository $branch $async'";
     die;
 }
