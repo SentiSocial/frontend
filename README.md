@@ -11,7 +11,7 @@ information related to current trends, tweets, news and sentiment values
 related to each one. It is written in TypeScript and Less, built on React,
 uses Bootstrap and ChartJS.
 
-The SentiSocial backend can be found [here](github.com/SentiSocial/sentisocial-backend)
+The SentiSocial backend can be found [here](https://github.com/SentiSocial/sentisocial-backend)
 
 ## Prerequisites
 
