@@ -6,7 +6,7 @@ import {InfiniteScroll} from '../classes/infinitescroll';
 import {RequestChain} from '../classes/requestchain';
 import {cutMerge} from '../classes/helpers';
 
-import {AllTrends, AllTrendsData} from '../types/alltrends';
+import {AllTrends, AllTrendsTrend} from '../types/alltrends';
 import {Article} from '../types/article';
 import {Tweet} from '../types/tweet';
 
@@ -15,8 +15,6 @@ import {TweetCard} from '../components/cards/tweet';
 import {GhostCard} from '../components/cards/ghost';
 
 import {TrendsChart} from '../components/charts/alltrends';
-
-// import {fakeFetch} from './fakefetch';
 
 interface PageTrendsProps {
   onLoad: (error) => void;
@@ -45,12 +43,12 @@ export class AllTrendsPage
     super(props);
 
     this.networkBus = new NetworkBus(window['fetch'].bind(window));
-    // this.networkBus = new NetworkBus(fakeFetch);
+
     this.getContent = this.getContent.bind(this);
 
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
-    this.infiniteScroll = new InfiniteScroll(this.getContent);
+    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.state = {
       trendsPacket: undefined,
@@ -143,7 +141,7 @@ export class AllTrendsPage
       };
 
       if (trend.tweets_max_id !== null) {
-        let tweetChainId = chain.register((error, tweets) => {
+        let tweetChainId = chain.request((error, tweets) => {
           if (error) {
             console.error(error);
             return;
@@ -168,7 +166,7 @@ export class AllTrendsPage
 
 
       if (trend.articles_max_id !== null) {
-        let articleChainId = chain.register((error, articles) => {
+        let articleChainId = chain.request((error, articles) => {
           if (error) {
             console.error(error);
             return;

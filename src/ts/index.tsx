@@ -1,9 +1,7 @@
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 
-import 'whatwg-fetch';
-import {Promise} from 'promise-polyfill';
-if (!window['Promise']) window['Promise'] = Promise;
+import './polyfill';
 
 import {NetworkBus} from './classes/networkbus';
 import {Trend} from './types/trend';

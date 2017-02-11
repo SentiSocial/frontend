@@ -47,10 +47,33 @@ export function cutMerge(news, tweets) {
   return mergedArray;
 }
 
-const moment = require('moment');
 
 /**
- * This configures the format of the time displayed on the news card.
+ * Returns true half the time false otherwise.
+ * @return {boolean}
+ * @author Omar Chehab
+ */
+export function fiftyFifty() {
+  return Math.round(Math.random()) === 1;
+}
+
+/**
+ * Returns a whole number between a minimum and a maximum.
+ * @param  {number} min inclusive
+ * @param  {number} max exclusive
+ * @return {number}
+ */
+export function randomRange(min, max) {
+  if (min >= max) {
+    throw RangeError('min must be less than max');
+  }
+  const diff = max - min - 1;
+  return Math.round(Math.random() * diff + min);
+}
+
+const moment = require('moment');
+/**
+ * Configures the string format of moment's relative time.
  * @author Omar Chehab
  */
 moment.updateLocale('en', {
@@ -73,50 +96,3 @@ moment.updateLocale('en', {
 });
 
 export {moment};
-
-
-/**
- * Returns true half the time false otherwise. Fifty fifty yo. Fifty fifty.
- * @author Omar Chehab
- */
-export function fiftyFifty() {
-  return Math.round(Math.random()) === 1;
-}
-
-/**
- * Returns a random range of two integers
- * @param  {number} min
- * @param  {number} max
- * @return {number}
- */
-export function randomRange(min, max) {
-  const diff = max - min;
-  return Math.random() * min + diff;
-}
-
-/**
- * Object.assign polyfill
- */
-if (typeof Object['assign'] !== 'function') {
-  Object['assign'] = function (target, varArgs) { // .length of function is 2
-    if (target == null) { // TypeError if undefined or null
-      throw new TypeError('Cannot convert undefined or null to object');
-    }
-
-    let to = Object(target);
-
-    for (let index = 1; index < arguments.length; index++) {
-      let nextSource = arguments[index];
-
-      if (nextSource != null) { // Skip over if undefined or null
-        for (let nextKey in nextSource) {
-          // Avoid bugs when hasOwnProperty is shadowed
-          if (Object.prototype.hasOwnProperty.call(nextSource, nextKey)) {
-            to[nextKey] = nextSource[nextKey];
-          }
-        }
-      }
-    }
-    return to;
-  };
-}
