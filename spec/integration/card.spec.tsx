@@ -3,7 +3,7 @@ import ReactTestUtilities from 'react-addons-test-utils';
 import { expect } from 'chai'
 import { shallow } from 'enzyme';
 
-import { Card } from '../src/ts/components/cards/card';
+import { Card } from '../../src/ts/components/cards/card';
 
 describe('<Card />', () => {
   it('renders div.card', () => {

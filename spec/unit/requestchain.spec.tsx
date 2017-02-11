@@ -1,18 +1,52 @@
 import {assert} from 'chai';
 
-import {RequestChain} from '../src/ts/classes/requestchain.tsx';
+import {
+  RequestChain,
+  RequestDoesNotExist
+} from '../../src/ts/classes/requestchain';
 
 describe('RequestChain', () => {
+
+  it('spec', () => {
+    assert.typeOf(RequestChain, 'function');
+    assert.typeOf(RequestDoesNotExist, 'function');
+
+    const requestChain = new RequestChain();
+    assert.typeOf(requestChain.request, 'function');
+    const response_request = requestChain
+      .request(() => {});
+    assert.typeOf(response_request, 'number');
+
+    assert.typeOf(requestChain.response, 'function');
+    const response_response = requestChain
+      .response(response_request, () => {});
+    assert.typeOf(response_response, 'undefined');
+
+    assert.typeOf(requestChain.isEmpty, 'function');
+    const response_isEmpty = requestChain
+      .isEmpty();
+    assert.typeOf(response_isEmpty, 'boolean');
+  })
+
+  it('#isEmpty', () => {
+    const requestChain = new RequestChain();
+    assert.isTrue(requestChain.isEmpty());
+
+    const id = requestChain.request(() => {});
+    assert.isFalse(requestChain.isEmpty());
+    requestChain.response(id, () => {});
+  })
+
   it('returns the response data', done => {
     const chain = new RequestChain();
     const responses = [];
     const someResponse1 = 'I am the first response';
     const someResponse2 = 'I am the second response';
-    const req1 = chain.register((err, res) => {
+    const req1 = chain.request((err, res) => {
       responses.push(res);
       response();
     });
-    const req2 = chain.register((err, res) => {
+    const req2 = chain.request((err, res) => {
       responses.push(res);
       response();
     });
@@ -35,15 +69,15 @@ describe('RequestChain', () => {
   it('delays response until it is the oldest', done => {
     const chain = new RequestChain();
     const order = [];
-    const req1 = chain.register(() => {
+    const req1 = chain.request(() => {
       order.push(1);
       response();
     });
-    const req2 = chain.register(() => {
+    const req2 = chain.request(() => {
       order.push(2);
       response();
     });
-    const req3 = chain.register(() => {
+    const req3 = chain.request(() => {
       order.push(3);
       response();
     });

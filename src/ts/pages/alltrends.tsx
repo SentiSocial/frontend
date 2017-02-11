@@ -6,7 +6,7 @@ import {InfiniteScroll} from '../classes/infinitescroll';
 import {RequestChain} from '../classes/requestchain';
 import {cutMerge} from '../classes/helpers';
 
-import {AllTrends, AllTrendsData} from '../types/alltrends';
+import {AllTrends, AllTrendsTrend} from '../types/alltrends';
 import {Article} from '../types/article';
 import {Tweet} from '../types/tweet';
 
@@ -16,9 +16,8 @@ import {GhostCard} from '../components/cards/ghost';
 
 import {TrendsChart} from '../components/charts/alltrends';
 
-// import {fakeFetch} from './fakefetch';
-
 interface PageTrendsProps {
+  onLoad: (error) => void;
   onTrendClick: (selectedTrend) => void;
 }
 
@@ -32,7 +31,7 @@ interface PageTrendsState {
  * This class handles rendering the homepage, it contains a graph and cards.
  * @author Omar Chehab
  */
-export class PageTrends
+export class AllTrendsPage
   extends React.Component<PageTrendsProps, PageTrendsState> {
   networkBus;
   infiniteScroll;
@@ -44,12 +43,12 @@ export class PageTrends
     super(props);
 
     this.networkBus = new NetworkBus(window['fetch'].bind(window));
-    // this.networkBus = new NetworkBus(fakeFetch);
+
     this.getContent = this.getContent.bind(this);
 
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
-    this.infiniteScroll = new InfiniteScroll(this.getContent);
+    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.state = {
       trendsPacket: undefined,
@@ -67,7 +66,7 @@ export class PageTrends
   componentWillMount() {
     this.networkBus.fetchAllTrends((err, response) => {
       if (err) {
-        console.error(err);
+        this.props.onLoad(err);
         return;
       }
       const trendsPacket = response;
@@ -113,26 +112,36 @@ export class PageTrends
     const trends = this.trendsMeta;
     let chain = new RequestChain();
 
+    // how many trend endpoints should we request data from?
+    const numberOfEndpoints = 2;
+    // how many requests are made per endpoints?
+    // tweets and articles, so 2
+    const requestsPerEndpoint = 2;
+
     let index = this.trendsMetaIndex;
-    let end = index + 3;
+    let end = index + numberOfEndpoints;
+    let responseCounter = 0;
     while (index < end && index < trends.length) {
       const trend = trends[index];
-      let content = [];
-      let responseCounter = 0;
+      let content = {
+        tweets: [],
+        articles: []
+      };
 
       const handleResponse = () => {
         responseCounter += 1;
-        if (responseCounter < 2) {
+        if (responseCounter < numberOfEndpoints * requestsPerEndpoint) {
           return;
         }
-        let newContent = cutMerge(content[0], content[1]);
+        let newContent = cutMerge(content.tweets, content.articles);
         this.setState(prev => ({
           content: prev.content.concat(newContent)
         }));
+        this.props.onLoad(undefined);
       };
 
       if (trend.tweets_max_id !== null) {
-        let tweetChainId = chain.register((error, tweets) => {
+        let tweetChainId = chain.request((error, tweets) => {
           if (error) {
             console.error(error);
             return;
@@ -144,7 +153,7 @@ export class PageTrends
             trend.tweets_max_id = null;
           }
 
-          content.push(tweets);
+          content.tweets = content.tweets.concat(tweets);
 
           handleResponse();
         });
@@ -152,13 +161,12 @@ export class PageTrends
           chain.response(tweetChainId, [error, response]);
         }, trend.name, 3, trend.tweets_max_id);
       } else {
-        content.push([]);
         handleResponse();
       }
 
 
       if (trend.articles_max_id !== null) {
-        let articleChainId = chain.register((error, articles) => {
+        let articleChainId = chain.request((error, articles) => {
           if (error) {
             console.error(error);
             return;
@@ -170,7 +178,7 @@ export class PageTrends
             trend.articles_max_id = null;
           }
 
-          content.push(articles);
+          content.articles = content.articles.concat(articles);
 
           handleResponse();
         });
@@ -179,7 +187,6 @@ export class PageTrends
           chain.response(articleChainId, [error, response]);
         }, trend.name, 3, trend.articles_max_id);
       } else {
-        content.push([]);
         handleResponse();
       }
 

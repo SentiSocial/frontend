@@ -3,9 +3,9 @@ import ReactTestUtilities from 'react-addons-test-utils';
 import { assert } from 'chai'
 import { shallow } from 'enzyme';
 
-import { Card } from '../src/ts/components/cards/card';
-import { ArticleCard } from '../src/ts/components/cards/article';
-import { Article } from '../src/ts/types/article';
+import { Card } from '../../src/ts/components/cards/card';
+import { ArticleCard } from '../../src/ts/components/cards/article';
+import { Article } from '../../src/ts/types/article';
 
 describe('<Article />', () => {
   let someArticle;

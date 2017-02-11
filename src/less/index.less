@@ -7,6 +7,13 @@ body {
   background-color: #EEE;
 }
 
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .col {
   float: left;
   width: 100%;
@@ -18,28 +25,104 @@ body {
   margin-top: -5px;
 }
 
+#loading {
+  z-index: 100;
+  background-color: #eee;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+
 .loading--title {
+  .absolute-center;
   font-size: 3rem;
-  position: absolute;
   top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .loading--logo {
+  .absolute-center;
   width: 128px;
-  position: absolute;
   top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .loading--image {
+  .absolute-center;
   width: 32px;
-  position: absolute;
   top: 75%;
+}
+
+.status500--title {
+  .absolute-center;
+  font-size: 3rem;
+  top: 20%;
+}
+
+.status500--logo {
+  .absolute-center;
+  width: 128px;
+  top: 45%;
+  animation: status500--logo--animation;
+  animation-duration: 0.6s;
+  animation-delay: 0.5s;
+  animation-timing-function: ease-out;
+  animation-fill-mode: forwards;
+}
+
+@keyframes status500--logo--animation {
+  from { left: 50%; }
+  to   { left: calc(~"50% + 64px"); }
+}
+
+.status500--sad {
+  .absolute-center;
+  width: 100px;
+  top: 45%;
+  left: calc(~"50% - 80px");
+  opacity: 0;
+  animation: fade-in;
+  animation-duration: 1.5s;
+  animation-delay: 1.3s;
+  animation-fill-mode: forwards;
+}
+
+.status500--image {
+  .absolute-center;
+  width: 32px;
+  top: 75%;
+}
+
+.status500--text {
+  .absolute-center;
+  .text-danger;
+  width: 80%;
+  top: 70%;
   left: 50%;
-  transform: translate(-50%, -50%);
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  opacity: 0;
+  animation: fade-in;
+  animation-duration: 1.5s;
+  animation-delay: 2s;
+  animation-fill-mode: forwards;
+}
+
+.status500--blame {
+  .absolute-center;
+  width: 80%;
+  top: initial;
+  bottom: 10%;
+  left: 50%;
+  font-size: 16px;
+  font-weight: normal;
+  text-align: center;
+  opacity: 0;
+  animation: fade-in;
+  animation-duration: 1.5s;
+  animation-delay: 5s;
+  animation-fill-mode: forwards;
 }
 
 .chart--title {
@@ -186,4 +269,9 @@ twitterwidget {
   .chart--arrow {
     font-size: 30px;
   }
+}
+
+@keyframes fade-in {
+  0%   { opacity: 0; }
+  100% { opacity: 1; }
 }
