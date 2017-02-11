@@ -51,8 +51,7 @@ export class InfiniteScroll {
    * Event handler for the window scroll event.
    */
   protected handleScroll(event) {
-    const reachedEnd = this.getScrollRemaining() < this.window.innerHeight * 2;
-
+    const reachedEnd = this.getScrollRemaining() <= this.window.innerHeight * 2;
     const waited = Date.now() > this.prevRequestTime + 1000;
     if (waited && reachedEnd) {
       this.prevRequestTime = Date.now();
