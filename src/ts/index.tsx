@@ -23,6 +23,8 @@ interface ApplicationState {
 };
 
 class Application extends React.Component<undefined, ApplicationState> {
+  protected firstLoad = false;
+
   constructor(props) {
     super(props);
     
@@ -42,11 +44,14 @@ class Application extends React.Component<undefined, ApplicationState> {
    * @author Omar Chehab
    */
   handlePageLoad = (error?) => {
+    if (!this.firstLoad) {
+      this.firstLoad = true
+      stopLoading();
+    }
+
     if (error) {
       this.setPageStatus500();
-      return;
     }
-    stopLoading();
   }
 
   /**
