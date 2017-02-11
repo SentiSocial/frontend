@@ -31,7 +31,7 @@ interface PageSpecificTrendsState {
  * This class handles rendering the homepage, it contains a graph and cards.
  * @author Omar Chehab
  */
-export class PageSpecificTrends
+export class TrendPage
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
   networkBus;
   infiniteScroll;

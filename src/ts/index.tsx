@@ -8,19 +8,47 @@ if (!window['Promise']) window['Promise'] = Promise;
 import {NetworkBus} from './classes/networkbus';
 import {Trend} from './types/trend';
 import {NavigationComponent} from './components/navigation';
-import {PageTrends} from './pages/alltrends';
-import {PageSpecificTrends} from './pages/trend';
+
+import {AllTrendsPage} from './pages/alltrends';
+import {TrendPage} from './pages/trend';
+import {Status500} from './pages/status500';
+
+function stopLoading() {
+  const loading = document.getElementById('loading');
+  document.body.removeChild(loading);
+}
 
 interface ApplicationState {
   selectedTrend: Trend;
+  page: any;
+  title: string;
 };
 
 class Application extends React.Component<undefined, ApplicationState> {
   constructor(props) {
     super(props);
+    
     this.state = {
+      title: 'SentiSocial',
+      page: <AllTrendsPage
+        onLoad={this.handlePageLoad}
+        onTrendClick={this.handleTrendClick}/>,
       selectedTrend: undefined,
     };
+  }
+
+  /**
+   * Event listener for when page has retrieved it's necessary data.
+   * (error) => void
+   * error: If there was an error loading the page.
+   * @author Omar Chehab
+   */
+  handlePageLoad = (error?) => {
+    if (error) {
+      this.setPageStatus500();
+      return;
+    }
+    stopLoading();
   }
 
   /**
@@ -28,9 +56,13 @@ class Application extends React.Component<undefined, ApplicationState> {
    * @author Omar Chehab
    */
   handleTrendClick = selectedTrend => {
-    this.setState({
-      selectedTrend: selectedTrend,
-    });
+    if (selectedTrend) {
+      // if there is a selected trend, display the specific trend page.
+      this.setPageTrend(selectedTrend);
+    } else {
+      // if there is no trend selected, display the home page.
+      this.setPageAllTrends();
+    }
   }
 
   /**
@@ -39,38 +71,48 @@ class Application extends React.Component<undefined, ApplicationState> {
    * @author Omar Chehab
    */
   handleBackEvent = event => {
+    this.setPageAllTrends();
+  }
+
+  setPageAllTrends = () => {
     this.setState({
+      title: 'SentiSocial',
+      page: <AllTrendsPage
+        onLoad={this.handlePageLoad}
+        onTrendClick={this.handleTrendClick}/>,
+      selectedTrend: undefined,
+    });
+  }
+
+  setPageTrend = selectedTrend => {
+    this.setState({
+      title: selectedTrend.name,
+      page: <TrendPage
+       name={name}/>,
+      selectedTrend: selectedTrend,
+    });
+  }
+
+  setPageStatus500() {
+    this.setState({
+      title: undefined,
+      page: <Status500/>,
       selectedTrend: undefined,
     });
   }
 
   render() {
-    const selectedTrend = this.state.selectedTrend;
-    let page, title;
-    if (this.state.selectedTrend) {
-      // if there is a selected trend, display the specifcic trend page.
-      const name = selectedTrend.name;
-      title = name;
-      page = <PageSpecificTrends name={name} />;
-    } else {
-      // if there is no trend selected, display the home page.
-      title = 'Senti Social';
-      page = <PageTrends onTrendClick={this.handleTrendClick} />;
-    }
     return (
       <div>
-        <NavigationComponent
-          title={title}
+        {this.state.title && <NavigationComponent
+          title={this.state.title}
           onBackClick={this.handleBackEvent}
-          canGoBack={!!selectedTrend}
-        />
-        {page}
+          canGoBack={!!this.state.selectedTrend}/>}
+        {this.state.page}
       </div>
     );
   }
 }
-
-document.body.removeChild(document.getElementById('loading'));
 
 ReactDOM.render(
   <Application />,

@@ -7,33 +7,52 @@ body {
   background-color: #EEE;
 }
 
+.absolute-center {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
 .col {
   float: left;
   width: 100%;
 }
 
 .loading--title {
+  .absolute-center;
   font-size: 3rem;
-  position: absolute;
   top: 20%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .loading--logo {
+  .absolute-center;
   width: 128px;
-  position: absolute;
   top: 45%;
-  left: 50%;
-  transform: translate(-50%, -50%);
 }
 
 .loading--image {
+  .absolute-center;
   width: 32px;
-  position: absolute;
   top: 75%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+}
+
+.status500--title {
+  .absolute-center;
+  font-size: 3rem;
+  top: 20%;
+}
+
+.status500--logo {
+  .absolute-center;
+  width: 128px;
+  top: 45%;
+}
+
+.status500--image {
+  .absolute-center;
+  width: 32px;
+  top: 75%;
 }
 
 .chart--title {
