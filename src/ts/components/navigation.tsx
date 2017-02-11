@@ -46,8 +46,7 @@ export class NavigationComponent
               <button type="button"
                 className="navbar-toggle collapsed"
                 aria-expanded="false"
-                onClick={this.handleCollapseEvent}
-              >
+                onClick={this.handleCollapseEvent}>
                 <span className="sr-only">Toggle navigation</span>
                 <span className="icon-bar"></span>
                 <span className="icon-bar"></span>
@@ -57,7 +56,10 @@ export class NavigationComponent
               id="navigation--back"
               onClick={this.props.onBackClick}
               />}
-              <span className="navbar-brand">{this.props.title}</span>
+              <span className="navbar-brand">
+                <img id="nav--logo" src="img/logo.png" alt="Logo"/>
+                {this.props.title}
+              </span>
             </div>
             <div className={`navbar-collapse ${isCollapsed}`}>
               <ul className="nav navbar-nav navbar-right">

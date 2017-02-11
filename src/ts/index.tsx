@@ -54,7 +54,7 @@ class Application extends React.Component<undefined, ApplicationState> {
       page = <PageSpecificTrends name={name} />;
     } else {
       // if there is no trend selected, display the home page.
-      title = 'Senti Social';
+      title = 'SentiSocial';
       page = <PageTrends onTrendClick={this.handleTrendClick} />;
     }
     return (
