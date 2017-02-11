@@ -3,7 +3,7 @@ import {Trend, TrendPacket} from '../types/trend';
 import {Tweet, ContentTweetsPacket} from '../types/tweet';
 import {Article, ContentArticlesPacket} from '../types/article';
 
-export const APIURL = 'http://mars.gunshippenguin.com:8080';
+export const APIURL = 'http://senti.social:8080';
 export const VERSION = 'v1';
 
 const endpoints = {
