@@ -15,8 +15,6 @@ import {GhostCard} from '../components/cards/ghost';
 
 import {TrendChartVisual} from '../components/charts/trend';
 
-// import {fakeFetch} from './fakefetch';
-
 interface PageSpecificTrendsProps {
   name: string;
 };
@@ -43,12 +41,12 @@ export class PageSpecificTrends
     super(props);
 
     this.networkBus = new NetworkBus(window['fetch'].bind(window));
-    // this.networkBus = new NetworkBus(fakeFetch);
+
     this.getContent = this.getContent.bind(this);
 
     this.tweets_max_id = undefined;
     this.articles_max_id = undefined;
-    this.infiniteScroll = new InfiniteScroll(this.getContent);
+    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.state = {
       history: undefined,
