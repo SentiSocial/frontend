@@ -91,7 +91,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       title: selectedTrend.name,
       page: <TrendPage
-       name={name}/>,
+       name={selectedTrend.name}/>,
       selectedTrend: selectedTrend,
     });
   }
