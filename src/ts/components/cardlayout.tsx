@@ -25,6 +25,8 @@ export class CardLayout extends React.Component<CardLayoutProps, CardLayoutState
   constructor(props) {
     super(props);
 
+    this.handleResize = this.handleResize.bind(this);
+
     this.state = {
       isMobile: isMobileDevice()
     };

@@ -150,7 +150,7 @@ export class AllTrendsPage
       };
 
       const context = {chain, content, handleResponse, trend};
-      this.fetchContent(context, 'tweets', 3,
+      this.fetchContent(context, 'tweets', 4,
                         this.networkBus.fetchTrendTweets);
       this.fetchContent(context, 'articles', 3,
                         this.networkBus.fetchTrendArticles);
@@ -237,16 +237,16 @@ export class AllTrendsPage
         return prev.concat([
           <TrendHeading value={trend.name}
             onClick={() => this.props.onTrendClick(trend)}/>,
-          cards
+          <CardLayout cards={cards}/>
         ]);
-      }, [])
-      .concat(ghostCards);
+      }, []);
+      // .concat(ghostCards);
 
     return (
       <div>
         <TrendsChart trends={this.state.trendsPacket}
           onTrendClick={this.props.onTrendClick}/>
-        <CardLayout cards={cardsArray}/>
+        {cardsArray}
       </div>
     );
   }
