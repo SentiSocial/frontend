@@ -45,6 +45,11 @@ export class NetworkBus {
    */
   constructor(fetch) {
     this.fetch = fetch;
+
+    this.fetchAllTrends = this.fetchAllTrends.bind(this);
+    this.fetchTrend = this.fetchTrend.bind(this);
+    this.fetchTrendTweets = this.fetchTrendTweets.bind(this);
+    this.fetchTrendArticles = this.fetchTrendArticles.bind(this);
   }
 
   /**

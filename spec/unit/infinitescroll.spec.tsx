@@ -24,9 +24,11 @@ describe('InfiniteScroll', () => {
     });
 
     infiniteScroll.mount();
-    fakeWindow.innerHeight = 250;
-    fakeWindow.document.body.scrollHeight = 1000;
-    fakeWindow.document.body.setScrollTop(1000);
+    setTimeout(() => {
+      fakeWindow.innerHeight = 250;
+      fakeWindow.document.body.scrollHeight = 1000;
+      fakeWindow.document.body.setScrollTop(1000);
+    }, 1000);
   })
 
   it('calls back again after waiting 1 second', done => {
@@ -41,12 +43,14 @@ describe('InfiniteScroll', () => {
       done();
     });
 
-    infiniteScroll.mount();
-    fakeWindow.innerHeight = 250;
-    fakeWindow.document.body.scrollHeight = 1000;
-    fakeWindow.document.body.setScrollTop(500);
     setTimeout(() => {
-      fakeWindow.document.body.setScrollTop(750);
+      infiniteScroll.mount();
+      fakeWindow.innerHeight = 250;
+      fakeWindow.document.body.scrollHeight = 1000;
+      fakeWindow.document.body.setScrollTop(500);
+      setTimeout(() => {
+        fakeWindow.document.body.setScrollTop(750);
+      }, 1000);
     }, 1000);
   })
 

@@ -10,6 +10,8 @@ import {AllTrends, AllTrendsTrend} from '../types/alltrends';
 import {Article} from '../types/article';
 import {Tweet} from '../types/tweet';
 
+import {CardLayout} from '../components/cardlayout';
+
 import {ArticleCard} from '../components/cards/article';
 import {TweetCard} from '../components/cards/tweet';
 import {GhostCard} from '../components/cards/ghost';
@@ -19,51 +21,58 @@ import {TrendsChart} from '../components/charts/alltrends';
 interface PageTrendsProps {
   onLoad: (error) => void;
   onTrendClick: (selectedTrend) => void;
+  dependencies: any;
 }
 
 interface PageTrendsState {
   trendsPacket?: AllTrends;
-  content?: any[];
+  trendCards?: any[];
   ghostCards?: number;
 };
 
 /**
- * This class handles rendering the homepage, it contains a graph and cards.
+ * AllTrendsPage is the homepage of SentiSocial.
+ *
+ * It contains a bar chart with all the trends and their associated sentiment.
+ *
+ * It also contains a feed of snippets from each trend's content.
  * @author Omar Chehab
  */
 export class AllTrendsPage
   extends React.Component<PageTrendsProps, PageTrendsState> {
-  networkBus;
-  infiniteScroll;
+  private networkBus;
+  private infiniteScroll;
 
-  trendsMeta;
-  trendsMetaIndex;
+  private trendsMeta;
+  private trendsMetaIndex;
 
+  /**
+   * Creates a new AllTrendsPage.
+   */
   constructor(props) {
     super(props);
 
-    this.networkBus = new NetworkBus(window['fetch'].bind(window));
-
     this.getContent = this.getContent.bind(this);
+
+    const fetch = this.props.dependencies.fetch;
+    this.networkBus = new NetworkBus(fetch);
+    const window = this.props.dependencies.window;
+    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
-    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.state = {
       trendsPacket: undefined,
-      content: [],
+      trendCards: [],
       ghostCards: 4,
     };
   }
 
   /**
-   * When the component WILL mount, request the trends and content from the
-   * endpoint. Once they are loaded, update the state which will cause react to
-   * re-render.
-   * @author Omar Chehab
+   * Request the trends and snippets of content from the /alltrends endpoint.
    */
-  componentWillMount() {
+  public componentWillMount() {
     this.networkBus.fetchAllTrends((err, response) => {
       if (err) {
         this.props.onLoad(err);
@@ -78,8 +87,10 @@ export class AllTrendsPage
       trendsPacket.trends.forEach(trend => {
         this.trendsMeta.push({
           name: trend.name,
-          tweets_max_id: undefined,
-          articles_max_id: undefined,
+          max_id: {
+            tweets: undefined,
+            articles: undefined,
+          }
         });
       });
 
@@ -89,162 +100,165 @@ export class AllTrendsPage
 
   /**
    * When the component has mounted start detecting the scrolling.
-   * @author Omar Chehab
    */
-  componentDidMount() {
+  public componentDidMount() {
     this.infiniteScroll.mount();
   }
 
   /**
    * When the component is going to unmount stop detecting the scrolling.
-   * @author Omar Chehab
    */
-  componentWillUnmount() {
+  public componentWillUnmount() {
     this.infiniteScroll.unmount();
   }
 
 
   /**
-   * Gets news and tweets from the server
-   * @author Omar Chehab
+   * Gets news and tweets from the server.
    */
-  getContent() {
+  private getContent() {
     const trends = this.trendsMeta;
+    const numberOfTrends = 2;
+    const requestsPerTrend = 2;
+
     let chain = new RequestChain();
 
-    // how many trend endpoints should we request data from?
-    const numberOfEndpoints = 2;
-    // how many requests are made per endpoints?
-    // tweets and articles, so 2
-    const requestsPerEndpoint = 2;
-
-    let index = this.trendsMetaIndex;
-    let end = index + numberOfEndpoints;
-    let responseCounter = 0;
-    while (index < end && index < trends.length) {
-      const trend = trends[index];
+    let i = this.trendsMetaIndex;
+    let end = i + numberOfTrends;
+    while (i < end && i < trends.length) {
+      // Block scope is important here.
+      // It keeps track of trend's responses.
+      const trendIndex = i;
+      const trend = trends[trendIndex];
+      const isFirst = trendIndex === 0;
+      let responses = 0; // how many trend endpoints have responded?
       let content = {
         tweets: [],
         articles: []
       };
 
       const handleResponse = () => {
-        responseCounter += 1;
-        if (responseCounter < numberOfEndpoints * requestsPerEndpoint) {
-          return;
-        }
-        let newContent = cutMerge(content.tweets, content.articles);
-        this.setState(prev => ({
-          content: prev.content.concat(newContent)
-        }));
-        this.props.onLoad(undefined);
+        // Only proceed if all requests for this trend have
+        if (++responses < requestsPerTrend) return;
+        // Scramble them like eggs, just kidding.
+        // Merge the content into each other.
+        let mergedContent = cutMerge(content.tweets, content.articles);
+        // Update the state
+        this.renderContent(trendIndex, mergedContent);
+        // If this is the first load, tell big boss (index.tsx) that we loaded.
+        isFirst && this.props.onLoad(undefined);
       };
 
-      if (trend.tweets_max_id !== null) {
-        let tweetChainId = chain.request((error, tweets) => {
-          if (error) {
-            console.error(error);
-            return;
-          }
+      const context = {chain, content, handleResponse, trend};
+      this.fetchContent(context, 'tweets', 3,
+                        this.networkBus.fetchTrendTweets);
+      this.fetchContent(context, 'articles', 3,
+                        this.networkBus.fetchTrendArticles);
 
-          if (tweets.length) {
-            trend.tweets_max_id = tweets[tweets.length - 1]._id;
-          } else {
-            trend.tweets_max_id = null;
-          }
-
-          content.tweets = content.tweets.concat(tweets);
-
-          handleResponse();
-        });
-        this.networkBus.fetchTrendTweets((error, response) => {
-          chain.response(tweetChainId, [error, response]);
-        }, trend.name, 3, trend.tweets_max_id);
-      } else {
-        handleResponse();
-      }
-
-
-      if (trend.articles_max_id !== null) {
-        let articleChainId = chain.request((error, articles) => {
-          if (error) {
-            console.error(error);
-            return;
-          }
-
-          if (articles.length) {
-            trend.articles_max_id = articles[articles.length - 1]._id;
-          } else {
-            trend.articles_max_id = null;
-          }
-
-          content.articles = content.articles.concat(articles);
-
-          handleResponse();
-        });
-
-        this.networkBus.fetchTrendArticles((error, response) => {
-          chain.response(articleChainId, [error, response]);
-        }, trend.name, 3, trend.articles_max_id);
-      } else {
-        handleResponse();
-      }
-
-      index += 1;
+      i += 1;
     }
-    this.trendsMetaIndex = index;
 
-    const moreContent = index < trends.length;
-    if (!moreContent) {
-      this.setState({
-        ghostCards: 0,
+    // Save which endpoint we left off at for next #getContent call.
+    this.trendsMetaIndex = i;
+  }
+
+  /**
+   * Helper function specfic to #getContent.
+   *
+   * Fetches content from a specific trend through the NetworkBus.
+   * @param {object} context
+   * @param {string} contentType
+   * @param {function} endpoint
+   */
+  private fetchContent(context, contentType, contentLimit, networkBusFetch) {
+    // If endpoint is not depleted from content
+    if (context.trend.max_id[contentType] !== null) {
+      // Register the callback in the request response.
+      let chainId = context.chain.request((error, content) => {
+        if (error) {
+          console.error(error);
+          return;
+        }
+
+        // If there is content from this response
+        if (content.length) {
+          context.trend.max_id[contentType] = content[content.length - 1]._id;
+        } else {
+          context.trend.max_id[contentType] = null;
+        }
+
+        context.content[contentType] = content;
+        context.handleResponse();
       });
+
+      // Make the request
+      networkBusFetch((error, response) => {
+        // Notify chain of the response
+        context.chain.response(chainId, [error, response]);
+      }, context.trend.name, contentLimit, context.trend.max_id[contentType]);
+    } else {
+      context.handleResponse();
     }
   }
 
-  render() {
-    const content = this.state.content;
-    let cards = content.map((c, i) => {
-      return c.type === 'Article'
-      // content will not reorder index key is fine
-      ? <ArticleCard key={i} article={c} />
-      : <TweetCard key={i} tweet={c} />;
+  /**
+   * Helper function specfic to #getContent.
+   *
+   * Renders the content from a specific trend's response.
+   * @param {number} trendIndex
+   * @param {(Tweet[]|Article[])} content
+   */
+  private renderContent(trendIndex, content) {
+    content = content.map((c, i) => {
+      switch (c.type) {
+        case 'Article':
+          return <ArticleCard key={i} article={c} />;
+        case 'Tweet':
+          return <TweetCard key={i} tweet={c} />;
+      }
+      throw new ReferenceError();
     });
 
+    const trendCards = this.state.trendCards.slice(0);
+    trendCards[trendIndex] = content;
+    this.setState({trendCards});
+  }
+
+  public render() {
+    const trendCards = this.state.trendCards;
     const ghostCards = [];
     for (let i = 0; i < this.state.ghostCards; i++) {
-      // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={`GC${i}`} />);
+      ghostCards.push(<GhostCard key={`GC${trendCards.length + i}`} />);
     }
 
-    cards = cards.concat(ghostCards);
-
-    let cardsComponent;
-    if (window.innerWidth < 768) {
-      cardsComponent = (
-        <div className="col-xs-12">
-          {cards}
-        </div>
-      );
-    } else {
-      cardsComponent = [
-        <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 === 0)}
-        </div>,
-        <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 === 1)}
-        </div>
-      ];
-    }
+    const cardsArray = trendCards
+      .reduce((prev, cards, i) => {
+        const trend = this.trendsMeta[i];
+        return prev.concat([
+          <TrendHeading value={trend.name}
+            onClick={() => this.props.onTrendClick(trend)}/>,
+          cards
+        ]);
+      }, [])
+      .concat(ghostCards);
 
     return (
       <div>
         <TrendsChart trends={this.state.trendsPacket}
           onTrendClick={this.props.onTrendClick}/>
-        <main className="card-container container">
-          {cardsComponent}
-        </main>
+        <CardLayout cards={cardsArray}/>
       </div>
     );
   }
+}
+
+function TrendHeading(props) {
+  return (
+    <div className="trend-heading" onClick={props.onClick}>
+      <h3 className="trend-heading--text">{props.value}</h3>
+      <a className="trend-heading--link">
+          <img className="trend-heading--link-icon" src="img/more.svg"/>
+      </a>
+    </div>
+  );
 }
