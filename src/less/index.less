@@ -164,11 +164,13 @@ body {
   padding-bottom: 10px;
   transform: translateY(50%);
   opacity: 0;
+  touch-action: none;
   transition: 0.5s transform, 0.5s opacity;
 
   &.card--visible {
     transform: initial;
     opacity: initial;
+    touch-action: initial;
   }
 
   .card--title {
@@ -246,6 +248,7 @@ body {
   margin: 0 12px;
   line-height: 50px;
   float: left;
+  cursor: pointer;
 }
 
 #hideDescription {
@@ -257,6 +260,7 @@ body {
   text-align: center;
   width: 100%;
   float: left;
+  cursor: pointer;
 }
 
 .trend-heading--text {
