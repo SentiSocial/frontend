@@ -71,6 +71,14 @@ export function randomRange(min, max) {
   return Math.round(Math.random() * diff + min);
 }
 
+/**
+ * Returns whether or not the device is a mobile device.
+ * @returns {boolean}
+ */
+export function isMobileDevice() {
+  return window.innerWidth < 768;
+}
+
 const moment = require('moment');
 /**
  * Configures the string format of moment's relative time.

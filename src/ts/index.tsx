@@ -16,13 +16,17 @@ function stopLoading() {
   document.body.removeChild(loading);
 }
 
+interface ApplicationProps {
+  dependencies: any;
+}
+
 interface ApplicationState {
   selectedTrend: Trend;
   page: any;
   title: string;
 };
 
-class Application extends React.Component<undefined, ApplicationState> {
+class Application extends React.Component<ApplicationProps, ApplicationState> {
   protected firstLoad = false;
 
   constructor(props) {
@@ -31,6 +35,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.state = {
       title: 'SentiSocial',
       page: <AllTrendsPage
+        dependencies={this.props.dependencies}
         onLoad={this.handlePageLoad}
         onTrendClick={this.handleTrendClick}/>,
       selectedTrend: undefined,
@@ -81,6 +86,7 @@ class Application extends React.Component<undefined, ApplicationState> {
     this.setState({
       title: 'SentiSocial',
       page: <AllTrendsPage
+        dependencies={this.props.dependencies}
         onLoad={this.handlePageLoad}
         onTrendClick={this.handleTrendClick}/>,
       selectedTrend: undefined,
@@ -118,6 +124,9 @@ class Application extends React.Component<undefined, ApplicationState> {
 }
 
 ReactDOM.render(
-  <Application />,
+  <Application dependencies={{
+    window: window,
+    fetch: window['fetch'].bind(window)
+  }}/>,
   document.getElementById('root')
 );
