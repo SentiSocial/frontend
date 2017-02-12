@@ -44,9 +44,6 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     this.handlePageLoad = this.handlePageLoad.bind(this);
     this.handleTrendClick = this.handleTrendClick.bind(this);
     this.handleBackEvent = this.handleBackEvent.bind(this);
-    
-
-
 
     this.firstLoad = false;
     const window = this.props.dependencies.window;
