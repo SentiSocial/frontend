@@ -142,7 +142,7 @@ export class AllTrendsPage
         if (++responses < requestsPerTrend) return;
         // Scramble them like eggs, just kidding.
         // Merge the content into each other.
-        let mergedContent = cutMerge(content.tweets, content.articles);
+        let mergedContent = cutMerge(content.articles, content.tweets);
         // Update the state
         this.renderContent(trendIndex, mergedContent);
         // If this is the first load, tell big boss (index.tsx) that we loaded.

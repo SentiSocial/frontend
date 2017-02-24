@@ -97,7 +97,10 @@ export class TrendPage
    * @author Omar Chehab
    */
   getContent() {
-    let content = [];
+    let content = {
+       tweets: undefined,
+       articles: undefined
+    };
     let responseCounter = 0;
 
     const handleResponse = () => {
@@ -125,7 +128,7 @@ export class TrendPage
           this.tweets_max_id = null;
         }
 
-        content.push(tweets);
+        content.tweets = tweets;
 
         handleResponse();
       }, this.props.name, 10, this.tweets_max_id);
@@ -144,7 +147,7 @@ export class TrendPage
           this.articles_max_id = null;
         }
 
-        content.push(articles);
+        content.articles = articles;
 
         handleResponse();
       }, this.props.name, 10, this.articles_max_id);

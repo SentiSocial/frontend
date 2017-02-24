@@ -53,7 +53,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
       page: 'AllTrendsPage'
     }, '', '');
     window.addEventListener('popstate', this.handlePopState);
-    
+
     this.state = {
       title: 'SentiSocial',
       page: <AllTrendsPage
@@ -86,7 +86,7 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
    */
   handlePageLoad(error) {
     if (!this.firstLoad) {
-      this.firstLoad = true
+      this.firstLoad = true;
       stopLoading();
     }
 
