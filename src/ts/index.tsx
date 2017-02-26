@@ -143,7 +143,8 @@ class Application extends React.Component<ApplicationProps, ApplicationState> {
     const state = {
       title: selectedTrend.name,
       page: <TrendPage
-       name={selectedTrend.name}/>,
+        dependencies={this.props.dependencies}
+        name={selectedTrend.name}/>,
       selectedTrend: selectedTrend,
     };
     this.setState(state);

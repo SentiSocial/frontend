@@ -45,6 +45,7 @@ export class AllTrendsPage
 
   private trendsMeta;
   private trendsMetaIndex;
+  private onGoingRequest;
 
   /**
    * Creates a new AllTrendsPage.
@@ -61,6 +62,7 @@ export class AllTrendsPage
 
     this.trendsMeta = [];
     this.trendsMetaIndex = 0;
+    this.onGoingRequest = false;
 
     this.state = {
       trendsPacket: undefined,
@@ -117,6 +119,9 @@ export class AllTrendsPage
    * Gets news and tweets from the server.
    */
   private getContent() {
+    this.infiniteScroll.pause();
+    this.onGoingRequest = true;
+
     const trends = this.trendsMeta;
     const numberOfTrends = 2;
     const requestsPerTrend = 2;
@@ -139,7 +144,11 @@ export class AllTrendsPage
 
       const handleResponse = () => {
         // Only proceed if all requests for this trend have
-        if (++responses < requestsPerTrend) return;
+        responses += 1;
+        if (responses < requestsPerTrend) return;
+
+        this.onGoingRequest = false;
+
         // Scramble them like eggs, just kidding.
         // Merge the content into each other.
         let mergedContent = cutMerge(content.articles, content.tweets);
@@ -224,23 +233,42 @@ export class AllTrendsPage
     this.setState({trendCards});
   }
 
+  /**
+   * Returns whether or not the endpoint fueling the infinite scroll is
+   * depleted.
+   * @returns {boolean}
+   */
+  private endpointIsNotDepleted() {
+    return this.trendsMetaIndex < this.trendsMeta.length;
+  }
+
   public render() {
     const trendCards = this.state.trendCards;
-    const ghostCards = [];
-    for (let i = 0; i < this.state.ghostCards; i++) {
-      ghostCards.push(<GhostCard key={`GC${trendCards.length + i}`} />);
-    }
 
-    const cardsArray = trendCards
+    let cardsArray = trendCards
       .reduce((prev, cards, i) => {
         const trend = this.trendsMeta[i];
         return prev.concat([
-          <TrendHeading value={trend.name}
+          <TrendHeading key={i * 2} value={trend.name}
             onClick={() => this.props.onTrendClick(trend)}/>,
-          <CardLayout cards={cards}/>
+          <CardLayout key={i * 2 + 1} cards={cards}/>
         ]);
       }, []);
-      // .concat(ghostCards);
+
+    if (this.endpointIsNotDepleted()) {
+      if (!this.onGoingRequest) {
+        this.infiniteScroll.resume();
+      }
+
+      const ghostCards = [];
+      for (let i = 0; i < this.state.ghostCards; i++) {
+        ghostCards.push(<GhostCard key={`gc:${i}`} />);
+      }
+      cardsArray = cardsArray.concat(
+        <CardLayout key="gc:*" cards={ghostCards}/>
+      );
+    }
+
 
     return (
       <div>

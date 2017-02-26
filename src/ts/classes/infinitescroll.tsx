@@ -1,5 +1,3 @@
-const callbackTimeout = 1000;
-
 /**
  * Watches the scrolling of a user, callsback when the user is close to the
  * end of the document.
@@ -8,8 +6,8 @@ const callbackTimeout = 1000;
 export class InfiniteScroll {
   protected window;
   protected callback: () => void;
-  protected prevRequestTime: number;
   protected isActive: boolean;
+  protected isPaused: boolean;
 
   /**
    * Pass the global variable window for use in production.
@@ -23,8 +21,8 @@ export class InfiniteScroll {
 
     this.window = window;
     this.callback = callback;
-    this.prevRequestTime = Date.now();
     this.isActive = false;
+    this.isPaused = true;
   }
 
   /**
@@ -50,13 +48,26 @@ export class InfiniteScroll {
   }
 
   /**
+   * Disallows InfiniteScroll to invoke the callback.
+   */
+  public pause() {
+    this.isPaused = true;
+  }
+
+  /**
+   * Allows InfiniteScroll to invoke the callback.
+   */
+  public resume() {
+    this.isPaused = false;
+  }
+
+  /**
    * Event handler for the window scroll event.
    */
   protected handleScroll(event) {
     const reachedEnd = this.getScrollRemaining() <= this.window.innerHeight * 2;
-    const waited = Date.now() > this.prevRequestTime + callbackTimeout;
-    if (waited && reachedEnd) {
-      this.prevRequestTime = Date.now();
+    const isNotPaused = !this.isPaused;
+    if (isNotPaused && reachedEnd) {
       this.callback();
     }
   }
