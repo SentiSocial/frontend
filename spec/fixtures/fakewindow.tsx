@@ -1,4 +1,6 @@
-const actions = {};
+const actions = {
+  'scroll': () => {}
+};
 
 export const fakeWindow = {
   addEventListener: (type, callback) => {
