@@ -282,7 +282,7 @@ export class AllTrendsPage
 
 function TrendHeading(props) {
   return (
-    <div className="trend-heading" onClick={props.onClick}>
+    <div className="trend-heading container" onClick={props.onClick}>
       <h3 className="trend-heading--text">{props.value}</h3>
       <a className="trend-heading--link">
           <img className="trend-heading--link-icon" src="img/more.svg"/>
