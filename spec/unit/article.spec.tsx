@@ -7,11 +7,11 @@ import { Card } from '../../src/ts/components/cards/card';
 import { ArticleCard } from '../../src/ts/components/cards/article';
 import { Article } from '../../src/ts/types/article';
 
-describe('<Article />', () => {
+describe('<Article />', function() {
   let someArticle;
   let wrapper;
 
-  beforeEach(() => {
+  beforeEach(function() {
     someArticle = new Article({
        _id: '1337-73S7S',
        title: 'Sentisocial going off the charts!',
@@ -23,12 +23,12 @@ describe('<Article />', () => {
     });
   })
 
-  it('wraps content with <Card /> component', () => {
+  it('wraps content with <Card /> component', function() {
     wrapper = shallow(<ArticleCard article={someArticle} />);
     assert.equal(wrapper.find(Card).length, 1);
   })
 
-  it('optionally renders an image', () => {
+  it('optionally renders an image', function() {
     someArticle.media = undefined;
 
     wrapper = shallow(<ArticleCard article={someArticle} />);
@@ -40,14 +40,14 @@ describe('<Article />', () => {
     assert.equal(wrapper.find('img').length, 1);
   })
 
-  it('renders relative published time', () => {
+  it('renders relative published time', function() {
     wrapper = shallow(<ArticleCard article={someArticle} />);
     // time should be rendered as '5s', since it's relative time.
     // Used regex here to match any digit.
     assert.match(wrapper.find('.card--time').text(), /^\ds$/);
   })
 
-  it('description is collapsable', () => {
+  it('description is collapsable', function() {
     wrapper = shallow(<ArticleCard article={someArticle} />);
     assert(wrapper.find('.card--description').hasClass('hidden'));
 

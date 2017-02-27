@@ -5,18 +5,24 @@ import {NetworkBus} from '../classes/networkbus';
 import {InfiniteScroll} from '../classes/infinitescroll';
 import {cutMerge} from '../classes/helpers';
 
-import {ArticleCard} from '../components/cards/article';
-import {Article} from '../types/article';
-import {TweetCard} from '../components/cards/tweet';
-import {Tweet} from '../types/tweet';
 import {TrendHistory} from '../types/trend';
+import {Article} from '../types/article';
+import {Tweet} from '../types/tweet';
 
+import {CardLayout} from '../components/cardlayout';
+
+import {ArticleCard} from '../components/cards/article';
+import {TweetCard} from '../components/cards/tweet';
 import {GhostCard} from '../components/cards/ghost';
 
 import {TrendChartVisual} from '../components/charts/trend';
 
 interface PageSpecificTrendsProps {
   name: string;
+  dependencies: {
+    window: any;
+    fetch: any;
+  };
 };
 
 interface PageSpecificTrendsState {
@@ -31,22 +37,26 @@ interface PageSpecificTrendsState {
  */
 export class TrendPage
   extends React.Component<PageSpecificTrendsProps, PageSpecificTrendsState> {
-  networkBus;
-  infiniteScroll;
+  private networkBus;
+  private infiniteScroll;
 
-  tweets_max_id;
-  articles_max_id;
+  private tweets_max_id;
+  private articles_max_id;
+  private onGoingRequest;
 
   constructor(props) {
     super(props);
 
-    this.networkBus = new NetworkBus(window['fetch'].bind(window));
-
     this.getContent = this.getContent.bind(this);
+
+    const fetch = this.props.dependencies.fetch;
+    this.networkBus = new NetworkBus(fetch);
+    const window = this.props.dependencies.window;
+    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
 
     this.tweets_max_id = undefined;
     this.articles_max_id = undefined;
-    this.infiniteScroll = new InfiniteScroll(window, this.getContent);
+    this.onGoingRequest = false;
 
     this.state = {
       history: undefined,
@@ -97,19 +107,23 @@ export class TrendPage
    * @author Omar Chehab
    */
   getContent() {
-    let content = [];
+    this.infiniteScroll.pause();
+    this.onGoingRequest = true;
+
+    let content = {
+       tweets: [],
+       articles: []
+    };
     let responseCounter = 0;
 
     const handleResponse = () => {
       responseCounter += 1;
-      if (responseCounter < 2) {
-        return;
-      }
+      if (responseCounter < 2) return;
 
-      content = cutMerge(content[0], content[1]);
-      this.setState(prevState => ({
-        content: prevState.content.concat(content)
-      }));
+      this.onGoingRequest = false;
+
+      content = cutMerge(content.articles, content.tweets);
+      this.renderContent(content);
     };
 
     if (this.tweets_max_id !== null) {
@@ -125,10 +139,12 @@ export class TrendPage
           this.tweets_max_id = null;
         }
 
-        content.push(tweets);
+        content.tweets = tweets;
 
         handleResponse();
       }, this.props.name, 10, this.tweets_max_id);
+    } else {
+      handleResponse();
     }
 
     if (this.articles_max_id !== null) {
@@ -144,60 +160,67 @@ export class TrendPage
           this.articles_max_id = null;
         }
 
-        content.push(articles);
+        content.articles = articles;
 
         handleResponse();
       }, this.props.name, 10, this.articles_max_id);
+    } else {
+      handleResponse();
     }
+  }
 
-    const moreContent = this.tweets_max_id !== null && this.articles_max_id !== null;
-    if (!moreContent) {
-      this.setState({
-        ghostCards: 0
-      });
-    }
+  /**
+   * Helper function specfic to #getContent.
+   *
+   * Renders the content from a specific trend's response.
+   * @param {(Tweet[]|Article[])} content
+   */
+  private renderContent(content) {
+    const offset = this.state.content.length;
+    content = content.map((c, i) => {
+      switch (c.type) {
+        case 'Article':
+          return <ArticleCard key={offset + i} article={c} />;
+        case 'Tweet':
+          return <TweetCard key={offset + i} tweet={c} />;
+      }
+      throw new ReferenceError();
+    });
+
+    this.setState(prevState => ({
+      content: prevState.content.concat(content)
+    }));
+  }
+
+  /**
+   * Returns whether or not the endpoint fueling the infinite scroll is
+   * depleted.
+   * @returns {boolean}
+   */
+  private endpointIsNotDepleted() {
+    return this.tweets_max_id !== null || this.articles_max_id !== null;
   }
 
   render() {
     const content = this.state.content;
-    let cards = content.map((content, i) => {
-      return content.type === 'Article'
-      // content will not reorder index key is fine
-      ? <ArticleCard key={i} article={content} />
-      : <TweetCard key={i} tweet={content} />;
-    });
+    let cards = [<CardLayout key="cl:0" cards={content}/>];
 
-    const ghostCards = [];
-    for (let i = 0; i < this.state.ghostCards; i++) {
-      // content will not reorder index key is fine
-      ghostCards.push(<GhostCard key={`GC${i}`} />);
+    if (this.endpointIsNotDepleted()) {
+      if (!this.onGoingRequest) {
+        this.infiniteScroll.resume();
+      }
+
+      const ghostCards = [];
+      for (let i = 0; i < this.state.ghostCards; i++) {
+        ghostCards.push(<GhostCard key={`gc:${i}`} />);
+      }
+      cards = cards.concat(<CardLayout key="gc:*" cards={ghostCards}/>);
     }
 
-    cards = cards.concat(ghostCards);
-
-    let cardsComponent;
-    if (window.innerWidth < 768) {
-      cardsComponent = (
-        <div className="col-xs-12">
-          {cards}
-        </div>
-      );
-    } else {
-      cardsComponent = [
-        <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 === 0)}
-        </div>,
-        <div className="col-sm-6">
-          {cards.filter((card, i) => i % 2 === 1)}
-        </div>
-      ];
-    }
     return (
       <div>
         <TrendChartVisual history={this.state.history}/>
-        <main className="card-container container">
-          {cardsComponent}
-        </main>
+        {cards}
       </div>
     );
   }
