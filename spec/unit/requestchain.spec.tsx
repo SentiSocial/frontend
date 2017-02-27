@@ -5,9 +5,9 @@ import {
   RequestDoesNotExist
 } from '../../src/ts/classes/requestchain';
 
-describe('RequestChain', () => {
+describe('RequestChain', function() {
 
-  it('spec', () => {
+  it('spec', function() {
     assert.typeOf(RequestChain, 'function');
     assert.typeOf(RequestDoesNotExist, 'function');
 
@@ -28,7 +28,7 @@ describe('RequestChain', () => {
     assert.typeOf(response_isEmpty, 'boolean');
   })
 
-  it('#isEmpty', () => {
+  it('#isEmpty', function() {
     const requestChain = new RequestChain();
     assert.isTrue(requestChain.isEmpty());
 
@@ -37,7 +37,7 @@ describe('RequestChain', () => {
     requestChain.response(id, () => {});
   })
 
-  it('returns the response data', done => {
+  it('returns the response data', function(done) {
     const chain = new RequestChain();
     const responses = [];
     const someResponse1 = 'I am the first response';
@@ -66,7 +66,7 @@ describe('RequestChain', () => {
     }
   })
 
-  it('delays response until it is the oldest', done => {
+  it('delays response until it is the oldest', function(done) {
     const chain = new RequestChain();
     const order = [];
     const req1 = chain.request(() => {

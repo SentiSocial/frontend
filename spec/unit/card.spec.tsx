@@ -5,14 +5,14 @@ import { shallow } from 'enzyme';
 
 import { Card } from '../../src/ts/components/cards/card';
 
-describe('<Card />', () => {
-  it('renders div.card', () => {
+describe('<Card />', function() {
+  it('renders div.card', function() {
     const wrapper = shallow(<Card />);
 
     expect(wrapper.find('.card')).to.have.length(1);
   });
 
-  it('renders children props', () => {
+  it('renders children props', function() {
     const someChild = <div className="unique" />;
     
     const wrapper = shallow(
