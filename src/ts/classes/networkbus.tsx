@@ -68,8 +68,8 @@ export class NetworkBus {
   public fetchAllTrends(callback) {
     const endpoint = endpoints.alltrends();
 
-    const json = handleJSON.bind({callback, endpoint});
-    const error = handleError.bind({callback, endpoint});
+    const json = handleJSON.bind(null, callback, endpoint);
+    const error = handleError.bind(null, callback);
 
     this.fetch(endpoint)
 
@@ -77,9 +77,8 @@ export class NetworkBus {
 
       .then((response: AllTrendsPacket) => {
         response = new AllTrends(response);
-
         callback(undefined, response);
-      }, handleError);
+      }, error);
   }
 
   /**
@@ -100,8 +99,8 @@ export class NetworkBus {
     name = encodeURIComponent(name);
     const endpoint = endpoints.trend(name);
 
-    const json = handleJSON.bind({callback, endpoint});
-    const error = handleError.bind({callback, endpoint});
+    const json = handleJSON.bind(null, callback, endpoint);
+    const error = handleError.bind(null, callback);
 
     this.fetch(endpoint)
 
@@ -111,7 +110,7 @@ export class NetworkBus {
         response = new Trend(response);
 
         callback(undefined, response);
-      }, handleError);
+      }, error);
   }
 
   /**
@@ -134,8 +133,8 @@ export class NetworkBus {
     name = encodeURIComponent(name);
     const endpoint = endpoints.trendTweets(name, limit, max_id);
 
-    const json = handleJSON.bind({callback, endpoint});
-    const error = handleError.bind({callback, endpoint});
+    const json = handleJSON.bind(null, callback, endpoint);
+    const error = handleError.bind(null, callback);
 
     this.fetch(endpoint)
 
@@ -146,7 +145,7 @@ export class NetworkBus {
           .map(article => new Tweet(article));
 
         callback(undefined, tweets);
-      }, handleError);
+      }, error);
   }
 
   /**
@@ -169,8 +168,8 @@ export class NetworkBus {
     name = encodeURIComponent(name);
     const endpoint = endpoints.trendArticles(name, limit, max_id);
 
-    const json = handleJSON.bind({callback, endpoint});
-    const error = handleError.bind({callback, endpoint});
+    const json = handleJSON.bind(null, callback, endpoint);
+    const error = handleError.bind(null, callback);
 
     this.fetch(endpoint)
 
@@ -181,7 +180,7 @@ export class NetworkBus {
           .map(article => new Article(article));
 
         callback(undefined, articles);
-      }, handleError);
+      }, error);
   }
 }
 
@@ -189,8 +188,8 @@ export class NetworkBus {
  * Releases the callback with an error.
  * @param {Error} error
  */
-function handleError(error) {
-  this.callback(error, undefined);
+function handleError(callback, error) {
+  callback(error, undefined);
 }
 
 /**
@@ -202,13 +201,12 @@ function handleError(error) {
  * @param {Response} response fetch response
  * @return {(object|array|boolean)}
  */
-function handleJSON(response) {
+function handleJSON(callback, endpoint, response) {
   if (!response.ok) {
-    const error = new ResponseError(this.endpoint, response.status);
-    handleError.bind(this)(error);
+    const error = new ResponseError(endpoint, response.status);
+    handleError(callback, error);
     return false;
   }
-
   return response.json();
 }
 
