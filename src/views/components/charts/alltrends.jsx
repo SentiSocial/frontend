@@ -21,7 +21,7 @@ export default class AllTrendsChart extends React.Component {
       return
     }
     const clickedBar = event[0]
-    const i = clickedBar._index + this.state.scroll
+    const i = clickedBar._index
     const trendsPacket = this.props.trends
     const clickedTrend = trendsPacket.trends[i]
     this.props.onTrendClick(clickedTrend)
@@ -144,6 +144,6 @@ export default class AllTrendsChart extends React.Component {
 }
 
 AllTrendsChart.propTypes = {
-  trends: React.PropTypes.instanceOf(AllTrends).isRequired,
-  onTrendClick: React.PropTypes.function.isRequired
+  trends: React.PropTypes.instanceOf(AllTrends),
+  onTrendClick: React.PropTypes.func.isRequired
 }

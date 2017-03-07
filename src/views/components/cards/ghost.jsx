@@ -34,5 +34,5 @@ function GhostCardLine (props) {
 }
 
 GhostCardLine.propTypes = {
-  style: React.PropTypes.object.isRequired
+  style: React.PropTypes.object
 }

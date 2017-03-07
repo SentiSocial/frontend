@@ -12,5 +12,5 @@ export default function Layout (props) {
 }
 
 Layout.propTypes = {
-  children: React.propTypes.node.isRequired
+  children: React.PropTypes.node.isRequired
 }

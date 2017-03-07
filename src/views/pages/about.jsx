@@ -3,12 +3,8 @@ import './about.scss'
 
 export default function AboutPage (props) {
   return (
-    <div id="about container">
+    <div id="about" className="container">
       About
     </div>
   )
-}
-
-AboutPage.propTypes = {
-  children: React.PropTypes.node.isRequired
 }

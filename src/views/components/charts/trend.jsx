@@ -108,5 +108,5 @@ export default class TrendChart extends React.Component {
 }
 
 TrendChart.propTypes = {
-  history: React.PropTypes.array.isRequired
+  history: React.PropTypes.array
 }

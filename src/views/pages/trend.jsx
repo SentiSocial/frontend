@@ -206,6 +206,6 @@ export default class TrendPage extends React.Component {
 }
 
 TrendPage.propTypes = {
-  params: React.PropTypes.object.isRequired,
-  dependencies: React.PropTypes.object.isRequired
+  dependencies: React.PropTypes.object,
+  params: React.PropTypes.object.isRequired
 }

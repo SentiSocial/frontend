@@ -3,7 +3,8 @@ options:
 files:
   include: '**/*.scss'
   ignore:
-    - 'node_modules/**/*.scss'
+    - 'node_modules/**/*'
+    - 'dist/**/*'
 rules:
   # Extends
   extends-before-mixins: 1

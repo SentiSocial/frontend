@@ -266,7 +266,7 @@ export default class AllTrendsPage extends React.Component {
 }
 
 AllTrendsPage.propTypes = {
-  dependencies: React.PropTypes.object.isRequired,
+  dependencies: React.PropTypes.object,
   router: React.PropTypes.object.isRequired
 }
 
@@ -288,6 +288,6 @@ function TrendHeading (props) {
 }
 
 TrendHeading.propTypes = {
-  onClick: React.PropTypes.function.isRequired,
+  onClick: React.PropTypes.func.isRequired,
   value: React.PropTypes.string.isRequired
 }
