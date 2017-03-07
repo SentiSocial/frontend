@@ -138,9 +138,12 @@ export default class AllTrendsChart extends React.Component {
         <div className="chart-container">
           {trendsPacket &&
             <Chart.Bar
-              width={chartWidth} height={260} data={data} options={options}
-              onElementsClick={this.handleClickEvent}
-              />}
+              width={chartWidth}
+              height={260}
+              data={data}
+              options={options}
+              onElementsClick={this.handleClickEvent}/>
+          }
         </div>
 
         <div className="chart-container--footer">

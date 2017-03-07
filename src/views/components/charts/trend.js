@@ -12,9 +12,20 @@ import {moment} from 'views/classes/helpers.js'
 */
 export default class TrendChart extends React.Component {
   getData () {
+    let prev;
     return {
       labels: this.props.history
-        .map(trend => moment(trend.timestamp).fromNow()),
+        .map(trend => moment(trend.timestamp).fromNow())
+        .reduce((arr, val, i) => {
+          let result
+          if (val == prev) {
+            result = [ ...arr, '' ]
+          } else {
+            result = [ ...arr, val ]
+            prev = val
+          }
+          return result
+        }, []),
       datasets: [{
         label: 'Sentiment',
         type: 'line',
@@ -105,10 +116,15 @@ export default class TrendChart extends React.Component {
         </div>
 
         <div className="chart-container">
-          {this.props.history && <Chart.Bar data={data} options={options}/>}
+          {this.props.history &&
+            <Chart.Bar
+              data={data}
+              options={options}/>
+          }
         </div>
 
         <div className="chart-container--footer">
+          {/* Footer */}
           Sentiment over time
         </div>
       </div>
