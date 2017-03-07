@@ -1,0 +1,21 @@
+.chart-container {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  overflow-x: scroll;
+  padding: 20px;
+  position: relative;
+}
+
+.chart-container--line {
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 4px #ccc;
+  color: #777;
+  padding: 0 20px;
+
+  @media (min-width: 992px) {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 13px 20px;
+  }
+}

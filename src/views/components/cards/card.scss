@@ -1,0 +1,18 @@
+.card {
+  background-color: #fff;
+  border: 1px solid #e8e8e8;
+  border-radius: 2px;
+  box-shadow: 2px 2px 6px #d2d2d2;
+  margin: 20px 0;
+  min-height: 60px;
+  padding: 10px 15px;
+  position: relative;
+
+  @media (min-width: 768px) {
+    margin: 30px 10px;
+  }
+
+  @media (min-width: 992px) {
+    margin: 45px 15px;
+  }
+}

@@ -1,7 +1,4 @@
 .npm
 node_modules
 npm-debug.log
-public/js/*
-!public/js/.gitkeep
-public/css/*
-!public/css/.gitkeep
+dist
