@@ -1,3 +1,58 @@
-#about {
+.about--brand {
+  font-size: 32px;
+  font-weight: bold;
+
+  &::after {
+    border-top: 1px solid #333;
+    content: '';
+    display: block;
+    width: 1 / 4 * 100%;
+  }
+}
+
+.about--brand-green {
+  color: #8dd97f;
+}
+
+.about--brand-red {
+  color: #bc5757;
+}
+
+.about--description {
   color: #333;
+  font-size: 16px;
+}
+
+.about--timeline {
+  color: #333;
+  font-size: 28px;
+  font-weight: 400;
+  text-align: center;
+}
+
+.about--timeline-bubble {
+  display: block;
+  height: 32px;
+  margin: 25px auto;
+  width: 32px;
+}
+
+.about--timeline-date {
+  text-align: center;
+  text-transform: uppercase;
+
+  &::after {
+    border-top: 1px solid #333;
+    content: '';
+    display: block;
+    margin: 8px auto 16px;
+    width: 1 / 8 * 100%;
+  }
+}
+
+.about--timeline-text {
+  color: #333;
+  font-size: 16px;
+  padding: 0 30px;
+  text-align: center;
 }

@@ -2,7 +2,7 @@ import * as React from 'react'
 import {expect} from 'chai'
 import {shallow} from 'enzyme'
 
-import Card from 'views/components/cards/card.jsx'
+import Card from 'views/components/cards/card.js'
 
 describe('<Card />', function () {
   it('renders div.card', function () {
