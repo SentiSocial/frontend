@@ -181,6 +181,7 @@ export default class TrendPage extends React.Component {
   }
 
   render () {
+    const trend = decodeURIComponent(this.props.params.name);
     const content = this.state.content
     let cards = [<CardLayout key="cl:0" cards={content}/>]
 
@@ -198,7 +199,7 @@ export default class TrendPage extends React.Component {
 
     return (
       <div>
-        <TrendChart history={this.state.history}/>
+        <TrendChart trend={trend} history={this.state.history}/>
         {cards}
       </div>
     )

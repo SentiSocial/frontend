@@ -55,6 +55,9 @@ export default class TrendChart extends React.Component {
       tooltips: {
         enabled: false
       },
+      legend: {
+        display: false
+      },
       scales: {
         xAxes: [{
           display: true,
@@ -71,12 +74,6 @@ export default class TrendChart extends React.Component {
             display: true,
             drawBorders: false
           },
-          labels: {
-            show: true
-          },
-          legend: {
-            position: 'left'
-          },
           ticks: {
             display: false,
             stepSize: upperBound,
@@ -89,6 +86,8 @@ export default class TrendChart extends React.Component {
   }
 
   render () {
+    const trend = this.props.trend
+
     let data, options
 
     if (this.props.history) {
@@ -98,15 +97,26 @@ export default class TrendChart extends React.Component {
 
     return (
       <div className="container">
+        <div className="chart-container--header">
+          {/* Title */}
+          <h2 className="chart-container--title">
+            {trend}
+          </h2>
+        </div>
+
         <div className="chart-container">
           {this.props.history && <Chart.Bar data={data} options={options}/>}
         </div>
-        <div className="chart-container--line"/>
+
+        <div className="chart-container--footer">
+          Sentiment over time
+        </div>
       </div>
     )
   }
 }
 
 TrendChart.propTypes = {
+  trend: React.PropTypes.string.isRequired,
   history: React.PropTypes.array
 }
