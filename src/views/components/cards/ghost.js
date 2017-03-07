@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Card from 'views/components/cards/card.jsx'
+import Card from 'views/components/cards/card.js'
 import {fiftyFifty, randomRange} from 'views/classes/helpers.js'
 
 export default function GhostCard (props) {

@@ -1,13 +1,13 @@
 import * as React from 'react'
 import {Router, Route, browserHistory} from 'react-router'
 
-import Layout from 'views/layout.jsx'
+import Layout from 'views/layout.js'
 
-import AllTrendsPage from 'views/pages/alltrends.jsx'
-import TrendPage from 'views/pages/trend.jsx'
-import AboutPage from 'views/pages/about.jsx'
-import Status500 from 'views/pages/status500.jsx'
-import Status404 from 'views/pages/status404.jsx'
+import AllTrendsPage from 'views/pages/alltrends.js'
+import TrendPage from 'views/pages/trend.js'
+import AboutPage from 'views/pages/about.js'
+import Status500 from 'views/pages/status500.js'
+import Status404 from 'views/pages/status404.js'
 
 export default function Application () {
   return (

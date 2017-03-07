@@ -1,7 +1,7 @@
 import * as React from 'react'
 import './article.scss'
 
-import Card from 'views/components/cards/card.jsx'
+import Card from 'views/components/cards/card.js'
 import Article from 'views/types/article.js'
 
 /**

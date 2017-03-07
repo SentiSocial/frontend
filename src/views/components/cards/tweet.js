@@ -3,7 +3,7 @@ import './tweet.scss'
 
 import TweetEmbed from 'react-tweet-embed'
 
-import Card from 'views/components/cards/card.jsx'
+import Card from 'views/components/cards/card.js'
 import Tweet from 'views/types/tweet.js'
 
 export default function TweetCard (props) {

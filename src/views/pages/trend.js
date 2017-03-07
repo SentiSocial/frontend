@@ -4,13 +4,13 @@ import NetworkBus from 'views/classes/networkbus.js'
 import InfiniteScroll from 'views/classes/infinitescroll.js'
 import {cutMerge} from 'views/classes/helpers.js'
 
-import CardLayout from 'views/components/cardlayout.jsx'
+import CardLayout from 'views/components/cardlayout.js'
 
-import ArticleCard from 'views/components/cards/article.jsx'
-import TweetCard from 'views/components/cards/tweet.jsx'
-import GhostCard from 'views/components/cards/ghost.jsx'
+import ArticleCard from 'views/components/cards/article.js'
+import TweetCard from 'views/components/cards/tweet.js'
+import GhostCard from 'views/components/cards/ghost.js'
 
-import TrendChart from 'views/components/charts/trend.jsx'
+import TrendChart from 'views/components/charts/trend.js'
 
 /**
  * This class handles rendering the homepage, it contains a graph and cards.

@@ -1,6 +1,6 @@
 import * as React from 'react'
 
-import Navigation from 'views/components/navigation.jsx'
+import Navigation from 'views/components/navigation.js'
 
 export default function Layout (props) {
   return (

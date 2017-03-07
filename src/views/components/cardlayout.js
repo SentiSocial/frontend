@@ -56,16 +56,16 @@ export default class CardLayout extends React.Component {
 
     if (this.state.isMobile) {
       cardsComponent = (
-        <div className="cardlayout">
+        <div key="col-xs-a" className="cardlayout">
           {this.props.cards}
         </div>
       )
     } else {
       cardsComponent = [
-        <div className="cardlayout">
+        <div key="col-sm-a" className="cardlayout">
           {this.props.cards.filter((card, i) => i % 2 === 0)}
         </div>,
-        <div className="cardlayout">
+        <div key="col-sm-b"className="cardlayout">
           {this.props.cards.filter((card, i) => i % 2 === 1)}
         </div>
       ]
