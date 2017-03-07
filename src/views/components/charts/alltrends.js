@@ -127,15 +127,33 @@ export default class AllTrendsChart extends React.Component {
     }
     return (
       <div className="container">
+
+        <div className="chart-container--header">
+          {/* Title */}
+          <h2 className="chart-container--title">
+            Trend Chart
+          </h2>
+        </div>
+
         <div className="chart-container">
-          {/* <h1 className="chart--title">The Trend Chart</h1> */}
           {trendsPacket &&
             <Chart.Bar
               width={chartWidth} height={260} data={data} options={options}
               onElementsClick={this.handleClickEvent}
               />}
         </div>
-        <div className="chart-container--line">
+
+        <div className="chart-container--footer">
+
+          <div className="chart-container--legend">
+            {/* Positive Sentiment */}
+            <img className="chart-container--legend-positive"
+              src="/img/positive.svg"/>
+
+            {/* Negative Sentiment */}
+            <img className="chart-container--legend-negative"
+              src="/img/negative.svg"/>
+          </div>
           Click on any of the bars to filter the content
         </div>
       </div>
