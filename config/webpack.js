@@ -10,7 +10,11 @@ module.exports = env => {
 
   return {
     entry: {
-      app: './src/index.js',
+      app: [
+        'babel-polyfill',
+        'whatwg-fetch',
+        './src/index.js'
+      ],
       vendor: [
         'moment',
         'react',
