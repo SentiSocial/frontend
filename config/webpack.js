@@ -55,6 +55,7 @@ module.exports = env => {
     devtool: !isProd && 'eval',
     devServer: {
       contentBase: dist,
+      host: process.env.HOST || 'localhost',
       port: process.env.PORT || 3000,
       historyApiFallback: true,
       compress: isProd,
