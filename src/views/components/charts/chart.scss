@@ -44,16 +44,10 @@
   position: absolute;
   bottom: -20px;
   left: 30px;
-  transition: width .25s, height .25s;
-  transition-property: transform;
   transform: translate3d(0, 0, 0);
   animation: shake 8s infinite 4s cubic-bezier(.36,.07,.19,.97);
 
 }
-
-.chart-container--legend-negative:hover {
-    transform:scale(1.5,1.5);
-  }
 
 .chart-container--legend-positive {
   cursor: pointer;
@@ -63,15 +57,9 @@
   position: absolute;
   top: 35px;
   left: 30px;
-  transition: width .25s, height .25s; 
-  transition-property: transform;
   animation: wiggle 8s infinite;
   
 }
-
-.chart-container--legend-positive:hover {
-    transform:scale(1.5,1.5);
-  }
 
 .chart-container--legend-overlay {
   position: absolute;
