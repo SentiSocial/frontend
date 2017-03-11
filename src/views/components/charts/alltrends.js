@@ -27,6 +27,9 @@ export default class AllTrendsChart extends React.Component {
     this.props.onTrendClick(clickedTrend)
   }
 
+  detectScroll() {
+    
+  }
   getData () {
     const trendsPacket = this.props.trends
     const trends = trendsPacket.trends
@@ -134,8 +137,15 @@ export default class AllTrendsChart extends React.Component {
             Trend Chart
           </h2>
         </div>
-
-        <div className="chart-container">
+        <div className="chart-container--legend-overlay">
+            {/* Positive Sentiment */}
+            <img className="chart-container--legend-positive"
+              src="/img/positive.svg"/>
+            {/* Negative Sentiment */}
+            <img className="chart-container--legend-negative"
+              src="/img/negative.svg"/>
+        </div>
+        <div className="chart-container" onScroll="detectScroll()">
           {trendsPacket &&
             <Chart.Bar
               width={chartWidth}
@@ -148,15 +158,6 @@ export default class AllTrendsChart extends React.Component {
 
         <div className="chart-container--footer">
 
-          <div className="chart-container--legend">
-            {/* Positive Sentiment */}
-            <img className="chart-container--legend-positive"
-              src="/img/positive.svg"/>
-
-            {/* Negative Sentiment */}
-            <img className="chart-container--legend-negative"
-              src="/img/negative.svg"/>
-          </div>
           Click on any of the bars to filter the content
         </div>
       </div>

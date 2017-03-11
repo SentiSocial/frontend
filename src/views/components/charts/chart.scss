@@ -11,21 +11,43 @@
   padding: 20px 10px 10px;
 }
 
-.chart-container--legend {
-  display: flex;
-  padding: 10px 60px;
+.chart-container--legend-negative {
+  cursor: pointer;
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  bottom: 29px;
+  transition: width .5s, height .5s;
+
 }
 
-.chart-container--legend-negative {
-  flex-grow: 1;
-  height: 32px;
-  width: 32px;
-}
+.chart-container--legend-negative:hover {
+    height: 36px;
+    width: 36px;
+  }
 
 .chart-container--legend-positive {
+  cursor: pointer;
   flex-grow: 1;
-  height: 32px;
-  width: 32px;
+  height: 14px;
+  width: 14px;
+  position: absolute;
+  top: 24px;
+  transition: width .5s, height .5s;
+}
+
+.chart-container--legend-positive:hover {
+    height: 36px;
+    width: 36px;
+  }
+
+.chart-container--legend-overlay {
+  position: absolute;
+  padding-left: 20px;
+  height: 220px;
+  width: 100px;
+  z-index: 10;
+
 }
 
 .chart-container {
