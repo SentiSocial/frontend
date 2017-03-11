@@ -11,34 +11,66 @@
   padding: 20px 10px 10px;
 }
 
+@keyframes wiggle {
+    0% { transform: rotate(0deg); }
+   40% { transform: rotate(0deg); }
+   43% { transform: rotate(20deg); }
+   46% { transform: rotate(-20deg); }
+   48% { transform: rotate(0deg); }
+}
+
+@keyframes shake {
+  1%, 11% {
+    transform: translate3d(-0.5px, 0, 0);
+  }
+  
+  2%, 10% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  3%, 6%, 8% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  5%, 7% {
+    transform: translate3d(2px, 0, 0);
+  }
+}
+
 .chart-container--legend-negative {
   cursor: pointer;
-  height: 14px;
-  width: 14px;
+  height: 28px;
+  width: 28px;
   position: absolute;
-  bottom: 29px;
-  transition: width .5s, height .5s;
+  bottom: -20px;
+  left: 30px;
+  transition: width .25s, height .25s;
+  transition-property: transform;
+  transform: translate3d(0, 0, 0);
+  animation: shake 8s infinite 4s cubic-bezier(.36,.07,.19,.97);
 
 }
 
 .chart-container--legend-negative:hover {
-    height: 36px;
-    width: 36px;
+    transform:scale(1.5,1.5);
   }
 
 .chart-container--legend-positive {
   cursor: pointer;
   flex-grow: 1;
-  height: 14px;
-  width: 14px;
+  height: 28px;
+  width: 28px;
   position: absolute;
-  top: 24px;
-  transition: width .5s, height .5s;
+  top: 35px;
+  left: 30px;
+  transition: width .25s, height .25s; 
+  transition-property: transform;
+  animation: wiggle 8s infinite;
+  
 }
 
 .chart-container--legend-positive:hover {
-    height: 36px;
-    width: 36px;
+    transform:scale(1.5,1.5);
   }
 
 .chart-container--legend-overlay {
