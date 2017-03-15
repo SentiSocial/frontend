@@ -10,6 +10,7 @@ import CardLayout from 'views/components/cardlayout.js'
 
 import ArticleCard from 'views/components/cards/article.js'
 import TweetCard from 'views/components/cards/tweet.js'
+import TrackingProtectionCard from 'views/components/cards/trackingprotection.js'
 import GhostCard from 'views/components/cards/ghost.js'
 
 import AllTrendsChart from 'views/components/charts/alltrends.js'
@@ -200,7 +201,9 @@ export default class AllTrendsPage extends React.Component {
         case 'Article':
           return <ArticleCard key={i} article={c}/>
         case 'Tweet':
-          return <TweetCard key={i} tweet={c}/>
+          return trackingProtection
+            ? <TrackingProtectionCard key={i} type="twitter" />
+            : <TweetCard key={i} tweet={c}/>
       }
       throw new ReferenceError()
     })

@@ -12,6 +12,24 @@ function render () {
 
 render()
 
+window.trackingProtection = false
+// Twitter Tracking Protection Detection
+;(function () {
+  let img = document.createElement('img')
+  img.style.display = 'none'
+  img.src = 'https://twitter.com/favicon.ico'
+  img.addEventListener('load', function () {
+    document.body.removeChild(img)
+  })
+  img.addEventListener('error', function (err) {
+    if (!err.name && !err.message) {
+      window.trackingProtection = true
+    }
+    document.body.removeChild(img)
+  })
+  document.body.appendChild(img)
+})()
+
 if (process.env.NODE_ENV === 'production') {
   // Service Worker
   if ('serviceWorker' in navigator && window.location.protocol === 'https:') {

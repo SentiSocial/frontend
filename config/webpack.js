@@ -16,12 +16,12 @@ module.exports = env => {
         './src/index.js'
       ],
       vendor: [
+        './src/dependencies/twttr.js',
         'moment',
         'react',
         'react-dom',
         'react-router',
-        'react-chartjs-2',
-        'react-tweet-embed'
+        'react-chartjs-2'
       ]
     },
     output: {
