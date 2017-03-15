@@ -34,7 +34,7 @@ export default class ArticleCard extends React.Component {
     const article = this.props.article
     const hidden = this.state.descriptionHidden
     return (
-      <Card>
+      <Card style={{overflowY: 'initial'}}>
         {article.media && <img
           className="article--image"
           src={article.media}

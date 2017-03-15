@@ -7,6 +7,7 @@
   min-height: 60px;
   padding: 10px 15px;
   position: relative;
+  overflow-y: auto;
 
   @media (min-width: 768px) {
     margin: 30px 10px;
