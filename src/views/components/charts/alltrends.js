@@ -18,6 +18,7 @@ export default class AllTrendsChart extends React.Component {
     this.onClick = this.onClick.bind(this)
     this.onScroll = this.onScroll.bind(this)
   }
+
   /**
    * When a trend is clicked, notify the application to change the page.
    * @author Omar Chehab
@@ -164,7 +165,7 @@ export default class AllTrendsChart extends React.Component {
               height={260}
               data={data}
               options={options}
-              onElementsClick={this.onBarClick}/>
+              onElementsClick={this.onClick}/>
           }
         </div>
 
