@@ -80,6 +80,7 @@ export default class InfiniteScroll {
   _getScrollRemaining () {
     const height = this.window.document.body.scrollHeight
     const position = this.window.document.body.scrollTop
+      || this.window.document.documentElement.scrollTop
     return height - position
   }
 }
