@@ -41,7 +41,7 @@ export default class AllTrendsChart extends React.Component {
   getData () {
     const trendsPacket = this.props.trends
     const trends = trendsPacket.trends
-    const minimum = 0.5
+    const minimum = 1
     let trendScore = trends.map(trend => trend.sentiment)
 
     for (let i = 0; i < trendScore.length; i++) {
@@ -136,7 +136,10 @@ export default class AllTrendsChart extends React.Component {
     if (trendsPacket) {
       data = this.getData()
       options = this.getOptions()
-      chartWidth = trendsPacket.trends.length * 160
+      const largestLabel = data.labels
+        .reduce((res, val) => val.length > res.length ? val : res)
+      const characterWidth = 7;
+      chartWidth = trendsPacket.trends.length * characterWidth * largestLabel.length
     }
     return (
       <div className="container">

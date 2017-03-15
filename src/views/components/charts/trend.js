@@ -16,12 +16,12 @@ export default class TrendChart extends React.Component {
     return {
       labels: this.props.history
         .map(trend => moment(trend.timestamp).fromNow())
-        .reduce((arr, val, i) => {
+        .reduce((res, val, i, arr) => {
           let result
           if (val == prev) {
-            result = [ ...arr, '' ]
+            result = [ ...res, '' ]
           } else {
-            result = [ ...arr, val ]
+            result = [ ...res, val ]
             prev = val
           }
           return result
