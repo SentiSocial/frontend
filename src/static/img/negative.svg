@@ -1,9 +1,0 @@
-<?xml version="1.0" encoding="utf-8" ?>
-<svg version="1.1" width="1000" height="1000" viewBox="0 0 1000 1000" xmlns="http://www.w3.org/2000/svg">
-  <g>
-    <ellipse stroke="null" ry="500" rx="500.000011" id="svg_6" cy="500" cx="500" stroke-opacity="null" stroke-width="null" fill="#bc5757"/>
-    <path fill="#ffffff" id="svg_2" d="m490.80001,649.999976c-107.1,0 -197.1,61.4 -240.8,150.8l481.5,0c-43.6,-89.4 -133.6,-150.8 -240.7,-150.8z"/>
-    <path fill="#ffffff" id="svg_4" d="m673.5,447c41.7,0 73.5,-31.8 73.5,-73.5s-31.8,-73.5 -73.5,-73.5s-73.5,31.8 -73.5,73.5s31.8,73.5 73.5,73.5z"/>
-    <path fill="#ffffff" id="svg_5" d="m323.5,447c41.7,0 73.5,-31.8 73.5,-73.5s-31.8,-73.5 -73.5,-73.5c-41.7,0 -73.5,31.8 -73.5,73.5s31.8,73.5 73.5,73.5z"/>
-  </g>
-</svg>

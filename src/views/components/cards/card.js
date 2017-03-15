@@ -3,7 +3,7 @@ import './card.scss'
 
 export default function Card (props) {
   return (
-    <article className="card">
+    <article className="card" {...props}>
       {props.children}
     </article>
   )

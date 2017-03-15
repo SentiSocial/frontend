@@ -1,5 +1,5 @@
 import * as React from 'react'
-import './status500.scss'
+import './status.scss'
 
 export default function Status500Page (props) {
   return (

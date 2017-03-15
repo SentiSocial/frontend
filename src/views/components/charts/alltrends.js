@@ -12,11 +12,17 @@ import AllTrends from 'views/types/alltrends.js'
 * @author Dennis Tismenko
 */
 export default class AllTrendsChart extends React.Component {
+  constructor(props) {
+    super(props);
+
+    this.onClick = this.onClick.bind(this)
+    this.onScroll = this.onScroll.bind(this)
+  }
   /**
    * When a trend is clicked, notify the application to change the page.
    * @author Omar Chehab
    */
-  handleClickEvent = event => {
+  onClick(event) {
     if (!event.length) {
       return
     }
@@ -27,14 +33,16 @@ export default class AllTrendsChart extends React.Component {
     this.props.onTrendClick(clickedTrend)
   }
 
-  detectScroll() {
-    
+  onScroll(event) {
+
   }
+
   getData () {
     const trendsPacket = this.props.trends
     const trends = trendsPacket.trends
     const minimum = 0.5
     let trendScore = trends.map(trend => trend.sentiment)
+
     for (let i = 0; i < trendScore.length; i++) {
       if (Math.abs(trendScore[i]) < minimum) {
         if (trendScore[i] > 0) {
@@ -77,6 +85,7 @@ export default class AllTrendsChart extends React.Component {
     // set the upper and lower bound of the graph
     const upperBound = absoluteMax + padding
     const lowerBound = -absoluteMax - padding
+
     return {
       // showScale: false,
       responsive: false,
@@ -130,34 +139,36 @@ export default class AllTrendsChart extends React.Component {
     }
     return (
       <div className="container">
-
         <div className="chart-container--header">
           {/* Title */}
           <h2 className="chart-container--title">
             Trend Chart
           </h2>
         </div>
+
         <div className="chart-container--legend-overlay">
+
             {/* Positive Sentiment */}
             <img className="chart-container--legend-positive"
-              src="/img/positive.svg"/>
+              src="/img/mood-good.svg"/>
+
             {/* Negative Sentiment */}
             <img className="chart-container--legend-negative"
-              src="/img/negative.svg"/>
+              src="/img/mood-bad.svg"/>
         </div>
-        <div className="chart-container" onScroll="detectScroll()">
+
+        <div className="chart-container" onScroll={this.onScroll}>
           {trendsPacket &&
             <Chart.Bar
               width={chartWidth}
               height={260}
               data={data}
               options={options}
-              onElementsClick={this.handleClickEvent}/>
+              onElementsClick={this.onBarClick}/>
           }
         </div>
 
         <div className="chart-container--footer">
-
           Click on any of the bars to filter the content
         </div>
       </div>

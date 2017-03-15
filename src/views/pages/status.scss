@@ -59,7 +59,7 @@
 .status500--blame {
   @include absolute(50%, 50%);
   animation: fade-in;
-  animation-delay: 5s;
+  animation-delay: 3s;
   animation-duration: 1.5s;
   animation-fill-mode: forwards;
   bottom: 10%;

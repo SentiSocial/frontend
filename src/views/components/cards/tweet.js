@@ -1,17 +1,34 @@
 import * as React from 'react'
-import './tweet.scss'
-
-import TweetEmbed from 'react-tweet-embed'
 
 import Card from 'views/components/cards/card.js'
 import Tweet from 'views/types/tweet.js'
 
-export default function TweetCard (props) {
-  return (
-    <Card>
-      <TweetEmbed id={`${props.tweet.embed_id}`}/>
-    </Card>
-  )
+export default class TweetCard extends React.Component {
+  constructor (props) {
+    super(props)
+
+    this.createTweetEmbed = this.createTweetEmbed.bind(this)
+  }
+
+  componentDidMount () {
+    this.createTweetEmbed()
+  }
+
+  createTweetEmbed () {
+    const embed_id = this.props.tweet.embed_id
+    const options = {
+      align: 'center'
+    }
+    window.twttr.widgets.createTweetEmbed(embed_id, this.div, options)
+  }
+
+  render () {
+    return (
+      <Card>
+        <div ref={div => this.div = div} />
+      </Card>
+    )
+  }
 }
 
 TweetCard.propTypes = {
