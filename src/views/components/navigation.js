@@ -29,24 +29,18 @@ export default class Navigation extends React.Component {
   render () {
     const isCollapsed = this.state.isCollapsed ? 'collapse' : ''
     return (
-      <nav
-        className={`navigation ${isCollapsed}`}
-        onClick={this.onCollapseEvent}
-        >
+      <nav className={`navigation ${isCollapsed}`}
+        onClick={this.onCollapseEvent}>
         <div className="navigation--logo">
           <img className="navigation--logo-img" src="/img/logo.png"/>
         </div>
 
-        <Link to="/">
+        <Link to="/" tabIndex="0">
           <img className="navigation--option o0" src="/img/home.svg"/>
         </Link>
 
-        <a target="_blank" href="https://github.com/sentisocial">
-          <img className="navigation--option o1" src="/img/github.svg"/>
-        </a>
-
-        <Link to="/about">
-          <img className="navigation--option o2" src="/img/about.svg"/>
+        <Link to="/about" tabIndex="0">
+          <img className="navigation--option o1" src="/img/about.svg"/>
         </Link>
       </nav>
     )

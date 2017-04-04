@@ -7,6 +7,7 @@ html {
     font-family: 'Ubuntu', sans-serif;
     font-size: 12px;
     font-weight: lighter;
+    margin: 0;
   }
 }
 
@@ -15,11 +16,11 @@ html {
   margin-left: auto;
   margin-right: auto;
   overflow-y: auto;
-  padding-left: 15px;
-  padding-right: 15px;
   width: 100%;
 
   @media (min-width: 768px) {
+    padding-left: 15px;
+    padding-right: 15px;
     width: 750px;
   }
 
@@ -35,4 +36,19 @@ html {
 .col {
   float: left;
   width: 100%;
+}
+
+.brand {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  padding: .67em 0;
+}
+
+.brand-green {
+  color: #8dd97f;
+}
+
+.brand-red {
+  color: #bc5757;
 }

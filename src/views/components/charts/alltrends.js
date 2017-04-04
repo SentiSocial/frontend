@@ -145,9 +145,13 @@ export default class AllTrendsChart extends React.Component {
       <div className="container">
         <div className="chart-container--header">
           {/* Title */}
-          <h2 className="chart-container--title">
-            Trend Chart
-          </h2>
+          <h1 className="brand">
+            <span className="brand-green">Senti</span>
+            <span className="brand-red">Social</span>
+          </h1>
+          <div className="chart-container--description">
+            Sentiment analysis of social media trends
+          </div>
         </div>
 
         <div className="chart-container--legend-overlay">

@@ -1,21 +1,6 @@
-.about--brand {
-  font-size: 32px;
-  font-weight: bold;
-
-  &::after {
-    border-top: 1px solid #333;
-    content: '';
-    display: block;
-    width: 1 / 4 * 100%;
-  }
-}
-
-.about--brand-green {
-  color: #8dd97f;
-}
-
-.about--brand-red {
-  color: #bc5757;
+.about {
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .about--description {
@@ -55,4 +40,20 @@
   font-size: 16px;
   padding: 0 30px;
   text-align: center;
+}
+
+.about--contributers {
+  display: flex;
+}
+
+.about--contributers-item {
+  flex-grow: 1;
+
+  img {
+    border: 3px solid #8dd97f;
+    border-radius: 50%;
+    display: block;
+    margin: 0 auto;
+    max-width: 48px;
+  }
 }
