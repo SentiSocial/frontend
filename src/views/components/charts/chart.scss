@@ -51,7 +51,6 @@
 .chart-container--legend-negative {
   animation: shake 8s infinite 4s cubic-bezier(.36, .07, .19, .97);
   bottom: -20px;
-  cursor: pointer;
   height: 28px;
   left: 30px;
   position: absolute;
@@ -62,7 +61,6 @@
 
 .chart-container--legend-positive {
   animation: wiggle 8s infinite;
-  cursor: pointer;
   flex-grow: 1;
   height: 28px;
   left: 30px;
