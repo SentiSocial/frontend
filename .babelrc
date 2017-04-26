@@ -1,0 +1,17 @@
+{
+	"presets": [
+		"es2015",
+    "stage-2"
+	],
+	"plugins": [
+		["transform-react-jsx"],
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+				"views": "/src/views",
+				"styles": "/src/styles",
+				"static": "/src/static"
+      }
+    }]
+	]
+}

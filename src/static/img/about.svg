@@ -1,0 +1,14 @@
+<svg width="510" height="510" xmlns="http://www.w3.org/2000/svg">
+ <style type="text/css">.st0{fill:#808080;}</style>
+
+ <g>
+  <title>background</title>
+  <rect fill="none" id="canvas_background" height="402" width="582" y="-1" x="-1"/>
+ </g>
+ <g>
+  <title>Layer 1</title>
+  <g transform="rotate(180 254.99999999999997,255.00000000000003) " id="svg_1">
+   <path id="svg_2" d="m280.5,382.5l-51,0l0,-51l51,0l0,51zm0,-102l-51,0l0,-153l51,0l0,153z" class="st0"/>
+  </g>
+ </g>
+</svg>
