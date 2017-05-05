@@ -1,0 +1,13 @@
+{
+  "moduleFileExtensions": [
+    "js",
+    "jsx"
+  ],
+  "moduleDirectories": [
+    "node_modules"
+  ],
+  "moduleNameMapper": {
+    "\\.(jpg|jpeg|png)$": "<rootDir>/spec/mocks/file.js",
+    "\\.(css|scss)$": "<rootDir>/spec/mocks/style.js"
+  }
+}

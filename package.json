@@ -1,8 +1,28 @@
 {
   "name": "sentisocial-frontend",
-  "version": "1.0.0",
   "description": "Social media sentiment analysis and news aggregation",
-  "main": "index.js",
+  "author": "SentiSocial Team",
+  "license": "MIT",
+  "version": "1.0.0",
+  "main": "src/index.js",
+  "homepage": "https://github.com/sentisocial/sentisocial-frontend",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"
+  },
+  "bugs": {
+    "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
+  },
+  "scripts": {
+    "build": "webpack --env.production --config config/webpack",
+    "start": "serve dist -s",
+    "test": "jest -c config/jest.json",
+    "lint": "npm run lint-js && npm run lint-css",
+    "lint-js": "eslint -c config/eslint.json **/*.js **/*.jsx",
+    "lint-css": "sass-lint -c config/sass-lint.yml -v",
+    "lint-auto": "eslint **/*.js **/*.jsx --fix",
+    "watch": "webpack-dashboard -- webpack-dev-server --config config/webpack"
+  },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
     "moment": "^2.17.1",
@@ -54,41 +74,9 @@
     "webpack-dashboard": "^0.3.0",
     "webpack-dev-server": "^2.3.0"
   },
-  "scripts": {
-    "build": "webpack --env.production --config config/webpack",
-    "start": "serve dist -s",
-    "test": "jest",
-    "lint": "eslint **/*.js **/*.jsx && sass-lint -v",
-    "lint-auto": "eslint **/*.js **/*.jsx --fix",
-    "watch": "webpack-dashboard -- webpack-dev-server --config config/webpack"
-  },
   "pre-commit": [
     "lint",
     "test",
     "build"
-  ],
-  "sasslintConfig": "config/sass-lint.yml",
-  "jest": {
-    "moduleFileExtensions": [
-      "js",
-      "jsx"
-    ],
-    "moduleDirectories": [
-      "node_modules"
-    ],
-    "moduleNameMapper": {
-      "\\.(jpg|jpeg|png|gif|eot|otf|webp|svg|ttf|woff|woff2|mp4|webm|wav|mp3|m4a|aac|oga)$": "<rootDir>/spec/fixtures/fileMock.js",
-      "\\.(css|scss)$": "<rootDir>/spec/fixtures/styleMock.js"
-    }
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"
-  },
-  "author": "Omar Chehab, Dennis Tismenko",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
-  },
-  "homepage": "https://github.com/sentisocial/sentisocial-frontend/issues"
+  ]
 }

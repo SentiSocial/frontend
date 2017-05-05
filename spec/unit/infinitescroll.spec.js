@@ -2,7 +2,7 @@ import {assert} from 'chai'
 
 import InfiniteScroll from 'views/classes/infinitescroll.js'
 
-import FakeWindow from '../fixtures/fakewindow.js'
+import FakeWindow from '../mocks/window.js'
 
 describe('InfiniteScroll', function () {
   let fakeWindow

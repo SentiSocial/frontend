@@ -1,4 +1,4 @@
-module.exports = {
+{
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module",
@@ -19,4 +19,4 @@ module.exports = {
   "env": {
     "jasmine": true
   }
-};
+}

@@ -11,11 +11,11 @@ module.exports = env => {
   return {
     entry: {
       app: [
-        'babel-polyfill',
-        'whatwg-fetch',
         './src/index.js'
       ],
       vendor: [
+        'babel-polyfill',
+        'whatwg-fetch',
         './src/dependencies/twttr.js',
         'moment',
         'react',
@@ -28,13 +28,6 @@ module.exports = env => {
       path: dist,
       filename: '[name].[hash].js',
       publicPath: '/'
-    },
-    resolve: {
-      alias: {
-        views: '../src/views',
-        styles: '../src/styles',
-        static: '../src/static'
-      }
     },
     module: {
       rules: [{
