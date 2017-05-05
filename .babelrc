@@ -6,11 +6,12 @@
 	"plugins": [
 		["transform-react-jsx"],
     ["module-resolver", {
-      "root": ["./src"],
+      "root": ["./src", "./spec"],
       "alias": {
 				"views": "/src/views",
 				"styles": "/src/styles",
-				"static": "/src/static"
+				"static": "/src/static",
+        "mocks": "/spec/mocks"
       }
     }]
 	]

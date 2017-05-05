@@ -18,18 +18,19 @@
     "start": "serve dist -s",
     "test": "jest -c config/jest.json",
     "lint": "npm run lint-js && npm run lint-css",
-    "lint-js": "eslint -c config/eslint.json **/*.js **/*.jsx",
+    "lint-js": "eslint -c config/eslint.json .",
     "lint-css": "sass-lint -c config/sass-lint.yml -v",
-    "lint-auto": "eslint **/*.js **/*.jsx --fix",
+    "lint-auto": "eslint -c config/eslint.json --fix .",
     "watch": "webpack-dashboard -- webpack-dev-server --config config/webpack"
   },
   "dependencies": {
     "babel-polyfill": "^6.23.0",
-    "moment": "^2.17.1",
-    "react": "^15.4.2",
+    "moment": "^2.18.1",
+    "prop-types": "^15.5.8",
+    "react": "^15.5.4",
     "react-chartjs-2": "^1.6.2",
-    "react-dom": "^15.4.2",
-    "react-router": "^3.0.2",
+    "react-dom": "^15.5.4",
+    "react-router": "^4.1.1",
     "whatwg-fetch": "^2.0.3"
   },
   "devDependencies": {

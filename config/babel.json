@@ -10,7 +10,8 @@
       "alias": {
 				"views": "/src/views",
 				"styles": "/src/styles",
-				"static": "/src/static"
+				"static": "/src/static",
+        "mocks": "/spec/mocks"
       }
     }]
 	]
