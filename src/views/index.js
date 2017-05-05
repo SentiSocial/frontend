@@ -1,30 +1,56 @@
-import * as React from 'react'
-import {Router, Route, browserHistory} from 'react-router'
+import React, {Component, PureComponent} from 'react'
+import PropTypes from 'prop-types'
+import {
+  BrowserRouter as Router,
+  Route
+} from 'react-router-dom'
 
-import Layout from 'views/layout.js'
+import Navigation from 'views/Navigation'
+import AllTrendsPage from 'views/AllTrendsPage'
+import TrendPage from 'views/TrendPage'
+import AboutPage from 'views/AboutPage'
+import Status500Page from 'views/Status500Page'
+import Status404Page from 'views/Status404Page'
 
-import AllTrendsPage from 'views/pages/alltrends.js'
-import TrendPage from 'views/pages/trend.js'
-import AboutPage from 'views/pages/about.js'
-import Status500 from 'views/pages/status500.js'
-import Status404 from 'views/pages/status404.js'
+class Application extends Component {
+  static propTypes = {}
 
-export default function Application () {
-  return (
-    <Router history={browserHistory}>
-      <Route component={Layout}>
-        {/* Home */}
-        <Route path="/" component={AllTrendsPage}/>
+  render () {
+    return (
+      <Router>
+        <Layout>
+          {/* Home */}
+          <Route exact path="/" component={AllTrendsPage}/>
 
-        {/* TrendPage */}
-        <Route path="/trend/:name" component={TrendPage}/>
+          {/* Trend Page */}
+          <Route path="/trend/:name" component={TrendPage}/>
 
-        {/* AboutPage */}
-        <Route path="/about" component={AboutPage}/>
+          {/* About Page */}
+          <Route path="/about" component={AboutPage}/>
 
-        <Route path="/500" component={Status500}/>
-        <Route path="*" component={Status404}/>
-      </Route>
-    </Router>
-  )
+          {/* Error Pages */}
+          <Route path="/500" component={Status500Page}/>
+          <Route path="*" component={Status404Page}/>
+        </Layout>
+      </Router>
+    )
+  }
 }
+
+class Layout extends PureComponent {
+  static propTypes = {
+    children: PropTypes.node.isRequired
+  }
+
+  render () {
+    const {children} = this.props
+    return (
+      <div>
+        <Navigation/>
+        {children}
+      </div>
+    )
+  }
+}
+
+export default Application

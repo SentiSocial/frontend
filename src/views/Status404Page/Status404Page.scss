@@ -1,0 +1,86 @@
+@mixin absolute($top, $left) {
+  left: $left;
+  position: absolute;
+  top: $top;
+  transform: translate(-50%, -50%);
+}
+
+.status404--title {
+  @include absolute(50%, 50%);
+  font-size: 3rem;
+  top: 20%;
+}
+
+.status404--logo {
+  @include absolute(50%, 50%);
+  animation: status404--logo--animation;
+  animation-delay: .5s;
+  animation-duration: .6s;
+  animation-fill-mode: forwards;
+  animation-timing-function: ease-out;
+  top: 45%;
+  width: 128px;
+}
+
+@keyframes status404--logo--animation {
+  from { left: 50%; }
+  to   { left: calc(50% + 64px); }
+}
+
+.status404--sad {
+  @include absolute(45%, 50%);
+  animation: fade-in;
+  animation-delay: 1.3s;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  left: calc(50% - 80px);
+  opacity: 0;
+  width: 100px;
+}
+
+.status404--image {
+  @include absolute(75%, 50%);
+  width: 32px;
+}
+
+.status404--text {
+  @include absolute(70%, 50%);
+  animation: fade-in;
+  animation-delay: 2s;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  color: #bc5757;
+  font-size: 16px;
+  font-weight: bold;
+  opacity: 0;
+  text-align: center;
+}
+
+.status404--blame {
+  @include absolute(50%, 50%);
+  animation: fade-in;
+  animation-delay: 3s;
+  animation-duration: 1.5s;
+  animation-fill-mode: forwards;
+  bottom: 10%;
+  font-size: 16px;
+  font-weight: normal;
+  opacity: 0;
+  text-align: center;
+  top: initial;
+  width: 80%;
+
+  &:visited {
+    color: #00f;
+  }
+}
+
+@keyframes fade-in {
+  0% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 1;
+  }
+}

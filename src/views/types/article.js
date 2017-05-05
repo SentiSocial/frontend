@@ -1,4 +1,4 @@
-import {moment} from 'views/classes/helpers.js'
+import {moment} from 'views/helpers.js'
 
 /*
 interface ContentArticlesPacket {
