@@ -1,16 +1,14 @@
 import React from 'react'
 
-import NetworkBus from 'views/classes/networkbus.js'
-import InfiniteScroll from 'views/classes/infinitescroll.js'
-import {cutMerge} from 'views/classes/helpers.js'
+import NetworkBus from 'views/facades/NetworkBus.js'
+import InfiniteScroll from 'views/facades/InfiniteScroll.js'
+import {cutMerge} from 'views/helpers.js'
 
-import CardLayout from 'views/components/cardlayout.js'
+import CardLayout from 'views/CardLayout'
 
-import ArticleCard from 'views/components/cards/article.js'
-import TweetCard from 'views/components/cards/tweet.js'
-import GhostCard from 'views/components/cards/ghost.js'
-
-import TrendChart from 'views/components/charts/trend.js'
+import ArticleCard from 'views/ArticleCard'
+import TweetCard from 'views/TweetCard'
+import GhostCard from 'views/GhostCard'
 
 /**
  * This class handles rendering the homepage, it contains a graph and cards.
@@ -181,7 +179,6 @@ export default class TrendPage extends React.Component {
   }
 
   render () {
-    const trend = decodeURIComponent(this.props.params.name)
     const content = this.state.content
     let cards = [<CardLayout key="cl:0" cards={content}/>]
 
@@ -199,7 +196,6 @@ export default class TrendPage extends React.Component {
 
     return (
       <div>
-        <TrendChart trend={trend} history={this.state.history}/>
         {cards}
       </div>
     )

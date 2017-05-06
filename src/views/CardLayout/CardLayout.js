@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 
-import {isMobileDevice} from 'views/classes/helpers.js'
+import {isMobileDevice} from 'views/helpers.js'
 
 /**
  * Displays an array of React Components depending on the viewport width.

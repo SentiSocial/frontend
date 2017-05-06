@@ -2,7 +2,7 @@ import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
 import Card from 'views/Card'
-import {fiftyFifty, randomRange} from 'views/classes/helpers.js'
+import {fiftyFifty, randomRange} from 'views/helpers.js'
 
 export default class GhostCard extends Component {
   render () {

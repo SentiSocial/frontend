@@ -1,6 +1,5 @@
 import React, {PureComponent} from 'react'
 import {Link} from 'react-router-dom'
-import './navigation.scss'
 
 /**
  * This class renders the navigation bar that is fixed to the top.

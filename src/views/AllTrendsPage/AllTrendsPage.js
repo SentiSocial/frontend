@@ -1,19 +1,19 @@
 import React, {Component, PureComponent} from 'react'
 import PropTypes from 'prop-types'
 
-import NetworkBus from 'views/classes/networkbus.js'
-import InfiniteScroll from 'views/classes/infinitescroll.js'
-import RequestChain from 'views/classes/requestchain.js'
-import {cutMerge} from 'views/classes/helpers.js'
+import NetworkBus from 'views/facades/NetworkBus.js'
+import InfiniteScroll from 'views/facades/InfiniteScroll.js'
+import RequestChain from 'views/facades/RequestChain.js'
+import {cutMerge} from 'views/helpers.js'
 
-import CardLayout from 'views/components/cardlayout.js'
+import CardLayout from 'views/CardLayout'
 
-import ArticleCard from 'views/components/cards/article.js'
-import TweetCard from 'views/components/cards/tweet.js'
-import TrackingProtectionCard from 'views/components/cards/trackingprotection.js'
-import GhostCard from 'views/components/cards/ghost.js'
+import ArticleCard from 'views/ArticleCard'
+import TweetCard from 'views/TweetCard'
+import TrackingProtectionCard from 'views/TrackingProtectionCard'
+import GhostCard from 'views/GhostCard'
 
-import AllTrendsChart from 'views/components/charts/alltrends.js'
+import AllTrendsChart from 'views/AllTrendsChart'
 
 /**
  * AllTrendsPage is the homepage of SentiSocial.
