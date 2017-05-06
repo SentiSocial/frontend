@@ -1,7 +1,7 @@
 import React, {PureComponent} from 'react'
 import PropTypes from 'prop-types'
 
-import Card from 'views/Card'
+import Card from 'views/components/Card'
 import Article from 'views/types/article.js'
 
 /**

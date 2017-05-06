@@ -4,11 +4,11 @@ import NetworkBus from 'views/facades/NetworkBus.js'
 import InfiniteScroll from 'views/facades/InfiniteScroll.js'
 import {cutMerge} from 'views/helpers.js'
 
-import CardLayout from 'views/CardLayout'
+import CardLayout from 'views/components/CardLayout'
 
-import ArticleCard from 'views/ArticleCard'
-import TweetCard from 'views/TweetCard'
-import GhostCard from 'views/GhostCard'
+import ArticleCard from 'views/components/ArticleCard'
+import TweetCard from 'views/components/TweetCard'
+import GhostCard from 'views/components/GhostCard'
 
 /**
  * This class handles rendering the homepage, it contains a graph and cards.

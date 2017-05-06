@@ -1,7 +1,7 @@
 import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 
-import Card from 'views/Card'
+import Card from 'views/components/Card'
 import Tweet from 'views/types/tweet.js'
 
 export default class TweetCard extends Component {

@@ -5,12 +5,13 @@ import {
   Route
 } from 'react-router-dom'
 
-import Navigation from 'views/Navigation'
-import AllTrendsPage from 'views/AllTrendsPage'
-import TrendPage from 'views/TrendPage'
-import AboutPage from 'views/AboutPage'
-import Status500Page from 'views/Status500Page'
-import Status404Page from 'views/Status404Page'
+import Navigation from 'views/components/Navigation'
+
+import AllTrendsPage from 'views/containers/AllTrendsPage'
+import TrendPage from 'views/containers/TrendPage'
+import AboutPage from 'views/containers/AboutPage'
+import Status500Page from 'views/containers/Status500Page'
+import Status404Page from 'views/containers/Status404Page'
 
 class Application extends Component {
   static propTypes = {}

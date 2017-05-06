@@ -6,14 +6,14 @@ import InfiniteScroll from 'views/facades/InfiniteScroll.js'
 import RequestChain from 'views/facades/RequestChain.js'
 import {cutMerge} from 'views/helpers.js'
 
-import CardLayout from 'views/CardLayout'
+import CardLayout from 'views/components/CardLayout'
 
-import ArticleCard from 'views/ArticleCard'
-import TweetCard from 'views/TweetCard'
-import TrackingProtectionCard from 'views/TrackingProtectionCard'
-import GhostCard from 'views/GhostCard'
+import ArticleCard from 'views/components/ArticleCard'
+import TweetCard from 'views/components/TweetCard'
+import TrackingProtectionCard from 'views/components/TrackingProtectionCard'
+import GhostCard from 'views/components/GhostCard'
 
-import AllTrendsChart from 'views/AllTrendsChart'
+import AllTrendsChart from 'views/components/AllTrendsChart'
 
 /**
  * AllTrendsPage is the homepage of SentiSocial.

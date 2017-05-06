@@ -2,8 +2,8 @@ import React from 'react'
 import {assert} from 'chai'
 import {shallow} from 'enzyme'
 
-import Card from 'views/Card'
-import ArticleCard from 'views/ArticleCard'
+import Card from 'views/components/Card'
+import ArticleCard from 'views/components/ArticleCard'
 import Article from 'views/types/article.js'
 
 describe('<Article />', function () {
