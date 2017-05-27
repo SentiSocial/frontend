@@ -1,13 +1,22 @@
-export function addTodo(text) {
+export function fetchAlltrends() {
+  return dispatch => {
+    return fetch('https://api.senti.social/alltrends')
+      .then(response => response.json())
+      .then(response => dispatch(fetchAlltrendsSuccess(response)))
+      .catch(error => dispatch(fetchAlltrendsFailure(error)))
+  }
+}
+
+export function fetchAlltrendsSuccess(response) {
 	return {
-		type: 'ADD_TODO',
-		text
+		type: 'FETCH_ALLTRENDS_SUCCESS',
+    response
 	};
 }
 
-export function removeTodo(todo) {
+export function fetchAlltrendsFailure(error) {
 	return {
-		type: 'REMOVE_TODO',
-		todo
+		type: 'FETCH_ALLTRENDS_FAILURE',
+    error
 	};
 }

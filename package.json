@@ -21,7 +21,8 @@
     "preact-redux": "^2.0.1",
     "preact-router": "^2.5.2",
     "react-chartjs-2": "^2.1.0",
-    "redux": "^3.6.0"
+    "redux": "^3.6.0",
+    "redux-thunk": "^2.2.0"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",

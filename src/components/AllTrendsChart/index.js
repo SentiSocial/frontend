@@ -11,18 +11,21 @@ export default class AllTrendsChart extends Component {
     if (!event.length) {
       return
     }
+    const {
+      trends,
+      onTrendClick
+    } = this.props
     const clickedBar = event[0]
-    const i = clickedBar._index
-    const trendsPacket = this.props.trends
-    const clickedTrend = trendsPacket.trends[i]
-    this.props.onTrendClick(clickedTrend)
+    const clickedTrend = trends[clickedBar._index]
+    onTrendClick(clickedTrend)
   }
 
   getData = () => {
-    const trendsPacket = this.props.trends
-    const trends = trendsPacket.trends
-    const minimum = 1
-    let trendScore = trends.map(trend => trend.sentiment)
+    const {
+      trends
+    } = this.props
+    const minimum = 0.1
+    let trendScore = trends.map(trend => trend.sentiment_score)
 
     for (let i = 0; i < trendScore.length; i++) {
       if (Math.abs(trendScore[i]) < minimum) {
@@ -44,20 +47,22 @@ export default class AllTrendsChart extends Component {
         // array of trend sentiments
         data: trendScore,
         backgroundColor: trends
-          .map(trend => trend.sentiment > 0 ? '#59C891' : '#C85A59'),
+          .map(trend => trend.sentiment_score > 0 ? '#59C891' : '#C85A59'),
         borderColor: '#666666',
         hoverBackgroundColor: trends
-          .map(trend => trend.sentiment > 0 ? '#226745' : '#672322'),
+          .map(trend => trend.sentiment_score > 0 ? '#226745' : '#672322'),
         yAxisID: 'y-axis-1'
       }]
     }
   }
 
   getOptions () {
-    const trendsPacket = this.props.trends
+    const {
+      trends
+    } = this.props
     // find the absolute maximum sentiment
-    const absoluteMax = trendsPacket.trends.reduce(function (absoluteMax, trend) {
-      const sentiment = Math.abs(trend.sentiment)
+    const absoluteMax = trends.reduce(function (absoluteMax, trend) {
+      const sentiment = Math.abs(trend.sentiment_score)
       return sentiment > absoluteMax ? sentiment : absoluteMax
     }, 0)
     // give the bars some padding to be visually pleasing
@@ -102,6 +107,11 @@ export default class AllTrendsChart extends Component {
             min: lowerBound
           }
         }]
+      },
+      hover: {
+        onHover: (e, el) => {
+          this.canvas.base.style['cursor'] = el[0] ? 'pointer' : 'default'
+        }
       }
     }
   }
@@ -115,8 +125,9 @@ export default class AllTrendsChart extends Component {
       const largestLabel = data.labels
         .reduce((res, val) => val.length > res.length ? val : res)
       const characterWidth = 7;
-      chartWidth = trends.trends.length * characterWidth * largestLabel.length
+      chartWidth = trends.length * characterWidth * largestLabel.length
     }
+
     return (
       <div className={style["container"]}>
         <div className={style["chart-container--header"]}>
@@ -133,6 +144,7 @@ export default class AllTrendsChart extends Component {
         <div className={style["chart-container"]}>
           {trends &&
             <BarChart
+              ref={el => this.canvas = el}
               width={chartWidth}
               height={260}
               data={data}

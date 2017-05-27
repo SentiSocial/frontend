@@ -1,6 +1,6 @@
 import { h, Component } from 'preact'
-import { Provider } from 'preact-redux';
 import { Router } from 'preact-router'
+import { Provider } from 'preact-redux';
 
 import './style'
 import './lib/ga'
@@ -8,7 +8,7 @@ import './lib/twttr'
 
 import store from './store';
 import Navigation from './components/Navigation'
-import HomePage from './routes/HomePage';
+import HomePage from './containers/HomePage';
 import TrendPage from './routes/TrendPage';
 
 export default class App extends Component {
@@ -22,15 +22,15 @@ export default class App extends Component {
 
   render () {
     return (
-      <div id="app">
-        <Provider store={store}>
-          <Navigation />
-          <Router onChange={this.handleRoute}>
-            <HomePage path="/" />
-            <TrendPage path="/trend/:name" />
-          </Router>
-        </Provider>
-      </div>
+      <Provider store={store}>
+        <div id="app">
+            <Navigation />
+            <Router onChange={this.handleRoute}>
+              <HomePage path="/" />
+              <TrendPage path="/trend/:name" />
+            </Router>
+        </div>
+      </Provider>
     )
   }
 }
