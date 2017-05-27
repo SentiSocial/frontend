@@ -2,16 +2,12 @@ import * as React from 'react'
 import {assert} from 'chai'
 import {shallow} from 'enzyme'
 
-import Card from 'views/components/cards/card.js'
-import ArticleCard from 'views/components/cards/article.js'
-import Article from 'views/types/article.js'
+import ArticleCard from '../../src/components/ArticleCard'
+import Article from '../../src/types/article.js'
 
 describe('<Article />', function () {
-  let someArticle
-  let wrapper
-
   beforeEach(function () {
-    someArticle = new Article({
+    this.someArticle = new Article({
       _id: '1337-73S7S',
       title: 'Sentisocial going off the charts!',
       source: 'New York Times',
@@ -22,32 +18,33 @@ describe('<Article />', function () {
     })
   })
 
-  it('wraps content with <Card /> component', function () {
-    wrapper = shallow(<ArticleCard article={someArticle}/>)
-    assert.equal(wrapper.find(Card).length, 1)
+  it('wraps content in a card', function () {
+    const wrapper = shallow(<ArticleCard article={this.someArticle}/>)
+    assert.equal(wrapper.find('div.card').length, 1)
   })
 
-  it('optionally renders an image', function () {
-    someArticle.media = undefined
+  it('does not render an image when media not provided', function () {
+    this.someArticle.media = undefined
 
-    wrapper = shallow(<ArticleCard article={someArticle}/>)
+    const wrapper = shallow(<ArticleCard article={this.someArticle}/>)
     assert.equal(wrapper.find('img.article--image').length, 0)
+  })
 
-    someArticle.media = 'https://senti.social/not-a-real-image.jpg'
+  it('render an image when media provided', function () {
+    this.someArticle.media = 'https://senti.social/not-a-real-image.jpg'
 
-    wrapper = shallow(<ArticleCard article={someArticle}/>)
+    const wrapper = shallow(<ArticleCard article={this.someArticle}/>)
     assert.equal(wrapper.find('img.article--image').length, 1)
   })
 
   it('renders relative published time', function () {
-    wrapper = shallow(<ArticleCard article={someArticle}/>)
-    // time should be rendered as '5s', since it's relative time.
-    // Used regex here to match any digit.
-    assert.match(wrapper.find('.article--time').text(), /^\ds$/)
+    const wrapper = shallow(<ArticleCard article={this.someArticle}/>)
+    // time should be rendered as '##s', since it's relative time.
+    assert.match(wrapper.find('.article--time').text(), /^\d+s$/)
   })
 
   it('description is collapsable', function () {
-    wrapper = shallow(<ArticleCard article={someArticle}/>)
+    const wrapper = shallow(<ArticleCard article={this.someArticle}/>)
     assert(wrapper.find('.article--description').hasClass('hidden'))
 
     wrapper.find('.article--showdescription').simulate('click')

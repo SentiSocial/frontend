@@ -1,9 +1,3 @@
-import {
-  fetchAlltrends,
-  fetchAlltrendsSuccess,
-  fetchAlltrendsFailure
-} from './actions'
-
 const REDUCERS = {
 	FETCH_ALLTRENDS: (state) => {
     return {

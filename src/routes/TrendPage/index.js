@@ -11,9 +11,9 @@ export default class TrendPage extends Component {
   componentWillUnmount () {
   }
 
-  render ({ name }, {  }) {
+  render () {
     return (
-      <div>
+      <div className={style['trendpage']}>
 
       </div>
     )

@@ -16,7 +16,8 @@ export default class Navigation extends Component {
     }))
   }
 
-  render ({}, { isOpen }) {
+  render (props, { isOpen }) {
+    console.log(props)
     return (
       <nav className={style["navigation"]}
         data-opened={isOpen}
