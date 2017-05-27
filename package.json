@@ -11,8 +11,8 @@
     "test": "npm run test-lint && npm run test-css && npm run test-js",
     "test-lint": "eslint -c config/eslint.yml src",
     "test-css": "sass-lint -c config/sasslint.yml -v",
-    "test-js": "nyc --all --include src 'jest -c config/jest.yml'",
-    "coveralls": "nyc report --reporter=text-lcov | coveralls",
+    "test-js": "jest -c config/jest.yml --coverage",
+    "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint -c config/eslint.yml src"
   },
   "keywords": [],
@@ -39,7 +39,6 @@
     "if-env": "^1.0.0",
     "jest": "^20.0.3",
     "node-sass": "^4.5.3",
-    "nyc": "^10.3.2",
     "postcss": "^6.0.1",
     "preact-cli": "^1.0.1",
     "sass-lint": "^1.10.2",
