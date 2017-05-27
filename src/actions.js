@@ -8,15 +8,15 @@ export function fetchAlltrends() {
 }
 
 export function fetchAlltrendsSuccess(response) {
-	return {
-		type: 'FETCH_ALLTRENDS_SUCCESS',
+  return {
+    type: 'FETCH_ALLTRENDS_SUCCESS',
     response
-	};
+  };
 }
 
 export function fetchAlltrendsFailure(error) {
-	return {
-		type: 'FETCH_ALLTRENDS_FAILURE',
+  return {
+    type: 'FETCH_ALLTRENDS_FAILURE',
     error
-	};
+  };
 }

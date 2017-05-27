@@ -1,0 +1,15 @@
+{
+  "presets": [
+    "es2015",
+    "stage-2",
+    "preact"
+  ],
+  "plugins": [
+    ["module-resolver", {
+      "root": ["./src"],
+      "alias": {
+        "src": "./src"
+      }
+    }]
+  ]
+}

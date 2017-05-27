@@ -1,8 +1,0 @@
-moduleFileExtensions:
-  - js
-  - jsx
-moduleDirectories:
-  - node_modules
-moduleNameMapper:
-  \.(jpg|jpeg|png|gif|svg)$: <rootDir>/spec/mocks/fileMock.js
-  \.(css|scss)$: <rootDir>/spec/mocks/styleMock.js

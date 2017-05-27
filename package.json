@@ -11,9 +11,9 @@
     "test": "npm run test-lint && npm run test-css && npm run test-js",
     "test-lint": "eslint -c config/eslint.yml src",
     "test-css": "sass-lint -c config/sasslint.yml -v",
-    "test-js": "jest -c config/jest.yml --coverage",
+    "test-js": "jest -c config/jest.json --coverage --rootDir .",
     "coveralls": "coveralls < coverage/lcov.info",
-    "lint": "eslint -c config/eslint.yml src"
+    "lint": "eslint -c config/eslint.yml --fix src"
   },
   "keywords": [],
   "author": "SentiSocial Contributors",
@@ -30,9 +30,12 @@
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
+    "babel-plugin-module-resolver": "^2.7.1",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-preact": "^1.1.0",
+    "babel-preset-stage-2": "^6.24.1",
     "chai": "^3.5.0",
     "coveralls": "^2.13.1",
-    "enzyme": "^2.8.2",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
     "eslint-plugin-react": "^7.0.1",
@@ -41,6 +44,7 @@
     "node-sass": "^4.5.3",
     "postcss": "^6.0.1",
     "preact-cli": "^1.0.1",
+    "preact-jsx-chai": "^2.2.1",
     "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.5"
   },
