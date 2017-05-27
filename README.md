@@ -1,35 +1,25 @@
-<img
-  src="logo.png"
-  style="
-    display: block;
-    margin: 0 auto;
-    width: 250px;
-    height: 250px;
-    background-color: transparent
-  "
-/>
-
-<div style="text-align: center;">
-<h1>SentiSocial-Frontend</h1>
-<!-- Travis -->
-<a href="https://travis-ci.org/SentiSocial/sentisocial-frontend">
-  <img alt="travis" src="https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master">
-</a>
-<!-- Coveralls -->
-<a href="https://coveralls.io/github/SentiSocial/sentisocial-frontend?branch=master">
-  <img alt="coverage"
-    src="https://coveralls.io/repos/github/SentiSocial/sentisocial-frontend/badge.svg?branch=master"  />
-</a>
-<!-- License -->
-<a href="https://github.com/SentiSocial/sentisocial-frontend/blob/master/LICENSE">
-  <img alt="license: MIT"
-    src="https://img.shields.io/badge/license-MIT-blue.svg">
-</a>
-<!-- Code Style -->
-<a href="https://standardjs.com">
-  <img alt="code style: standard"
-    src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
-</a>
+<div align="center">
+  <img src="logo.png" height="250" width="250" />
+  <h1>SentiSocial-Frontend</h1>
+  <!-- Travis -->
+  <a href="https://travis-ci.org/SentiSocial/sentisocial-frontend">
+    <img alt="travis" src="https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master">
+  </a>
+  <!-- Coveralls -->
+  <a href="https://coveralls.io/github/SentiSocial/sentisocial-frontend?branch=master">
+    <img alt="coverage"
+      src="https://coveralls.io/repos/github/SentiSocial/sentisocial-frontend/badge.svg?branch=master"  />
+  </a>
+  <!-- License -->
+  <a href="https://github.com/SentiSocial/sentisocial-frontend/blob/master/LICENSE">
+    <img alt="license: MIT"
+      src="https://img.shields.io/badge/license-MIT-blue.svg">
+  </a>
+  <!-- Code Style -->
+  <a href="https://standardjs.com">
+    <img alt="code style: standard"
+      src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
+  </a>
 </div>
 
 Originally created at The University of Toronto Scarborough's Hack the Valley 2017.
