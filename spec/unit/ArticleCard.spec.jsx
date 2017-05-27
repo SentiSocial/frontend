@@ -70,7 +70,7 @@ describe('<ArticleCard />', function () {
 
     anotherArticle = new Article({
       ...someArticle,
-      timestamp: secondsAgo(10)
+      timestamp: Date.now() - 10 * 1000
     })
     mount(<ArticleCard {...someArticle}/>)
     await wait()
