@@ -1,0 +1,94 @@
+.chart-container--header {
+  background-color: #eee;
+  padding: 0 10px;
+}
+
+.chart-container--description {
+  font-size: 14px;
+  padding-bottom: 10px;
+}
+
+.chart-container--title {
+  font-size: 24px;
+  font-weight: normal;
+  margin: 0;
+  padding: 20px 10px 10px;
+}
+
+@keyframes wiggle {
+  0% { transform: rotate(0deg); }
+  40% { transform: rotate(0deg); }
+  43% { transform: rotate(20deg); }
+  46% { transform: rotate(-20deg); }
+  48% { transform: rotate(0deg); }
+}
+
+@keyframes shake {
+  1%,
+  11% {
+    transform: translate3d(-.5px, 0, 0);
+  }
+
+  2%,
+  10% {
+    transform: translate3d(1px, 0, 0);
+  }
+
+  3%,
+  6%,
+  8% {
+    transform: translate3d(-2px, 0, 0);
+  }
+
+  5%,
+  7% {
+    transform: translate3d(2px, 0, 0);
+  }
+}
+
+.chart-container--legend-negative {
+  animation: shake 8s infinite 4s cubic-bezier(.36, .07, .19, .97);
+  bottom: 35px;
+  height: 28px;
+  left: 30px;
+  position: absolute;
+  transform: translate3d(0, 0, 0);
+  width: 28px;
+
+}
+
+.chart-container--legend-positive {
+  animation: wiggle 8s infinite;
+  flex-grow: 1;
+  height: 28px;
+  left: 30px;
+  position: absolute;
+  top: 35px;
+  width: 28px;
+
+}
+
+.chart-container {
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+  border-top: 1px solid #ddd;
+  overflow-x: scroll;
+  padding: 20px;
+  position: relative;
+  height: 260px;
+}
+
+.chart-container--footer {
+  background-color: #eee;
+  border-bottom: 1px solid #ccc;
+  box-shadow: 0 2px 4px #ccc;
+  color: #777;
+  padding: 0 20px;
+  text-align: center;
+
+  @media (min-width: 992px) {
+    font-size: 14px;
+    font-weight: bold;
+    padding: 13px 20px;
+  }
+}
