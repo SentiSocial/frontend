@@ -1,9 +1,36 @@
-# sentisocial-frontend
-## Web frontend for SentiSocial
+<img
+  src="logo.png"
+  style="
+    display: block;
+    margin: 0 auto;
+    width: 250px;
+    height: 250px;
+    background-color: transparent
+  "
+/>
 
-[![Travis][travis-badge]][travis-link]
-[![Standard - JavaScript Style Guide][standard-badge]][standard-link]
-[![License: MIT][license-badge]][license-link]
+<div style="text-align: center;">
+<h1>SentiSocial-Frontend</h1>
+<!-- Travis -->
+<a href="https://travis-ci.org/SentiSocial/sentisocial-frontend">
+  <img alt="travis" src="https://img.shields.io/travis/SentiSocial/sentisocial-frontend.svg">
+</a>
+<!-- Coveralls -->
+<a href="https://coveralls.io/github/SentiSocial/sentisocial-frontend?branch=master">
+  <img alt="coverage"
+    src="https://coveralls.io/repos/github/SentiSocial/sentisocial-frontend/badge.svg?branch=master"  />
+</a>
+<!-- License -->
+<a href="https://github.com/SentiSocial/sentisocial-frontend/blob/master/LICENSE">
+  <img alt="license: MIT"
+    src="https://img.shields.io/badge/license-MIT-blue.svg">
+</a>
+<!-- Code Style -->
+<a href="https://standardjs.com">
+  <img alt="code style: standard"
+    src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
+</a>
+</div>
 
 Created at The University of Toronto Scarborough's Hack the Valley 2017
 
@@ -52,10 +79,3 @@ Don't forget to lint and test before committing
 
 If you want to serve the `dist` folder
 * `npm start`
-
-[travis-badge]: https://img.shields.io/travis/SentiSocial/sentisocial-frontend.svg
-[travis-link]: https://travis-ci.org/SentiSocial/sentisocial-frontend
-[standard-badge]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[standard-link]: http://standardjs.com
-[license-badge]: https://img.shields.io/badge/license-license-brightgreen.svg
-[license-link]: ./LICENSE
