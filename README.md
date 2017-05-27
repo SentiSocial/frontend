@@ -53,7 +53,7 @@ Don't forget to lint and test before committing
 If you want to serve the `dist` folder
 * `npm start`
 
-[travis-badge]: https://img.shields.io/travis/SentiSocial/sentisocial-frontend.svg
+[travis-badge]: https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master
 [travis-link]: https://travis-ci.org/SentiSocial/sentisocial-frontend
 [standard-badge]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
 [standard-link]: http://standardjs.com
