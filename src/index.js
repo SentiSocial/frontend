@@ -3,8 +3,8 @@ import { Router } from 'preact-router'
 import { Provider } from 'preact-redux';
 
 import './style'
-import './lib/ga'
-import './lib/twttr'
+import '../lib/ga'
+import '../lib/twttr'
 
 import store from './store';
 import Navigation from './components/Navigation'
