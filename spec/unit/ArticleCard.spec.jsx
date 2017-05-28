@@ -70,9 +70,9 @@ describe('<ArticleCard />', function () {
 
     anotherArticle = new Article({
       ...someArticle,
-      timestamp: Date.now() - 10 * 1000
+      timestamp: Math.round((Date.now() - 10 * 1000) / 1000)
     })
-    mount(<ArticleCard {...someArticle}/>)
+    mount(<ArticleCard {...anotherArticle}/>)
     await wait()
     assert.match($('.article--time').innerHTML, /^\d+s$/)
 
