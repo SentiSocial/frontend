@@ -1,6 +1,6 @@
 export function fetchAlltrends() {
   return dispatch => {
-    return fetch('https://api.senti.social/alltrends')
+    return window.fetch('https://api.senti.social/alltrends')
       .then(response => response.json())
       .then(response => dispatch(fetchAlltrendsSuccess(response)))
       .catch(error => dispatch(fetchAlltrendsFailure(error)))
