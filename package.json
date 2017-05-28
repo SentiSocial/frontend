@@ -9,11 +9,11 @@
     "serve": "preact build && preact serve",
     "dev": "preact watch",
     "test": "npm run test-lint && npm run test-css && npm run test-js",
-    "test-lint": "eslint -c config/eslint.yml src",
+    "test-lint": "eslint -c config/eslint.yml src spec",
     "test-css": "sass-lint -c config/sasslint.yml -v",
     "test-js": "jest -c config/jest.json --coverage --rootDir .",
     "coveralls": "coveralls < coverage/lcov.info",
-    "lint": "eslint -c config/eslint.yml --fix src"
+    "lint": "eslint -c config/eslint.yml --fix src spec"
   },
   "keywords": [],
   "author": "SentiSocial Contributors",

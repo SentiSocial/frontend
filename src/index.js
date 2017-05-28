@@ -14,7 +14,7 @@ import Navigation from './components/Navigation'
 import HomePage from './containers/HomePage';
 import TrendPage from './routes/TrendPage';
 
-createStore(
+const store = createStore(
   reducers, {
     // Default application state
     alltrends: undefined
