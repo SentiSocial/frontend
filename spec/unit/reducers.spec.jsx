@@ -2,6 +2,18 @@ import chai, {assert} from 'chai'
 import reducers from 'src/reducers.js'
 
 describe('reducer', function () {
+  it('returns state untouched when action type is unhandled', function () {
+    const someReducedAction = reducers({
+      someDummyPropertyThatShouldBePreserved: true
+    }, {
+      type: 'some_unhandled_action_type'
+    })
+
+    assert.deepEqual(someReducedAction, {
+      someDummyPropertyThatShouldBePreserved: true
+    })
+  })
+
   it('FETCH_ALLTRENDS', function () {
     const someReducedAction = reducers({
       someDummyPropertyThatShouldBePreserved: true
