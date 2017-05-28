@@ -1,6 +1,7 @@
 import { h, Component } from 'preact'
 import { Link } from 'preact-router/match'
-import style from './style'
+import style from './style.scss'
+const s = name => style[name] || name
 
 /**
  * This class renders the navigation bar that is fixed to the top.
@@ -17,20 +18,19 @@ export default class Navigation extends Component {
   }
 
   render (props, { isOpen }) {
-    console.log(props)
     return (
-      <nav className={style["navigation"]}
+      <nav className={s("navigation")}
         data-opened={isOpen}
       >
-        <button className={style["navigation--logo"]}
+        <button className={s("navigation--logo")}
           onClick={this.handleClick}
         >
-          <img className={style["navigation--logo-img"]}
+          <img className={s("navigation--logo-img")}
             src="/assets/graphics/logo.png"
           />
         </button>
 
-        <Link className={style["navigation--option"]}
+        <Link className={s("navigation--option")}
           href="/"
           tabindex={isOpen ? 0 : -1}
           aria-disabled={isOpen}
@@ -43,14 +43,13 @@ export default class Navigation extends Component {
           />
         </Link>
 
-        <Link className={style["navigation--option"]}
+        <Link className={s("navigation--option")}
           href="/about"
           tabindex={isOpen ? 0 : -1}
           aria-disabled={isOpen}
           data-index={1}
         >
-          <img src="/assets/graphics/about.svg"
-          />
+          <img src="/assets/graphics/about.svg" />
         </Link>
       </nav>
     )
