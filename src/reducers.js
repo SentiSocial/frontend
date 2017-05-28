@@ -21,6 +21,4 @@ const REDUCERS = {
   }
 }
 
-export default (state, action) => (
-  action && REDUCERS[action.type] ? REDUCERS[action.type](state, action) : state
-)
+export default (state, action) => REDUCERS[action.type](state, action)
