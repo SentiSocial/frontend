@@ -3,7 +3,7 @@ import style from './style'
 
 export default class TrendPage extends Component {
   state = {
-  };
+  }
 
   componentDidMount () {
   }

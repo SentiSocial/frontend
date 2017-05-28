@@ -1,15 +1,15 @@
-import {h, render} from 'preact';
+import {h, render} from 'preact'
 import chai, {assert} from 'chai'
 import preactAssert from 'preact-jsx-chai'
 
 import AllTrendsChart from 'src/components/AllTrendsChart'
 
-chai.use(preactAssert);
+chai.use(preactAssert)
 
 function fireEvent(on, type) {
-	const e = document.createEvent('Event');
-	e.initEvent(type, true, true);
-	on.dispatchEvent(e);
+	const e = document.createEvent('Event')
+	e.initEvent(type, true, true)
+	on.dispatchEvent(e)
 }
 
 const wait = timeout => new Promise(resolve => setTimeout(resolve, timeout))
@@ -26,12 +26,12 @@ describe('<AllTrendsChart />', function () {
   })
 
 	afterAll(function() {
-		document.body.removeChild(scratch);
-	});
+		document.body.removeChild(scratch)
+	})
 
 	afterEach(function() {
-		mount(() => null);
-		scratch.innerHTML = '';
+		mount(() => null)
+		scratch.innerHTML = ''
 	})
 
   it('trends prop renders bar chart', async function () {

@@ -19,18 +19,18 @@ export default class Navigation extends Component {
 
   render (props, { isOpen }) {
     return (
-      <nav className={s("navigation")}
+      <nav className={s('navigation')}
         data-opened={isOpen}
       >
-        <button className={s("navigation--logo")}
+        <button className={s('navigation--logo')}
           onClick={this.handleClick}
         >
-          <img className={s("navigation--logo-img")}
+          <img className={s('navigation--logo-img')}
             src="/assets/graphics/logo.png"
           />
         </button>
 
-        <Link className={s("navigation--option")}
+        <Link className={s('navigation--option')}
           href="/"
           tabindex={isOpen ? 0 : -1}
           aria-disabled={isOpen}
@@ -43,7 +43,7 @@ export default class Navigation extends Component {
           />
         </Link>
 
-        <Link className={s("navigation--option")}
+        <Link className={s('navigation--option')}
           href="/about"
           tabindex={isOpen ? 0 : -1}
           aria-disabled={isOpen}

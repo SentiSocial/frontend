@@ -42,7 +42,7 @@ export default class AllTrendsChart extends Component {
         if (s > 0 && s < minimum) return minimum
         else if (s < 0 && s > -minimum) return -minimum
         return s
-      });
+      })
 
     return {
       // array of trend names
@@ -73,7 +73,7 @@ export default class AllTrendsChart extends Component {
     }, 0)
     // give the bars some padding to be visually pleasing
     const padding = absoluteMax * 0.3
-    // const padding = 0;
+    // const padding = 0
     // set the upper and lower bound of the graph
     const upperBound = absoluteMax + padding
     const lowerBound = -absoluteMax - padding
@@ -128,27 +128,27 @@ export default class AllTrendsChart extends Component {
       options = this.getOptions()
       const largestLabel = data.labels
         .reduce((res, val) => val.length > res.length ? val : res)
-      const characterWidth = 7;
+      const characterWidth = 7
       chartWidth = trends.length * characterWidth * largestLabel.length
     }
 
     return (
-      <div className={s("container")}>
-        <div className={s("alltrendschart--header")}>
+      <div className={s('container')}>
+        <div className={s('alltrendschart--header')}>
           {/* Title */}
-          <h1 className={s("brand")}>
-            <span className={s("brand-green")}>Senti</span>
-            <span className={s("brand-red")}>Social</span>
+          <h1 className={s('brand')}>
+            <span className={s('brand-green')}>Senti</span>
+            <span className={s('brand-red')}>Social</span>
           </h1>
-          <div className={s("alltrendschart--description")}>
+          <div className={s('alltrendschart--description')}>
             Sentiment analysis of social media trends
           </div>
         </div>
 
-        <div className={s("alltrendschart")}>
+        <div className={s('alltrendschart')}>
           {trends &&
             <BarChart
-              ref={el => this.canvas = el}
+              ref={el => { this.canvas = el }}
               width={chartWidth}
               height={260}
               data={data}
@@ -161,15 +161,15 @@ export default class AllTrendsChart extends Component {
           }
 
           {/* Positive Sentiment */}
-          <img className={s("alltrendschart--legend-positive")}
+          <img className={s('alltrendschart--legend-positive')}
             src="/assets/graphics/mood-good.svg"/>
 
           {/* Negative Sentiment */}
-          <img className={s("alltrendschart--legend-negative")}
+          <img className={s('alltrendschart--legend-negative')}
             src="/assets/graphics/mood-bad.svg"/>
         </div>
 
-        <div className={s("alltrendschart--footer")}>
+        <div className={s('alltrendschart--footer')}>
           Click on any of the bars to filter the content
         </div>
       </div>

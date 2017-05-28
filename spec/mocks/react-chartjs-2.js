@@ -2,7 +2,7 @@ import {h, Component} from 'preact'
 
 module.exports = {
   Bar: class Bar extends Component {
-    render({
+    render ({
       width,
       height,
       onElementsClick,
@@ -17,4 +17,3 @@ module.exports = {
     }
   }
 }
-

@@ -20,7 +20,7 @@ export default class TweetCard extends Component {
   render () {
     return (
       <div className={s('card')}>
-        <div ref={div => this.div = div}/>
+        <div ref={div => { this.div = div }}/>
       </div>
     )
   }

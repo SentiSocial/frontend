@@ -1,11 +1,11 @@
 import { h, Component } from 'preact'
-import { route } from 'preact-router';
+import { route } from 'preact-router'
 import style from './style'
 
 import AllTrendsChart from '../../components/AllTrendsChart'
 
 export default class HomePage extends Component {
-  componentDidMount() {
+  componentDidMount () {
     const {
       trends,
       requestAlltrends

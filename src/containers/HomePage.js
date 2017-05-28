@@ -5,13 +5,13 @@ import {
 } from '../actions'
 import HomePage from '../routes/HomePage'
 
-function mapStateToProps(state) {
+function mapStateToProps (state) {
   return {
     trends: state.alltrends
   }
 }
 
-function mapDispatchToProps(dispatch) {
+function mapDispatchToProps (dispatch) {
   return {
     requestAlltrends: () => dispatch(fetchAlltrends())
   }

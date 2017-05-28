@@ -1,8 +1,8 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
-import { Provider } from 'preact-redux';
-import { createStore, applyMiddleware } from 'redux';
-import thunkMiddleware from 'redux-thunk';
+import { Provider } from 'preact-redux'
+import { createStore, applyMiddleware } from 'redux'
+import thunkMiddleware from 'redux-thunk'
 
 import './style'
 import '../lib/ga'
@@ -11,8 +11,8 @@ import '../lib/twttr'
 import reducers from './reducers'
 
 import Navigation from './components/Navigation'
-import HomePage from './containers/HomePage';
-import TrendPage from './routes/TrendPage';
+import HomePage from './containers/HomePage'
+import TrendPage from './routes/TrendPage'
 
 const store = createStore(
   reducers, {
@@ -31,7 +31,7 @@ export default class App extends Component {
    */
   handleRoute = e => {
     this.currentUrl = e.url
-  };
+  }
 
   render () {
     return (

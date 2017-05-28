@@ -13,7 +13,7 @@
     "test-css": "sass-lint -c config/sasslint.yml -v",
     "test-js": "jest -c config/jest.json --coverage --rootDir .",
     "coveralls": "coveralls < coverage/lcov.info",
-    "lint": "eslint -c config/eslint.yml --fix src spec"
+    "lint": "eslint -c config/eslint.yml --fix src spec && sass-lint -c config/sasslint.yml -v"
   },
   "keywords": [],
   "author": "SentiSocial Contributors",
@@ -38,7 +38,12 @@
     "coveralls": "^2.13.1",
     "eslint": "^3.19.0",
     "eslint-config-standard": "^10.2.1",
+    "eslint-plugin-import": "^2.3.0",
+    "eslint-plugin-jasmine": "^2.2.0",
+    "eslint-plugin-node": "^4.2.2",
+    "eslint-plugin-promise": "^3.5.0",
     "eslint-plugin-react": "^7.0.1",
+    "eslint-plugin-standard": "^3.0.1",
     "if-env": "^1.0.0",
     "jest": "^20.0.3",
     "node-sass": "^4.5.3",

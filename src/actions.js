@@ -1,4 +1,4 @@
-export function fetchAlltrends() {
+export function fetchAlltrends () {
   return dispatch => {
     return window.fetch('https://api.senti.social/alltrends')
       .then(response => response.json())
@@ -7,16 +7,16 @@ export function fetchAlltrends() {
   }
 }
 
-export function fetchAlltrendsSuccess(response) {
+export function fetchAlltrendsSuccess (response) {
   return {
     type: 'FETCH_ALLTRENDS_SUCCESS',
     response
-  };
+  }
 }
 
-export function fetchAlltrendsFailure(error) {
+export function fetchAlltrendsFailure (error) {
   return {
     type: 'FETCH_ALLTRENDS_FAILURE',
     error
-  };
+  }
 }

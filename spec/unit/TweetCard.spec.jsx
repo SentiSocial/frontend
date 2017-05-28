@@ -1,16 +1,16 @@
-import {h, render} from 'preact';
+import {h, render} from 'preact'
 import chai, {assert} from 'chai'
 import preactAssert from 'preact-jsx-chai'
 
 import TweetCard from 'src/components/TweetCard'
 import Tweet from 'src/types/tweet.js'
 
-chai.use(preactAssert);
+chai.use(preactAssert)
 
 function fireEvent(on, type) {
-	const e = document.createEvent('Event');
-	e.initEvent(type, true, true);
-	on.dispatchEvent(e);
+	const e = document.createEvent('Event')
+	e.initEvent(type, true, true)
+	on.dispatchEvent(e)
 }
 
 const wait = timeout => new Promise(resolve => setTimeout(resolve, timeout))
@@ -33,13 +33,13 @@ describe('<TweetCard />', function () {
   })
 
 	afterAll(function() {
-		document.body.removeChild(scratch);
-	});
+		document.body.removeChild(scratch)
+	})
 
 	afterEach(function() {
-		mount(() => null);
-		scratch.innerHTML = '';
-	});
+		mount(() => null)
+		scratch.innerHTML = ''
+	})
 
   it('call #window.twttr.widgets.createTweetEmbed', async function () {
     const createTweetEmbed = jest.fn()
@@ -52,7 +52,7 @@ describe('<TweetCard />', function () {
     const wrapper = mount(<TweetCard embed_id={someEmbedId}/>)
     await wait()
     assert.equal(createTweetEmbed.mock.calls.length, 1)
-    assert.equal(createTweetEmbed.mock.calls[0][0], someEmbedId);
-    assert.equal(createTweetEmbed.mock.calls[0][1], $('div.card > div'));
+    assert.equal(createTweetEmbed.mock.calls[0][0], someEmbedId)
+    assert.equal(createTweetEmbed.mock.calls[0][1], $('div.card > div'))
   })
 })
