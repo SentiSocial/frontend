@@ -1,12 +1,17 @@
 import { h, Component } from 'preact'
-import style from './style'
 import { Bar as BarChart } from 'react-chartjs-2'
+import style from './style.scss'
+const s = name => style[name] || name
 
 /**
 * This class handles the rendering of the Trends chart which is visible on the
 * homepage.
 */
 export default class AllTrendsChart extends Component {
+  state = {
+    hoveredBar: undefined
+  }
+
   onClick = event => {
     if (!event.length) {
       return
@@ -20,30 +25,31 @@ export default class AllTrendsChart extends Component {
     onTrendClick(clickedTrend)
   }
 
+  onHover = (e, el) => {
+    this.setState({
+      hoveredBar: el[0]
+    })
+  }
+
   getData = () => {
     const {
       trends
     } = this.props
     const minimum = 0.1
-    let trendScore = trends.map(trend => trend.sentiment_score)
-
-    for (let i = 0; i < trendScore.length; i++) {
-      if (Math.abs(trendScore[i]) < minimum) {
-        if (trendScore[i] > 0) {
-          trendScore[i] = minimum
-        }
-        if (trendScore[i] < 0) {
-          trendScore[i] = -minimum
-        }
-      }
-    }
+    const trendScore = trends
+      .map(trend => trend.sentiment_score)
+      .map(s => {
+        if (s > 0 && s < minimum) return minimum
+        else if (s < 0 && s > -minimum) return -minimum
+        return s
+      });
 
     return {
       // array of trend names
       labels: trends.map(trend => trend.name),
       datasets: [{
         type: 'bar',
-        label: 'Tweets',
+        label: 'Trends',
         // array of trend sentiments
         data: trendScore,
         backgroundColor: trends
@@ -109,14 +115,12 @@ export default class AllTrendsChart extends Component {
         }]
       },
       hover: {
-        onHover: (e, el) => {
-          this.canvas.base.style['cursor'] = el[0] ? 'pointer' : 'default'
-        }
+        onHover: this.onHover
       }
     }
   }
 
-  render ({ trends }) {
+  render ({ trends }, { hoveredBar }) {
     let data, options, chartWidth
 
     if (trends) {
@@ -129,19 +133,19 @@ export default class AllTrendsChart extends Component {
     }
 
     return (
-      <div className={style["container"]}>
-        <div className={style["chart-container--header"]}>
+      <div className={s("container")}>
+        <div className={s("alltrendschart--header")}>
           {/* Title */}
-          <h1 className={style["brand"]}>
-            <span className={style["brand-green"]}>Senti</span>
-            <span className={style["brand-red"]}>Social</span>
+          <h1 className={s("brand")}>
+            <span className={s("brand-green")}>Senti</span>
+            <span className={s("brand-red")}>Social</span>
           </h1>
-          <div className={style["chart-container--description"]}>
+          <div className={s("alltrendschart--description")}>
             Sentiment analysis of social media trends
           </div>
         </div>
 
-        <div className={style["chart-container"]}>
+        <div className={s("alltrendschart")}>
           {trends &&
             <BarChart
               ref={el => this.canvas = el}
@@ -149,19 +153,23 @@ export default class AllTrendsChart extends Component {
               height={260}
               data={data}
               options={options}
-              onElementsClick={this.onClick}/>
+              onElementsClick={this.onClick}
+              style={{
+                cursor: hoveredBar ? 'pointer' : 'default'
+              }}
+            />
           }
 
           {/* Positive Sentiment */}
-          <img className={style["chart-container--legend-positive"]}
+          <img className={s("alltrendschart--legend-positive")}
             src="/assets/graphics/mood-good.svg"/>
 
           {/* Negative Sentiment */}
-          <img className={style["chart-container--legend-negative"]}
+          <img className={s("alltrendschart--legend-negative")}
             src="/assets/graphics/mood-bad.svg"/>
         </div>
 
-        <div className={style["chart-container--footer"]}>
+        <div className={s("alltrendschart--footer")}>
           Click on any of the bars to filter the content
         </div>
       </div>

@@ -1,4 +1,6 @@
-.chart-container {
+@import '~style/helpers';
+
+.alltrendschart {
   background-color: #fff;
   border-bottom: 1px solid #ddd;
   border-top: 1px solid #ddd;
@@ -8,24 +10,24 @@
   position: relative;
 }
 
-.chart-container--header {
+.alltrendschart--header {
   background-color: #eee;
   padding: 0 10px;
 }
 
-.chart-container--title {
+.alltrendschart--title {
   font-size: 24px;
   font-weight: normal;
   margin: 0;
   padding: 20px 10px 10px;
 }
 
-.chart-container--description {
+.alltrendschart--description {
   font-size: 14px;
   padding-bottom: 10px;
 }
 
-.chart-container--footer {
+.alltrendschart--footer {
   background-color: #eee;
   border-bottom: 1px solid #ccc;
   box-shadow: 0 2px 4px #ccc;
@@ -40,7 +42,7 @@
   }
 }
 
-.chart-container--legend-positive {
+.alltrendschart--legend-positive {
   animation: wiggle 8s infinite;
   flex-grow: 1;
   height: 28px;
@@ -58,7 +60,7 @@
   48% { transform: rotate(0deg); }
 }
 
-.chart-container--legend-negative {
+.alltrendschart--legend-negative {
   animation: shake 8s infinite 4s cubic-bezier(.36, .07, .19, .97);
   bottom: 73px;
   height: 28px;

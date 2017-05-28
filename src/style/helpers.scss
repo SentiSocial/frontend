@@ -20,3 +20,18 @@ $sentisocial-red: #bc5757;
     margin: 45px 15px;
   }
 }
+
+.brand {
+  font-size: 32px;
+  font-weight: bold;
+  margin: 0;
+  padding: .67em 0;
+}
+
+.brand-green {
+  color: $sentisocial-green;
+}
+
+.brand-red {
+  color: $sentisocial-red;
+}
