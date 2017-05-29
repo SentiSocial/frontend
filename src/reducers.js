@@ -18,6 +18,27 @@ const REDUCERS = {
       ...state,
       alltrends: error
     }
+  },
+
+  FETCH_TREND: (state) => {
+    return {
+      ...state,
+      trend: null
+    }
+  },
+
+  FETCH_TREND_SUCCESS: (state, { response }) => {
+    return {
+      ...state,
+      trend: response
+    }
+  },
+
+  FETCH_TREND_FAILURE: (state, { error }) => {
+    return {
+      ...state,
+      trend: error
+    }
   }
 }
 
