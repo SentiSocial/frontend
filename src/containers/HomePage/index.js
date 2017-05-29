@@ -1,7 +1,6 @@
 import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import { route } from 'preact-router'
-import { navigateToTrendPage } from '../../actions.js'
 import style from './style.scss'
 const s = name => style[name] || name
 
