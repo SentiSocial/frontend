@@ -8,10 +8,6 @@ const s = name => style[name] || name
 * homepage.
 */
 export default class AllTrendsChart extends Component {
-  state = {
-    hoveredBar: undefined
-  }
-
   onClick = event => {
     if (!event.length) {
       return
@@ -25,10 +21,10 @@ export default class AllTrendsChart extends Component {
     onTrendClick(clickedTrend)
   }
 
-  onHover = (e, el) => {
-    this.setState({
-      hoveredBar: el[0]
-    })
+  onHover = (e, event) => {
+    this.canvas.base.style['cursor'] = event.length > 0
+      ? 'pointer'
+      : ''
   }
 
   getData = () => {
@@ -120,7 +116,7 @@ export default class AllTrendsChart extends Component {
     }
   }
 
-  render ({ trends }, { hoveredBar }) {
+  render ({ trends }) {
     let data, options, chartWidth
 
     if (trends) {
@@ -154,9 +150,6 @@ export default class AllTrendsChart extends Component {
               data={data}
               options={options}
               onElementsClick={this.onClick}
-              style={{
-                cursor: hoveredBar ? 'pointer' : 'default'
-              }}
             />
           }
 

@@ -85,13 +85,13 @@ describe('<AllTrendsChart />', function () {
     await wait()
     const mountedProps = $('canvas')._component.props
     const onHover = mountedProps.options.hover.onHover
-    assert.equal($('canvas').style['cursor'], 'default')
+    assert.isNotOk($('canvas').style['cursor'])
     onHover('someEvent', ['someHoveredBar'])
     await wait()
     assert.equal($('canvas').style['cursor'], 'pointer')
     onHover('someEvent', [])
     await wait()
-    assert.equal($('canvas').style['cursor'], 'default')
+    assert.isNotOk($('canvas').style['cursor'])
   })
 
   it('on click bar, call #onTrendClick', async function (done) {
