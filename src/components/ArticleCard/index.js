@@ -66,8 +66,8 @@ export default class ArticleCard extends Component {
             <img
               className={s('article--showdescription-icon')}
               src={descriptionHidden
-                ? '/img/show-circle.svg'
-                : '/img/hide-circle.svg'}
+                ? '/assets/graphics/show-circle.svg'
+                : '/assets/graphics/hide-circle.svg'}
             />
           </div>
 
