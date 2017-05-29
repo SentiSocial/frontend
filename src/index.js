@@ -1,30 +1,26 @@
 import { h, Component } from 'preact'
 import { Router } from 'preact-router'
 import { Provider } from 'preact-redux'
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
 
 import './style'
 import '../lib/ga'
 import '../lib/twttr'
 
-import reducers from './reducers'
+import store from './store'
+
+import {
+  fetchAlltrends
+} from './actions'
 
 import Navigation from './components/Navigation'
 import HomePage from './containers/HomePage'
-import TrendPage from './routes/TrendPage'
-
-const store = createStore(
-  reducers, {
-    // Default application state
-    alltrends: undefined
-  },
-  applyMiddleware(
-    thunkMiddleware
-  )
-)
+import TrendPage from './containers/TrendPage'
 
 export default class App extends Component {
+  componentDidMount() {
+    store.dispatch(fetchAlltrends())
+  }
+
   /** Gets fired when the route changes.
    *  @param {Object} event    "change" event from [preact-router](http://git.io/preact-router)
    *  @param {string} event.url  The newly routed URL
