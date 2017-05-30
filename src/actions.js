@@ -7,14 +7,14 @@ export function fetchAlltrends () {
   }
 }
 
-export function fetchAlltrendsSuccess (response) {
+function fetchAlltrendsSuccess (response) {
   return {
     type: 'FETCH_ALLTRENDS_SUCCESS',
     response
   }
 }
 
-export function fetchAlltrendsFailure (error) {
+function fetchAlltrendsFailure (error) {
   return {
     type: 'FETCH_ALLTRENDS_FAILURE',
     error
@@ -31,14 +31,14 @@ export function fetchTrend (trendName) {
   }
 }
 
-export function fetchTrendSuccess (response) {
+function fetchTrendSuccess (response) {
   return {
     type: 'FETCH_TREND_SUCCESS',
     response
   }
 }
 
-export function fetchTrendFailure (error) {
+function fetchTrendFailure (error) {
   return {
     type: 'FETCH_TREND_FAILURE',
     error

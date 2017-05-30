@@ -1,10 +1,14 @@
 import chai, {assert} from 'chai'
-import {
-  fetchAlltrends,
-  fetchTrend
-} from 'src/actions.js'
 
 describe('actions', function () {
+  const actions = require('src/actions')
+
+  it('specification', function () {
+    assert.isObject(actions)
+    assert.isFunction(actions.fetchAlltrends)
+    assert.isFunction(actions.fetchTrend)
+  })
+
   it('#fetchAlltrends success', function (done) {
     const fetch = jest.fn()
     window.fetch = fetch
@@ -22,7 +26,7 @@ describe('actions', function () {
       json: () => Promise.resolve(someResponse)
     }))
 
-    fetchAlltrends()(function (response) {
+    actions.fetchAlltrends()(function (response) {
       assert.deepEqual(response, {
         type: 'FETCH_ALLTRENDS_SUCCESS',
         response: someResponse
@@ -38,7 +42,7 @@ describe('actions', function () {
     const someError = new Error('Some error message...')
     fetch.mockReturnValue(Promise.reject(someError))
 
-    fetchAlltrends()(function (error) {
+    actions.fetchAlltrends()(function (error) {
       assert.deepEqual(error, {
         type: 'FETCH_ALLTRENDS_FAILURE',
         error: someError
@@ -82,7 +86,7 @@ describe('actions', function () {
       json: () => Promise.resolve(someResponse)
     }))
 
-    fetchTrend()(function (response) {
+    actions.fetchTrend()(function (response) {
       assert.deepEqual(response, {
         type: 'FETCH_TREND_SUCCESS',
         response: someResponse
@@ -98,7 +102,7 @@ describe('actions', function () {
     const someError = new Error('Some error message...')
     fetch.mockReturnValue(Promise.reject(someError))
 
-    fetchTrend()(function (error) {
+    actions.fetchTrend()(function (error) {
       assert.deepEqual(error, {
         type: 'FETCH_TREND_FAILURE',
         error: someError
