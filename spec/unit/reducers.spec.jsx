@@ -1,7 +1,12 @@
 import chai, {assert} from 'chai'
-import reducers from 'src/reducers.js'
 
 describe('reducer', function () {
+  const reducers = require('src/reducers').default
+
+  it('specification', function () {
+    assert.isFunction(reducers)
+  })
+
   it('returns state untouched when action type is unhandled', function () {
     const someReducedAction = reducers({
       someDummyPropertyThatShouldBePreserved: true
