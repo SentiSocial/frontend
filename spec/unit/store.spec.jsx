@@ -4,12 +4,11 @@ import preactAssert from 'preact-jsx-chai'
 
 describe('store', function () {
   it('specification', function () {
-    const store = require('src/store')
+    const store = require('src/store').default
     assert.isObject(store)
-    assert.isObject(store.default)
-    assert.isFunction(store.default.dispatch)
-    assert.isFunction(store.default.subscribe)
-    assert.isFunction(store.default.getState)
-    assert.isFunction(store.default.replaceReducer)
+    assert.isFunction(store.dispatch)
+    assert.isFunction(store.subscribe)
+    assert.isFunction(store.getState)
+    assert.isFunction(store.replaceReducer)
   })
 })
