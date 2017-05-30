@@ -1,2 +1,2 @@
-window.ga = jest.fn()
+window.ga = function() {}
 export default window.ga
