@@ -19,11 +19,11 @@ describe('reducer', function () {
     })
   })
 
-  it('FETCH_ALLTRENDS', function () {
+  it('FETCH_ALLTRENDS_LOADING', function () {
     const someReducedAction = reducers({
       someDummyPropertyThatShouldBePreserved: true
     }, {
-      type: 'FETCH_ALLTRENDS'
+      type: 'FETCH_ALLTRENDS_LOADING'
     })
 
     assert.deepEqual(someReducedAction, {
@@ -70,11 +70,11 @@ describe('reducer', function () {
     })
   })
 
-  it('FETCH_TREND', function () {
+  it('FETCH_TREND_LOADING', function () {
     const someReducedAction = reducers({
       someDummyPropertyThatShouldBePreserved: true
     }, {
-      type: 'FETCH_TREND'
+      type: 'FETCH_TREND_LOADING'
     })
 
     assert.deepEqual(someReducedAction, {

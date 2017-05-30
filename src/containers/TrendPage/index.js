@@ -17,6 +17,11 @@ class TrendPage extends Component {
   }
 
   render () {
+    const { trend } = this.props
+    if (!trend) {
+      return null
+    }
+
     const {
       name,
       locations,
@@ -26,11 +31,7 @@ class TrendPage extends Component {
       keywords,
       articles,
       tweets
-    } = this.props
-
-    if (!locations) {
-      return null
-    }
+    } = trend
 
     let largestOccurences
     if (keywords.length) {
@@ -90,7 +91,7 @@ class TrendPage extends Component {
 
 export default connect(
   state => ({
-    ...state.trend
+    trend: state.trend
   }),
   dispatch => ({
     fetchTrend: trendName => dispatch(fetchTrend(trendName))

@@ -1,5 +1,7 @@
 import chai, {assert} from 'chai'
 
+const wait = timeout => new Promise(resolve => setTimeout(resolve, timeout))
+
 describe('actions', function () {
   const actions = require('src/actions')
 
@@ -9,7 +11,7 @@ describe('actions', function () {
     assert.isFunction(actions.fetchTrend)
   })
 
-  it('#fetchAlltrends success', function (done) {
+  it('#fetchAlltrends success', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
 
@@ -25,33 +27,42 @@ describe('actions', function () {
     fetch.mockReturnValue(Promise.resolve({
       json: () => Promise.resolve(someResponse)
     }))
-
-    actions.fetchAlltrends()(function (response) {
-      assert.deepEqual(response, {
-        type: 'FETCH_ALLTRENDS_SUCCESS',
-        response: someResponse
-      })
-      done()
+    const spy = jest.fn()
+    actions.fetchAlltrends()(spy)
+    await wait()
+    assert.equal(fetch.mock.calls.length, 1)
+    assert.equal(fetch.mock.calls[0][0], 'https://api.senti.social/alltrends')
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_ALLTRENDS_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_ALLTRENDS_SUCCESS',
+      response: someResponse
     })
   })
 
-  it('#fetchAlltrends failure', function (done) {
+  it('#fetchAlltrends failure', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
 
     const someError = new Error('Some error message...')
     fetch.mockReturnValue(Promise.reject(someError))
 
-    actions.fetchAlltrends()(function (error) {
-      assert.deepEqual(error, {
-        type: 'FETCH_ALLTRENDS_FAILURE',
-        error: someError
-      })
-      done()
+    const spy = jest.fn()
+    actions.fetchAlltrends()(spy)
+    await wait()
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_ALLTRENDS_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_ALLTRENDS_FAILURE',
+      error: someError
     })
   })
 
-  it('#fetchTrend success', function (done) {
+  it('#fetchTrend success', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
 
@@ -86,28 +97,36 @@ describe('actions', function () {
       json: () => Promise.resolve(someResponse)
     }))
 
-    actions.fetchTrend()(function (response) {
-      assert.deepEqual(response, {
-        type: 'FETCH_TREND_SUCCESS',
-        response: someResponse
-      })
-      done()
+    const spy = jest.fn()
+    actions.fetchTrend()(spy)
+    await wait()
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_TREND_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_TREND_SUCCESS',
+      response: someResponse
     })
   })
 
-  it('#fetchTrend failure', function (done) {
+  it('#fetchTrend failure', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
 
     const someError = new Error('Some error message...')
     fetch.mockReturnValue(Promise.reject(someError))
 
-    actions.fetchTrend()(function (error) {
-      assert.deepEqual(error, {
-        type: 'FETCH_TREND_FAILURE',
-        error: someError
-      })
-      done()
+    const spy = jest.fn()
+    actions.fetchTrend()(spy)
+    await wait()
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_TREND_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_TREND_FAILURE',
+      error: someError
     })
   })
 })

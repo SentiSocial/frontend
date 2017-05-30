@@ -85,7 +85,8 @@ describe('<TrendPage />', function () {
       )
     )
     mount(<Provider store={store}>
-      <TrendPage />
+      {/*name prop passed in by router*/}
+      <TrendPage name="Tiger Woods"/>
     </Provider>)
     await wait()
     assert.equal(window.fetch.mock.calls.length, 1)
@@ -95,7 +96,7 @@ describe('<TrendPage />', function () {
   it('does not crash if loading', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
-    const someTrend = {}
+    const someTrend = null
     fetch.mockReturnValue(Promise.resolve({
       json: () => Promise.resolve(someTrend)
     }))

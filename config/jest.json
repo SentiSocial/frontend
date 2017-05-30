@@ -7,7 +7,8 @@
     "^react-addons-transition-group$": "preact-transition-group",
     "^react$": "preact-compat-enzyme",
     "^react-dom$": "preact-compat-enzyme",
-    "^react-chartjs-2$": "<rootDir>/spec/mocks/react-chartjs-2.js"
+    "^react-chartjs-2$": "<rootDir>/spec/mocks/react-chartjs-2.js",
+    "lib/ga$": "<rootDir>/spec/mocks/ga.js"
   },
   "moduleFileExtensions": [
     "js",

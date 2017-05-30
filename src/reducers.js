@@ -1,5 +1,5 @@
 const REDUCERS = {
-  FETCH_ALLTRENDS: (state) => {
+  FETCH_ALLTRENDS_LOADING: (state) => {
     return {
       ...state,
       alltrends: null
@@ -20,7 +20,7 @@ const REDUCERS = {
     }
   },
 
-  FETCH_TREND: (state) => {
+  FETCH_TREND_LOADING: (state) => {
     return {
       ...state,
       trend: null

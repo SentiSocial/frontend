@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { Router } from 'preact-router'
 import { Provider } from 'preact-redux'
 
-import './style'
+import './style/index.scss'
 import '../lib/ga'
 import '../lib/twttr'
 
@@ -26,7 +26,7 @@ export default class App extends Component {
    *  @param {string} event.url  The newly routed URL
    */
   handleRoute = e => {
-    this.currentUrl = e.url
+    window.ga('send', 'pageview', e.url);
   }
 
   render () {
