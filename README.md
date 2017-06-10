@@ -1,23 +1,40 @@
-# sentisocial-frontend
-## Web frontend for SentiSocial
+<div align="center">
+  <img src="logo.png" height="250" width="250" />
+  <h1>SentiSocial-Frontend</h1>
+  <!-- Travis -->
+  <a href="https://travis-ci.org/SentiSocial/sentisocial-frontend">
+    <img alt="travis" src="https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master">
+  </a>
+  <!-- Coveralls -->
+  <a href="https://coveralls.io/github/SentiSocial/sentisocial-frontend?branch=master">
+    <img alt="coverage"
+      src="https://coveralls.io/repos/github/SentiSocial/sentisocial-frontend/badge.svg?branch=master"  />
+  </a>
+  <!-- License -->
+  <a href="https://github.com/SentiSocial/sentisocial-frontend/blob/master/LICENSE">
+    <img alt="license: MIT"
+      src="https://img.shields.io/badge/license-MIT-blue.svg">
+  </a>
+  <!-- Code Style -->
+  <a href="https://standardjs.com">
+    <img alt="code style: standard"
+      src="https://img.shields.io/badge/code_style-standard-brightgreen.svg">
+  </a>
+</div>
 
-[![Travis][travis-badge]][travis-link]
-[![Standard - JavaScript Style Guide][standard-badge]][standard-link]
-[![License: MIT][license-badge]][license-link]
+Originally created at The University of Toronto Scarborough's Hack the Valley 2017.
 
-Created at The University of Toronto Scarborough's Hack the Valley 2017
+SentiSocial is a Twitter based trend analysis application. This repository contains
+the SentiSocial frontend, which queries the backend for information related to
+current trends, tweets, news and sentiment values related to each one.
 
-SentiSocial is a Twitter based news aggregation and sentiment analysis tool.
-This repository contains the SentiSocial frontend, which queries the backend for
-information related to current trends, tweets, news and sentiment values
-related to each one.
-
-The SentiSocial backend can be found [here](https://github.com/SentiSocial/sentisocial-backend)
+The data is gathered by the SentiSocial backend, which can be found
+[here](https://github.com/SentiSocial/sentisocial-backend).
 
 ## Prerequisites
 
 * Node ^6.9.4
-* npm
+* NPM
 * [Yarn](https://yarnpkg.com) (`npm install -g yarn`)
 
 ## Development
@@ -28,9 +45,9 @@ Get SentiSocial locally for development
 git clone https://github.com/sentisocial/sentisocial-frontend
 cd sentisocial-frontend
 yarn
-npm test
+npm run test
 npm run build
-npm start
+npm run start
 ```
 
 It will be helpful if you are familiar with the following
@@ -52,10 +69,3 @@ Don't forget to lint and test before committing
 
 If you want to serve the `dist` folder
 * `npm start`
-
-[travis-badge]: https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master
-[travis-link]: https://travis-ci.org/SentiSocial/sentisocial-frontend
-[standard-badge]: https://img.shields.io/badge/code_style-standard-brightgreen.svg
-[standard-link]: http://standardjs.com
-[license-badge]: https://img.shields.io/badge/license-license-brightgreen.svg
-[license-link]: ./LICENSE

@@ -1,0 +1,73 @@
+@import '~style/helpers';
+
+.navigation {
+  .navigation--logo-img {
+    transform: rotate(0deg);
+  }
+
+  [data-index] {
+    transform: translate(0, 0);
+  }
+
+  &[data-opened] {
+    .navigation--logo-img {
+      transform: rotate(180deg);
+    }
+
+    [data-index='0'] {
+      transform: translate(-70px, 10px);
+      transition-delay: 0s;
+    }
+
+    [data-index='1'] {
+      transform: translate(-50px, -50px);
+      transition-delay: .1s;
+    }
+
+    [data-index='2'] {
+      transform: translate(10px, -70px);
+      transition-delay: .2s;
+    }
+  }
+}
+
+.navigation--logo {
+  background-color: #fff;
+  border: 0;
+  border-radius: 50%;
+  bottom: 24px;
+  box-shadow: 2px 2px 4px #999;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 56px;
+  padding: 4px;
+  position: fixed;
+  right: 24px;
+  width: 56px;
+  z-index: 10;
+
+  img {
+    transition: .5s transform;
+    width: 100%;
+  }
+}
+
+.navigation--option {
+  bottom: 28px;
+  box-sizing: border-box;
+  cursor: pointer;
+  height: 48px;
+  position: fixed;
+  right: 28px;
+  transition: .3s transform ease-in-out;
+  width: 48px;
+  z-index: 9;
+
+  img {
+    background-color: #fff;
+    border-radius: 50%;
+    box-shadow: 2px 2px 4px #999;
+    height: 100%;
+    width: 100%;
+  }
+}

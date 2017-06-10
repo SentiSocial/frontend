@@ -1,0 +1,28 @@
+parser: babel-eslint
+parserOptions:
+  sourceType: module
+  allowImportExportEverywhere: 0
+extends:
+  - eslint:recommended
+plugins:
+  - react
+rules:
+  no-console: 1
+  no-empty: 0
+  react/no-string-refs: 2
+  react/no-find-dom-node: 2
+  react/no-is-mounted: 2
+  react/jsx-no-comment-textnodes: 2
+  react/jsx-curly-spacing: 2
+  react/jsx-no-undef: 2
+  react/jsx-uses-react: 2
+  react/jsx-uses-vars: 2
+globals:
+  Promise: 1
+settings:
+  react:
+    pragma: h
+env:
+  node: 1
+  browser: 1
+  jasmine: 1
