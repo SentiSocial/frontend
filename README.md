@@ -1,17 +1,17 @@
 <div align="center">
   <img src="logo.png" height="250" width="250" />
-  <h1>SentiSocial-Frontend</h1>
+  <h1>SentiSocial Frontend</h1>
   <!-- Travis -->
-  <a href="https://travis-ci.org/SentiSocial/sentisocial-frontend">
-    <img alt="travis" src="https://travis-ci.org/SentiSocial/sentisocial-frontend.svg?branch=master">
+  <a href="https://travis-ci.org/SentiSocial/frontend">
+    <img alt="travis" src="https://travis-ci.org/SentiSocial/frontend.svg?branch=master">
   </a>
   <!-- Coveralls -->
-  <a href="https://coveralls.io/github/SentiSocial/sentisocial-frontend?branch=master">
+  <a href="https://coveralls.io/github/SentiSocial/frontend?branch=master">
     <img alt="coverage"
-      src="https://coveralls.io/repos/github/SentiSocial/sentisocial-frontend/badge.svg?branch=master"  />
+      src="https://coveralls.io/repos/github/SentiSocial/frontend/badge.svg?branch=master"  />
   </a>
   <!-- License -->
-  <a href="https://github.com/SentiSocial/sentisocial-frontend/blob/master/LICENSE">
+  <a href="https://github.com/SentiSocial/frontend/blob/master/LICENSE">
     <img alt="license: MIT"
       src="https://img.shields.io/badge/license-MIT-blue.svg">
   </a>
@@ -29,25 +29,46 @@ the SentiSocial frontend, which queries the backend for information related to
 current trends, tweets, news and sentiment values related to each one.
 
 The data is gathered by the SentiSocial backend, which can be found
-[here](https://github.com/SentiSocial/sentisocial-backend).
+[here](https://github.com/SentiSocial/backend).
 
 ## Prerequisites
 
-* Node ^6.9.4
-* NPM
-* [Yarn](https://yarnpkg.com) (`npm install -g yarn`)
+* git
+* Node Boron
+
+or
+
+* git
+* Docker
+
+## Production
+
+```
+git clone https://github.com/sentisocial/frontend
+cd frontend
+npm install
+npm run build
+npm start
+```
+
+Alternatively, with Docker
+
+```
+git clone https://github.com/sentisocial/frontend
+cd frontend
+docker-compose up
+```
 
 ## Development
 
 Get SentiSocial locally for development
 
 ```
-git clone https://github.com/sentisocial/sentisocial-frontend
-cd sentisocial-frontend
-yarn
-npm run test
-npm run build
-npm run start
+git clone https://github.com/sentisocial/frontend
+cd frontend
+npm test
+npm run lint # auto lint
+npm run dev # hot module replacement
 ```
 
 It will be helpful if you are familiar with the following
@@ -55,17 +76,10 @@ It will be helpful if you are familiar with the following
 * [React](https://facebook.github.io/react)
 * [SCSS](https://github.com/sass/sass)
 
-## Contribution
-
 Feel free to contribute, by testing, documentating, developing new features, or
 even changing how the site looks.
 
-To build the project for production
+Don't forget to run the tests, lint, and build the project before committing
+
 * `npm run build`
-
-Don't forget to lint and test before committing
-* `npm run lint`
 * `npm test`
-
-If you want to serve the `dist` folder
-* `npm start`

@@ -4,18 +4,13 @@
   "description": "Social media sentiment analysis and new aggregation",
   "main": "src/index.js",
   "scripts": {
-    "start": "if-env NODE_ENV=production && npm run -s serve || npm run -s dev",
-    "build": "preact build",
-    "serve": "preact build && preact serve",
+    "start": "NODE_ENV=production preact serve",
+    "build": "preact build --no-prerender",
     "dev": "preact watch",
-    "test": "npm run test-lint && npm run test-css && npm run test-js",
-    "test-lint": "eslint -c config/eslint.yml src spec",
-    "test-css": "sass-lint -c config/sasslint.yml -v",
-    "test-js": "jest -c config/jest.json --coverage --rootDir .",
+    "test": "eslint -c config/eslint.yml src spec && sass-lint -c config/sasslint.yml -v && jest -c config/jest.json --coverage --rootDir .",
     "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint -c config/eslint.yml --fix src spec && sass-lint -c config/sasslint.yml -v"
   },
-  "keywords": [],
   "author": "SentiSocial Contributors",
   "license": "MIT",
   "dependencies": {
@@ -50,17 +45,17 @@
     "jest": "^20.0.3",
     "node-sass": "^4.5.3",
     "postcss": "^6.0.1",
-    "preact-cli": "^1.0.1",
+    "preact-cli": "^1.1.1",
     "preact-jsx-chai": "^2.2.1",
     "sass-lint": "^1.10.2",
     "sass-loader": "^6.0.5"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"
+    "url": "git+https://github.com/sentisocial/frontend.git"
   },
   "bugs": {
-    "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
+    "url": "https://github.com/sentisocial/frontend/issues"
   },
-  "homepage": "https://github.com/sentisocial/sentisocial-frontend/issues"
+  "homepage": "https://github.com/sentisocial/frontend/issues"
 }
