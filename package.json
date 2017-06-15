@@ -4,9 +4,9 @@
   "description": "Social media sentiment analysis and new aggregation",
   "main": "src/index.js",
   "scripts": {
-    "start": "NODE_ENV=production preact serve --port 80",
+    "start": "NODE_ENV=production preact serve",
     "build": "preact build --no-prerender",
-    "dev": "preact watch --port 80",
+    "dev": "preact watch",
     "test": "eslint -c config/eslint.yml src spec && sass-lint -c config/sasslint.yml -v && jest -c config/jest.json --coverage --rootDir .",
     "coveralls": "coveralls < coverage/lcov.info",
     "lint": "eslint -c config/eslint.yml --fix src spec && sass-lint -c config/sasslint.yml -v"
@@ -52,10 +52,10 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/sentisocial/sentisocial-frontend.git"
+    "url": "git+https://github.com/sentisocial/frontend.git"
   },
   "bugs": {
-    "url": "https://github.com/sentisocial/sentisocial-frontend/issues"
+    "url": "https://github.com/sentisocial/frontend/issues"
   },
-  "homepage": "https://github.com/sentisocial/sentisocial-frontend/issues"
+  "homepage": "https://github.com/sentisocial/frontend/issues"
 }
