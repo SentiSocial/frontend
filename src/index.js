@@ -13,8 +13,9 @@ import {
 } from './actions'
 
 import Navigation from './components/Navigation'
-import HomePage from './containers/HomePage'
-import TrendPage from './containers/TrendPage'
+
+import HomePage from 'async!./containers/HomePage'
+import TrendPage from 'async!./containers/TrendPage'
 
 export default class App extends Component {
   componentDidMount() {

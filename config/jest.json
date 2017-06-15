@@ -8,7 +8,9 @@
     "^react$": "preact-compat-enzyme",
     "^react-dom$": "preact-compat-enzyme",
     "^react-chartjs-2$": "<rootDir>/spec/mocks/react-chartjs-2.js",
-    "lib/ga$": "<rootDir>/spec/mocks/ga.js"
+    "lib/ga$": "<rootDir>/spec/mocks/ga.js",
+    "^async!./containers/HomePage$": "./containers/HomePage",
+    "^async!./containers/TrendPage$": "./containers/TrendPage"
   },
   "moduleFileExtensions": [
     "js",
