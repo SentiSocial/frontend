@@ -8,9 +8,7 @@ import '../lib/twttr'
 
 import store from './store'
 
-import {
-  fetchAlltrends
-} from './actions'
+import { fetchAlltrends } from './actions'
 
 import Navigation from './components/Navigation'
 
