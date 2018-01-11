@@ -16,7 +16,8 @@ const REDUCERS = {
   FETCH_ALLTRENDS_FAILURE: (state, { error }) => {
     return {
       ...state,
-      alltrends: error
+      alltrends: null,
+      error
     }
   },
 
@@ -37,7 +38,8 @@ const REDUCERS = {
   FETCH_TREND_FAILURE: (state, { error }) => {
     return {
       ...state,
-      trend: error
+      trend: null,
+      error
     }
   }
 }

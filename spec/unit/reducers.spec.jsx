@@ -66,7 +66,8 @@ describe('reducer', function () {
 
     assert.deepEqual(someReducedAction, {
       someDummyPropertyThatShouldBePreserved: true,
-      alltrends: someError
+      alltrends: null,
+      error: someError
     })
   })
 
@@ -135,7 +136,8 @@ describe('reducer', function () {
 
     assert.deepEqual(someReducedAction, {
       someDummyPropertyThatShouldBePreserved: true,
-      trend: someError
+      trend: null,
+      error: someError
     })
   })
 })

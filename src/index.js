@@ -8,14 +8,15 @@ import '../lib/twttr'
 
 import store from './store'
 
-import {
-  fetchAlltrends
-} from './actions'
+import { fetchAlltrends } from './actions'
 
 import Navigation from './components/Navigation'
 
 import HomePage from 'async!./containers/HomePage'
 import TrendPage from 'async!./containers/TrendPage'
+
+// Uncomment this line to mock API requests
+// import '../lib/mocks.js'
 
 export default class App extends Component {
   componentDidMount() {
