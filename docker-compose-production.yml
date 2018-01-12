@@ -10,4 +10,5 @@ services:
       - .:/app
     command: >
       bash -c "npm install &&
-               npm run dev -- -p 80"
+               npm run build &&
+               npm start -- -p 80"
