@@ -5,6 +5,7 @@ const s = name => style[name] || name
 
 import ArticleCard from '../../components/ArticleCard'
 import TweetCard from '../../components/TweetCard'
+import RelativeTime from '../../components/RelativeTime'
 import { fetchTrend } from '../../actions.js'
 
 class TrendPage extends Component {
@@ -45,7 +46,7 @@ class TrendPage extends Component {
               {name}
             </h1>
             <span style={{float: 'right'}}>
-              {tracking_since}
+              <RelativeTime value={tracking_since} />
             </span>
           </div>
           {locations.map(country =>
@@ -80,10 +81,10 @@ class TrendPage extends Component {
           </div>
         </div>
 
-        {articles.map(article => <ArticleCard {...article} />)}
-
-        {tweets.map(tweet => <TweetCard {...tweet} />)}
-
+        <div className={s('trendpage--cards')}>
+          {articles.map(article => <ArticleCard {...article} />)}
+          {tweets.map(tweet => <TweetCard {...tweet} />)}
+        </div>
       </div>
     )
   }

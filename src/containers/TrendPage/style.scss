@@ -3,3 +3,10 @@
 .trendpage {
   padding: 30px;
 }
+
+.trendpage--cards {
+  align-items: end;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}

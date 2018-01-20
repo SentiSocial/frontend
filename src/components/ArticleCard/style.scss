@@ -11,6 +11,7 @@
 
 .article--image {
   border-bottom: 1px solid #eee;
+  border-radius: 2px;
   cursor: pointer;
   display: block;
   height: auto;
@@ -82,5 +83,6 @@
 }
 
 .article--time {
+  color: #999;
   float: right;
 }

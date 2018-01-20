@@ -1,6 +1,8 @@
 import { h, Component } from 'preact'
 import style from './style.scss'
+import RelativeTime from '../RelativeTime'
 const s = name => style[name] || name
+
 /**
  * ArticleCard handles the visual rendering of a News card.
  */
@@ -28,7 +30,13 @@ export default class ArticleCard extends Component {
       descriptionHidden
     } = this.state
     return (
-      <div className={s('card')} style={{overflowY: 'initial'}}>
+      <div
+        className={s('card') + ' ' + s('card--responsive')}
+        style={{
+          overflowY: 'initial',
+          padding: 0
+        }}
+      >
         {media &&
           <a href={link}>
             <img
@@ -39,14 +47,14 @@ export default class ArticleCard extends Component {
           </a>
         }
 
-        <div>
+        <div style={{ padding: '0 15px' }}>
           <div className={s('article--header')}>
             <span className={s('article--source')}>
               {source}
             </span>
 
             <span className={s('article--time')}>
-              {timestamp}
+              <RelativeTime value={timestamp * 1000} />
             </span>
           </div>
 
