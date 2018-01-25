@@ -57,13 +57,9 @@ class TrendPage extends Component {
         </div>
 
         <div className={s('card')}>
-          <h2>Sentiment</h2>
-          <p>{sentiment_score}</p>
-          <p>{sentiment_description}</p>
-        </div>
-
-        <div className={s('card')}>
-          <h2>Keywords</h2>
+          <h2 className={s('trendpage--heading')}>
+            People are saying
+          </h2>
           <div style={{
             textAlign: 'center',
             lineHeight: 1,
@@ -81,8 +77,19 @@ class TrendPage extends Component {
           </div>
         </div>
 
-        <div className={s('trendpage--cards')}>
+        <div className={s('trendpage--responsive-cards')}>
           {articles.map(article => <ArticleCard {...article} />)}
+        </div>
+
+        <div className={s('card')}>
+          <h2 className={s('trendpage--heading')}>
+            People are feeling
+          </h2>
+          <p>{sentiment_score}</p>
+          <p>{sentiment_description}</p>
+        </div>
+        
+        <div className={s('trendpage--responsive-cards')}>
           {tweets.map(tweet => <TweetCard {...tweet} />)}
         </div>
       </div>

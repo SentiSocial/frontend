@@ -42,7 +42,7 @@ describe('<TrendPage />', function () {
     window.fetch = fetch
     window.twttr = {
       widgets: {
-        createTweetEmbed: jest.fn()
+        createTweetEmbed: jest.fn(() => Promise.resolve())
       }
     }
     const someTrend = {

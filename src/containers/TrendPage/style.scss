@@ -4,7 +4,14 @@
   padding: 30px;
 }
 
-.trendpage--cards {
+.trendpage--heading {
+  font-size: 24px;
+  font-weight: lighter;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.trendpage--responsive-cards {
   align-items: end;
   display: flex;
   flex-wrap: wrap;
