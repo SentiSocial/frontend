@@ -9,7 +9,7 @@ import AllTrendsChart from '../../components/AllTrendsChart'
 class HomePage extends Component {
   onTrendClick = trend => {
     const trendName = window.encodeURIComponent(trend.name)
-    route(`/trend/${trendName}`)
+    route(`/trends/${trendName}`)
   }
 
   render ({ trends }) {

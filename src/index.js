@@ -14,9 +14,10 @@ import Navigation from './components/Navigation'
 
 import HomePage from 'async!./containers/HomePage'
 import TrendPage from 'async!./containers/TrendPage'
+import AboutPage from 'async!./containers/AboutPage'
 
 // Uncomment this line to mock API requests
-import '../lib/mocks.js'
+// import '../lib/mocks.js'
 
 export default class App extends Component {
   componentDidMount() {
@@ -39,6 +40,7 @@ export default class App extends Component {
             <Router onChange={this.handleRoute}>
               <HomePage path="/" />
               <TrendPage path="/trends/:name" />
+              <AboutPage path="/about" />
             </Router>
         </div>
       </Provider>

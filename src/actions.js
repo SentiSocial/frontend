@@ -58,3 +58,43 @@ function fetchTrendFailure (error) {
     error
   }
 }
+
+export function fetchContributors () {
+  return dispatch => {
+    dispatch(fetchContributorsLoading())
+    return Promise.all([
+      window.fetch(`https://api.github.com/repos/sentisocial/frontend/contributors`)
+        .then(response => response.json()),
+      window.fetch(`https://api.github.com/repos/sentisocial/backend/contributors`)
+        .then(response => response.json()),
+    ])
+      .then(([ frontendContributors, backendContributors ]) =>
+        [ ...frontendContributors, ...backendContributors ]
+          .filter((userA, index, contributors) =>
+            contributors.findIndex(userB => userA.id === userB.id) === index
+          )
+      )
+      .then(response => dispatch(fetchContributorsSuccess(response)))
+      .catch(error => dispatch(fetchContributorsFailure(error)))
+  }
+}
+
+function fetchContributorsLoading () {
+  return {
+    type: 'FETCH_CONTRIBUTORS_LOADING'
+  }
+}
+
+function fetchContributorsSuccess (response) {
+  return {
+    type: 'FETCH_CONTRIBUTORS_SUCCESS',
+    response
+  }
+}
+
+function fetchContributorsFailure (error) {
+  return {
+    type: 'FETCH_CONTRIBUTORS_FAILURE',
+    error
+  }
+}

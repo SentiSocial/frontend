@@ -1,0 +1,29 @@
+@import '~style/helpers';
+
+.aboutpage {
+  padding: 30px;
+}
+
+.aboutpage--heading {
+  font-size: 24px;
+  font-weight: lighter;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.aboutpage--contributors {
+  display: flex;
+  flex-flow: wrap;
+}
+
+.aboutpage--contributors-anchor {
+  display: flex;
+  flex-direction: column;
+  margin: 5px 15px;
+  text-align: center;
+
+  img {
+    border-radius: 4px;
+    margin-bottom: 10px;
+  }
+}

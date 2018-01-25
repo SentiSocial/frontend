@@ -41,6 +41,28 @@ const REDUCERS = {
       trend: null,
       error
     }
+  },
+
+  FETCH_CONTRIBUTORS_LOADING: (state) => {
+    return {
+      ...state,
+      contributors: null
+    }
+  },
+
+  FETCH_CONTRIBUTORS_SUCCESS: (state, { response }) => {
+    return {
+      ...state,
+      contributors: response
+    }
+  },
+
+  FETCH_CONTRIBUTORS_FAILURE: (state, { error }) => {
+    return {
+      ...state,
+      contributors: null,
+      error
+    }
   }
 }
 
