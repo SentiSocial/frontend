@@ -42,15 +42,24 @@ describe('<TweetCard />', function () {
 	})
 
   it('call #window.twttr.widgets.createTweetEmbed', async function () {
-    const createTweetEmbed = jest.fn()
+    const appendChild = jest.fn()
+    const createTweetEmbed = jest.fn(() => {
+      const tweet = document.createElement('iframe')
+      tweet.shadowRoot = {
+        appendChild
+      }
+      $('div.card > div').appendChild(tweet)
+      return Promise.resolve()
+    })
     window.twttr = {
       widgets: {
         createTweetEmbed
       }
     }
-    const someEmbedId = "868820837843046400"
+    const someEmbedId = '868820837843046400'
     const wrapper = mount(<TweetCard embed_id={someEmbedId}/>)
     await wait()
+    assert.equal(appendChild.mock.calls.length, 1)
     assert.equal(createTweetEmbed.mock.calls.length, 1)
     assert.equal(createTweetEmbed.mock.calls[0][0], someEmbedId)
     assert.equal(createTweetEmbed.mock.calls[0][1], $('div.card > div'))
