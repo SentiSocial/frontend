@@ -10,10 +10,16 @@ import { fetchTrend } from '../../actions.js'
 
 class TrendPage extends Component {
   componentDidMount () {
+    this.fetchData()
+    setInterval(this.fetchData.bind(this), 60000)
+  }
+
+  fetchData() {
     const {
       name,
       fetchTrend,
     } = this.props
+
     fetchTrend(name)
   }
 
@@ -45,7 +51,7 @@ class TrendPage extends Component {
               <RelativeTime value={tracking_since} />
             </span>
           </div>
-          
+
           {locations.map(country =>
             <img src={`/assets/graphics/flags/${country}.png`}
               style={{display: 'inline-block'}}
@@ -79,7 +85,7 @@ class TrendPage extends Component {
           <p>{sentiment_score}</p>
           <p>{sentiment_description}</p>
         </div>
-        
+
         <div className={s('trendpage--cardlayout')}>
           {tweets.map(tweet => <TweetCard {...tweet} />)}
         </div>

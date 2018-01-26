@@ -21,6 +21,11 @@ import AboutPage from 'async!./containers/AboutPage'
 
 export default class App extends Component {
   componentDidMount() {
+    this.fetchData()
+    setInterval(this.fetchData.bind(this), 60000)
+  }
+
+  fetchData() {
     store.dispatch(fetchAlltrends())
   }
 
