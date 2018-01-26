@@ -1,12 +1,13 @@
 @import '~style/helpers';
 
 .article--title {
+  color: '#000000';
   cursor: pointer;
-  font-family: 'PT Serif', serif;
-  font-size: 16px;
-  font-weight: bold;
+  font-size: 18px;
+  font-weight: lighter;
   margin-bottom: 8px;
   margin-top: 8px;
+  text-decoration: none;
 }
 
 .article--image {

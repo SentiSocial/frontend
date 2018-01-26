@@ -58,7 +58,7 @@ export default class ArticleCard extends Component {
             </span>
           </div>
 
-          <a href={link}>
+          <a href={link} style={{ textDecoration: 'none' }}>
             <h3
               className={s('article--title')}
               onClick={this.handleArticleClick}
