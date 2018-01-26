@@ -12,11 +12,23 @@
   text-transform: uppercase;
 }
 
+.aboutpage--sentisociallogo {
+  margin: auto;
+  display: block;
+  max-width: 256px;
+}
+
+.aboutpage--githublogo {
+  margin: 0 5px;
+  width: 12px;
+}
+
 .aboutpage--contributors {
   display: flex;
   flex-flow: wrap;
   text-align: center;
   justify-content: center;
+  text-align: center;
 }
 
 .aboutpage--contributors-anchor {
@@ -27,6 +39,6 @@
 
   img {
     border-radius: 4px;
-    margin-bottom: 10px;
+    margin: auto 10px auto;
   }
 }
