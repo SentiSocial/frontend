@@ -40,6 +40,14 @@ class TrendPage extends Component {
       keywords
     } = trend
 
+    const sentiment_class = sentiment_score > 0.25
+      ? 'positive'
+      : (
+        sentiment_score < 0.25
+        ? 'negative'
+        : 'neutral'
+      )
+
     return (
       <div className={s('trendpage')}>
         <div className={s('card')}>
@@ -82,8 +90,10 @@ class TrendPage extends Component {
           <h2 className={s('trendpage--heading')}>
             People are feeling
           </h2>
-          <p>{sentiment_score}</p>
-          <p>{sentiment_description}</p>
+          <p className={s('trendpage--sentiment') + ' ' + s('trendpage--' + sentiment_class)}>
+            {sentiment_description}
+          </p>
+          <p className={s('trendpage--sentiment-number')}>{sentiment_score}</p>
         </div>
 
         <div className={s('trendpage--cardlayout')}>

@@ -11,9 +11,9 @@
 }
 
 .trendpage--heading {
-  font-size: 24px;
+  font-size: 22px;
   font-weight: lighter;
-  letter-spacing: 2px;
+  letter-spacing: 1.8px;
   text-transform: uppercase;
 }
 
@@ -26,4 +26,28 @@
 
 .trendpage--wordcloud {
   text-align: center;
+}
+
+.trendpage--sentiment {
+  font-size: 32px;
+  font-weight: lighter;
+  letter-spacing: 1.2px;
+  text-align: center;
+}
+
+.trendpage--sentiment-number {
+  float: right;
+  color: #999;
+}
+
+.trendpage--positive {
+  color: #3c3;
+}
+
+.trendpage--negative {
+  color: #c33;
+}
+
+.trendpage--neutral {
+  color: #e73;
 }
