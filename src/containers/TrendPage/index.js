@@ -2,7 +2,7 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import style from './style.scss'
 const s = name => style[name] || name
-
+import KeywordCloud from '../../components/KeywordCloud'
 import ArticleCard from '../../components/ArticleCard'
 import TweetCard from '../../components/TweetCard'
 import RelativeTime from '../../components/RelativeTime'
@@ -12,7 +12,7 @@ class TrendPage extends Component {
   componentDidMount () {
     const {
       name,
-      fetchTrend
+      fetchTrend,
     } = this.props
     fetchTrend(name)
   }
@@ -29,15 +29,11 @@ class TrendPage extends Component {
       tracking_since,
       sentiment_description,
       sentiment_score,
-      keywords,
       articles,
-      tweets
+      tweets,
+      keywords
     } = trend
 
-    let largestOccurences
-    if (keywords.length) {
-      largestOccurences = keywords[0].occurences
-    }
     return (
       <div className={s('trendpage')}>
         <div className={s('card')}>
@@ -49,6 +45,7 @@ class TrendPage extends Component {
               <RelativeTime value={tracking_since} />
             </span>
           </div>
+          
           {locations.map(country =>
             <img src={`/assets/graphics/flags/${country}.png`}
               style={{display: 'inline-block'}}
@@ -60,24 +57,18 @@ class TrendPage extends Component {
           <h2 className={s('trendpage--heading')}>
             People are saying
           </h2>
-          <div style={{
-            textAlign: 'center',
-            lineHeight: 1,
-            width: 334,
-            maxWidth: '100%',
-            margin: 'auto'
-          }}>
-            {keywords.map(keyword =>
-              <span style={{
-                fontSize: Math.max(Math.round((keyword.occurences / largestOccurences) * 32), 8)
-              }}>
-                {` ${keyword.word} `}
-              </span>
-            )}
+          <div className={s('trendpage--wordcloud')}>
+            <KeywordCloud
+              id="worldcloud"
+              keywords={keywords.map(keyword => ({
+                text: keyword.word,
+                size: 10 + keyword.occurences,
+              }))}
+            />
           </div>
         </div>
 
-        <div className={s('trendpage--responsive-cards')}>
+        <div className={s('trendpage--cardlayout')}>
           {articles.map(article => <ArticleCard {...article} />)}
         </div>
 
@@ -89,7 +80,7 @@ class TrendPage extends Component {
           <p>{sentiment_description}</p>
         </div>
         
-        <div className={s('trendpage--responsive-cards')}>
+        <div className={s('trendpage--cardlayout')}>
           {tweets.map(tweet => <TweetCard {...tweet} />)}
         </div>
       </div>
