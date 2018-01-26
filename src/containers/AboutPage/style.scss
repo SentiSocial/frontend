@@ -1,10 +1,11 @@
 @import '~style/helpers';
 
 .aboutpage {
-  padding: 30px;
+  padding: 15px;
 }
 
 .aboutpage--heading {
+  margin-top: 45px;
   font-size: 24px;
   font-weight: lighter;
   letter-spacing: 2px;
@@ -14,6 +15,8 @@
 .aboutpage--contributors {
   display: flex;
   flex-flow: wrap;
+  text-align: center;
+  justify-content: center;
 }
 
 .aboutpage--contributors-anchor {

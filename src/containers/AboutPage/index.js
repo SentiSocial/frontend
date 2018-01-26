@@ -26,12 +26,14 @@ class AboutPage extends Component {
 
     return (
       <div className={s('aboutpage')}>
-        <div className={s('card')}>
-          <h2 className={s('aboutpage--heading')}>
+        <div className={s('card')} style={{ margin: 0 }}>
+          <h2 className={s('aboutpage--heading')} style={{ marginTop: 0 }}>
             Open source
           </h2>
 
-          <a href="https://github.com/SentiSocial">https://github.com/SentiSocial</a>
+          <a href="https://github.com/SentiSocial">
+            https://github.com/SentiSocial
+          </a>
 
           <p>
             <a className="github-button"
