@@ -2,6 +2,7 @@ import { h, Component } from 'preact'
 import { connect } from 'preact-redux'
 import style from './style.scss'
 const s = name => style[name] || name
+import WorldMap from '../../components/WorldMap'
 import KeywordCloud from '../../components/KeywordCloud'
 import ArticleCard from '../../components/ArticleCard'
 import TweetCard from '../../components/TweetCard'
@@ -59,10 +60,21 @@ class TrendPage extends Component {
               <RelativeTime value={tracking_since} />
             </span>
           </div>
+        </div>
+
+        <div className={s('card')}>
+          <h2 className={s('trendpage--heading')}>
+            Trending in
+          </h2>
+
+          <WorldMap id="worldmap" />
 
           {locations.map(country =>
             <img src={`/assets/graphics/flags/${country}.png`}
-              style={{display: 'inline-block'}}
+              style={{
+                display: 'inline-block',
+                margin: 8
+              }}
             />
           )}
         </div>
@@ -73,7 +85,7 @@ class TrendPage extends Component {
           </h2>
           <div className={s('trendpage--wordcloud')}>
             <KeywordCloud
-              id="worldcloud"
+              id="keywordcloud"
               keywords={keywords.map(keyword => ({
                 text: keyword.word,
                 size: 10 + keyword.occurences,

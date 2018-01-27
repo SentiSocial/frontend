@@ -17,7 +17,7 @@ import TrendPage from 'async!./containers/TrendPage'
 import AboutPage from 'async!./containers/AboutPage'
 
 // Uncomment this line to mock API requests
-// import '../lib/mocks.js'
+import '../lib/mocks.js'
 
 export default class App extends Component {
   componentDidMount() {

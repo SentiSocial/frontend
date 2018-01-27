@@ -17,13 +17,15 @@
     "chart.js": "^2.7.1",
     "d3": "^4.12.2",
     "d3-cloud": "^1.2.4",
+    "d3-geo": "^1.9.1",
     "preact": "^8.2.7",
     "preact-compat": "^3.17.0",
     "preact-redux": "^2.0.3",
     "preact-router": "^2.6.0",
     "react-chartjs-2": "^2.6.4",
     "redux": "^3.7.2",
-    "redux-thunk": "^2.2.0"
+    "redux-thunk": "^2.2.0",
+    "topojson": "^3.0.2"
   },
   "devDependencies": {
     "babel-eslint": "^7.2.3",
