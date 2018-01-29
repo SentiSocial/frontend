@@ -140,4 +140,60 @@ describe('reducer', function () {
       error: someError
     })
   })
+
+  it('FETCH_CONTRIBUTORS_LOADING', function () {
+    const someReducedAction = reducers({
+      someDummyPropertyThatShouldBePreserved: true
+    }, {
+      type: 'FETCH_CONTRIBUTORS_LOADING'
+    })
+
+    assert.deepEqual(someReducedAction, {
+      someDummyPropertyThatShouldBePreserved: true,
+      contributors: null
+    })
+  })
+
+  it('FETCH_CONTRIBUTORS_SUCCESS', function () {
+    const someResponse = [{
+      "login": "omarchehab98",
+      "id": 12089120,
+    }, {
+      "login": "DennisTismenko",
+      "id": 11730903,
+    }, {
+      "login": "suchaHassle",
+      "id": 16737380,
+    },{
+      "login": "GunshipPenguin",
+      "id": 8054598,
+    }]
+    const someReducedAction = reducers({
+      someDummyPropertyThatShouldBePreserved: true,
+    }, {
+      type: 'FETCH_CONTRIBUTORS_SUCCESS',
+      response: someResponse
+    })
+
+    assert.deepEqual(someReducedAction, {
+      someDummyPropertyThatShouldBePreserved: true,
+      contributors: someResponse
+    })
+  })
+
+  it('FETCH_CONTRIBUTORS_FAILURE', function () {
+    const someError = new Error('Some error message')
+    const someReducedAction = reducers({
+      someDummyPropertyThatShouldBePreserved: true,
+    }, {
+      type: 'FETCH_CONTRIBUTORS_FAILURE',
+      error: someError
+    })
+
+    assert.deepEqual(someReducedAction, {
+      someDummyPropertyThatShouldBePreserved: true,
+      contributors: null,
+      error: someError
+    })
+  })
 })
