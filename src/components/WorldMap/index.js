@@ -56,9 +56,9 @@ class WorldMap extends Component {
       ).sort((a, b) =>
         a.name.localeCompare(b.name)
       );
-      countries = countries.filter((country) => locations.some(l => l === country.acronym)
+      countries = countries.filter((country) => locations.some(l => l === country.acronym))
 
-      (function transition() {
+      function transition() {
         d3.transition()
             .duration(1250)
             .on("start", function() {
@@ -78,7 +78,8 @@ class WorldMap extends Component {
             })
           .transition()
             .on("end", transition)
-      })();
+      }
+      transition();
     }
 
     d3.select(self.frameElement).style("height", height + "px");
