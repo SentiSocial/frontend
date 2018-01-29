@@ -129,4 +129,85 @@ describe('actions', function () {
       error: someError
     })
   })
+
+  it('#fetchContributors success', async function () {
+    const fetch = jest.fn()
+    window.fetch = fetch
+
+    const frontendContributors = [{
+      "login": "omarchehab98",
+      "id": 12089120,
+    }, {
+      "login": "DennisTismenko",
+      "id": 11730903,
+    }, {
+      "login": "suchaHassle",
+      "id": 16737380,
+    }]
+
+    const backendContributors = [{
+      "login": "omarchehab98",
+      "id": 12089120,
+    },{
+      "login": "suchaHassle",
+      "id": 16737380,
+    },{
+      "login": "GunshipPenguin",
+      "id": 8054598,
+    }]
+
+    const someResponse = [{
+      "login": "omarchehab98",
+      "id": 12089120,
+    }, {
+      "login": "DennisTismenko",
+      "id": 11730903,
+    }, {
+      "login": "suchaHassle",
+      "id": 16737380,
+    },{
+      "login": "GunshipPenguin",
+      "id": 8054598,
+    }]
+
+    fetch.mockReturnValueOnce(Promise.resolve({
+      json: () => Promise.resolve(frontendContributors)
+    }))
+
+    fetch.mockReturnValueOnce(Promise.resolve({
+      json: () => Promise.resolve(backendContributors)
+    }))
+
+    const spy = jest.fn()
+    actions.fetchContributors()(spy)
+    await wait()
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_CONTRIBUTORS_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_CONTRIBUTORS_SUCCESS',
+      response: someResponse
+    })
+  })
+
+  it('#fetchContributors failure', async function () {
+    const fetch = jest.fn()
+    window.fetch = fetch
+
+    const someError = new Error('Some error message...')
+    fetch.mockReturnValue(Promise.reject(someError))
+
+    const spy = jest.fn()
+    actions.fetchContributors()(spy)
+    await wait()
+    assert.equal(spy.mock.calls.length, 2)
+    assert.deepEqual(spy.mock.calls[0][0], {
+      type: 'FETCH_CONTRIBUTORS_LOADING'
+    })
+    assert.deepEqual(spy.mock.calls[1][0], {
+      type: 'FETCH_CONTRIBUTORS_FAILURE',
+      error: someError
+    })
+  })
 })
