@@ -5,16 +5,16 @@
 }
 
 .aboutpage--heading {
-  margin-top: 45px;
   font-size: 24px;
   font-weight: lighter;
   letter-spacing: 2px;
+  margin-top: 45px;
   text-transform: uppercase;
 }
 
 .aboutpage--sentisociallogo {
-  margin: auto;
   display: block;
+  margin: auto;
   max-width: 256px;
 }
 
@@ -26,7 +26,6 @@
 .aboutpage--contributors {
   display: flex;
   flex-flow: wrap;
-  text-align: center;
   justify-content: center;
   text-align: center;
 }
@@ -39,6 +38,6 @@
 
   img {
     border-radius: 4px;
-    margin: auto 10px auto;
+    margin: auto 10px;
   }
 }
