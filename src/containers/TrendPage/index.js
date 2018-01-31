@@ -44,7 +44,7 @@ class TrendPage extends Component {
     const sentiment_class = sentiment_score > 0.25
       ? 'positive'
       : (
-        sentiment_score < 0.25
+        sentiment_score < -0.25
         ? 'negative'
         : 'neutral'
       )

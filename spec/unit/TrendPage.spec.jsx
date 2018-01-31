@@ -34,7 +34,9 @@ describe('<TrendPage />', function () {
 
 	afterEach(function() {
 		mount(() => null)
-		scratch.innerHTML = ''
+    scratch.innerHTML = ''
+    window.HTMLCanvasElement.prototype.getContext = jest.fn()
+      .mockReturnValue({})
 	})
 
   it('mounts', async function () {
@@ -48,8 +50,8 @@ describe('<TrendPage />', function () {
     const someTrend = {
       "name": "Tiger Woods",
       "rank": 2,
-      "sentiment_description": "Very Negative",
-      "sentiment_score": -2.235,
+      "sentiment_description": "Very Positive",
+      "sentiment_score": 2.235,
       "tweets_analyzed": 42158,
       "articles":[{
         "media": "https://ichef.bbci.co.uk/news/1024/cpsprodpb/164A/production/_96260750_c2255e57-0ae4-46be-ab63-3617259783f3.jpg",
@@ -93,7 +95,7 @@ describe('<TrendPage />', function () {
     assert.equal(window.fetch.mock.calls[0][0], 'https://api.senti.social/trend/Tiger%20Woods')
   })
 
-  it('does not crash if loading', async function () {
+  it('renders: if loading', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
     const someTrend = null
@@ -114,7 +116,7 @@ describe('<TrendPage />', function () {
     await wait()
   })
 
-  it('does not crash no keywords', async function () {
+  it('renders: no keywords', async function () {
     const fetch = jest.fn()
     window.fetch = fetch
     const someTrend = {
@@ -122,6 +124,38 @@ describe('<TrendPage />', function () {
       "rank": 2,
       "sentiment_description": "Very Negative",
       "sentiment_score": -2.235,
+      "tweets_analyzed": 42158,
+      "articles":[],
+      "tweets": [],
+      "keywords": [],
+      "locations": [],
+      "tracking_since": 1496072348
+    }
+    fetch.mockReturnValue(Promise.resolve({
+      json: () => Promise.resolve(someTrend)
+    }))
+    const store = createStore(
+      (state, action) => state, {
+        trend: someTrend,
+      },
+      applyMiddleware(
+        thunkMiddleware
+      )
+    )
+    mount(<Provider store={store}>
+      <TrendPage />
+    </Provider>)
+    await wait()
+  })
+
+  it('renders: neutral sentiment', async function () {
+    const fetch = jest.fn()
+    window.fetch = fetch
+    const someTrend = {
+      "name": "Tiger Woods",
+      "rank": 2,
+      "sentiment_description": "Neutral",
+      "sentiment_score": 0.24,
       "tweets_analyzed": 42158,
       "articles":[],
       "tweets": [],
