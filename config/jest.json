@@ -11,7 +11,8 @@
     "lib/ga$": "<rootDir>/spec/mocks/ga.js",
     "lib/twttr$": "<rootDir>/spec/mocks/twttr.js",
     "^async!./containers/HomePage$": "./containers/HomePage",
-    "^async!./containers/TrendPage$": "./containers/TrendPage"
+    "^async!./containers/TrendPage$": "./containers/TrendPage",
+    "^async!./containers/AboutPage$": "./containers/AboutPage"
   },
   "moduleFileExtensions": [
     "js",

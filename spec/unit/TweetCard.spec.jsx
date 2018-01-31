@@ -3,7 +3,6 @@ import chai, {assert} from 'chai'
 import preactAssert from 'preact-jsx-chai'
 
 import TweetCard from 'src/components/TweetCard'
-import Tweet from 'src/types/tweet.js'
 
 chai.use(preactAssert)
 
@@ -27,9 +26,9 @@ describe('<TweetCard />', function () {
   })
 
   beforeEach(function () {
-    someTweet = new Tweet({
+    someTweet = {
       embed_id: '868242524053409792'
-    })
+    }
   })
 
 	afterAll(function() {
